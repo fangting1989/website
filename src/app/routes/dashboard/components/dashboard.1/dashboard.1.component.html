@@ -1,0 +1,97 @@
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="Statics1.title" total="{{Statics1.data.last7}}" contentHeight="14px" [action]="action1"
+      [footer]="footer1">
+      <ng-template #action1>
+        <nz-tooltip [nzTitle]="Statics1.info"> 
+          <i nz-tooltip nz-icon type="info-circle"></i>
+        </nz-tooltip>
+      </ng-template>
+      <trend flag="{{Statics1.data.up?'up':'down'}}" style="display:block; margin-top:2px;">
+        {{Statics1.content}}
+        <span class="pl-sm">{{Statics1.data.last7_increase}}%</span>
+      </trend>
+      <ng-template #footer1>
+        <p class="text-truncate mb0">
+          {{Statics1.desc }}
+          <span class="ml-sm">￥{{Statics1.data.total}}</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+</div>
+<nz-card [nzBordered]="false">
+  <nz-card-tab>
+    <nz-tabset nzSize="large" (nzSelectChange)="changeTab($event)">
+      <nz-tab nzTitle="待审核"></nz-tab>
+      <nz-tab nzTitle="待打款"></nz-tab>
+      <nz-tab nzTitle="待收款"></nz-tab>
+      <nz-tab nzTitle="待分配"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+  <nz-table #ajaxTable
+    nzShowSizeChanger
+    [nzData]="DataList"
+    [(nzPageIndex)]="PageNum"
+    [nzFrontPagination]="false"
+    [(nzPageSize)]="PageSize"
+    [nzTotal]="TotalCount"
+    (nzPageIndexChange)="loadData()"
+    (nzPageSizeChange)="loadData()" >
+  <thead>
+    <tr>
+      <!--<th>序号</th>-->
+      <th>序号</th>
+      <th>审核时间</th>
+      <th>姓名</th>
+      <th>联系方式</th>
+      <th>办理人</th>
+      <th>审核员</th>
+      <th>评审一审</th>
+      <th>评审终审</th>
+      <th>审核意见</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>2019-02-03</td>
+      <td>陈小明</td>
+      <td>137****3425</td>
+      <td>业务甲</td>
+      <td>--</td>
+      <td>财务甲</td>
+      <td>--</td>
+      <td>意见</td>
+      <td> <a >查看报告</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a >通过</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a >补充材料</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a >不通过</a>
+      </td>
+    </tr>
+    <tr *ngFor="let data of ajaxTable.data; let i = index">
+      <td>{{i +1}}</td>
+      <td>2019-02-03</td>
+      <td>陈小明</td>
+      <td>137****3425</td>
+      <td>业务甲</td>
+      <td>--</td>
+      <td>财务甲</td>
+      <td>--</td>
+      <td>意见</td>
+      <td> <a (click)="editItem(data)">查看报告</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteItem(data)">通过</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteItem(data)">补充材料</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteItem(data)">不通过</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+</nz-card>

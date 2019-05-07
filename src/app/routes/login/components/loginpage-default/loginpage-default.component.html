@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="main">
+        <div class="logo">
+            <div class="title">{{titleName}}</div>
+        </div>
+        <div class="login">
+            <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+            <form nz-form [formGroup]="form" role="form" (ngSubmit)="submit()">
+                <div nz-form-item>
+                    <div nz-form-control>
+                        <nz-input-group [nzPrefix]="prefix">
+                            <input nz-input formControlName="userName" placeholder="请输入用户名" [nzSize]="'large'" />
+                            <ng-template #prefix>
+                                <img src="./assets/imgs/icon_username.png" width="20" />
+                            </ng-template>
+                        </nz-input-group>
+                    </div>
+                </div>
+
+                <div nz-form-item>
+                    <div nz-form-control>
+                        <nz-input-group [nzPrefix]="prefix_password">
+                            <input nz-input type="password" formControlName="password" placeholder="请输入密码"
+                                [nzSize]="'large'" />
+                            <ng-template #prefix_password>
+                                <img src="./assets/imgs/icon_password.png" width="20" />
+                            </ng-template>
+                        </nz-input-group>
+                    </div>
+                </div>
+                <div nz-form-item *ngIf="flag" class="login-btns">
+                    <button nz-button [nzType]="'primary'" nzBlock [nzLoading]="loading" class="login-btn">
+                        <span>登录</span>
+                    </button>
+                    <!-- <button nz-button [nzType]="'primary'" class="register-btn">
+                        <a routerLink="/passport/register">注册</a>
+                    </button> -->
+                    <div class="other">
+                        <a [routerLink]="['/passport/login']" style="float:left;">管理员登入</a>
+                        <a class="forgot" (click)="msg.error('请联系管理员')">忘记密码</a>
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

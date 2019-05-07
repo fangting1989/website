@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form #f="ngForm" class="mform" gutter="8">
+  <nz-form-item>
+      <nz-form-label [nzSpan]="4" >银行信息</nz-form-label>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">账户名</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+          <input type="text" name="name" nz-input [(ngModel)]="model.name" name="name" />
+      </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="bankname">开户行</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+          <input type="text" name="bankname" nz-input [(ngModel)]="model.bankname" name="bankname" />
+      </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="account">账号</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+          <input type="text" name="account" nz-input [(ngModel)]="model.account" name="account" />
+      </nz-form-control>
+  </nz-form-item>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="SaveClick()" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+</div>

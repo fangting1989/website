@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="负责人">
+    <input type="text" name="customername" nz-input [(ngModel)]="model.customername" name="customername" />
+  </se>
+  <se label="联系方式">
+    <input type="text" name="customertel" nz-input [(ngModel)]="model.customertel" name="customertel" />
+  </se>
+  <se label="区域">
+      <nz-cascader 
+      name="city" 
+      [nzOptions]="chinaCity" 
+      (ngModelChange)="onCustomSelected($event)" 
+      [(ngModel)]="values" 
+      [nzLabelProperty]="'name'"
+      [nzValueProperty]="'name'"
+      [nzShowSearch]="true"
+      [nzPlaceHolder]="regionPlaceHolder"
+      (nzSelect)="citySelect($event)"
+     > </nz-cascader>
+  </se>
+  <se label="区域名称">
+    <input type="text" name="regionname" nz-input [(ngModel)]="model.regionname" name="regionname" />
+  </se>
+  <se label="备注">
+      <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"></textarea>
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

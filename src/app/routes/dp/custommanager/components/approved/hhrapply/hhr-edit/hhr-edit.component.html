@@ -1,0 +1,284 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<div class="modal-content">
+    <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">创建时间</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <span>{{dataitem.createdate}}</span>
+          </nz-form-control>
+          <nz-form-label [nzSpan]="4">推荐人</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <span>{{dataitem.tjr}}</span>
+          </nz-form-control>
+        </nz-form-item>
+          <!-- <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="partnername">名称</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <input type="text" name="partnername" nz-input [(ngModel)]="model.partnername" name="partnername" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="telephone">电话</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <input type="text" name="telephone" nz-input [(ngModel)]="model.telephone" name="telephone" />
+            </nz-form-control>
+          </nz-form-item>  -->
+          <nz-form-item> 
+              <nz-form-control  [nzSpan]="22" [nzOffset]="1">
+                  <nz-divider nzText="基本信息" nzOrientation="left" class="label-t"></nz-divider>
+              </nz-form-control>
+          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="sqrlx">申请人类型</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <nz-radio-group [(ngModel)]="model.partnertype" name="partnertype">
+              <label nz-radio [nzValue]="ditem.value" *ngFor="let ditem of partnertypeArray">{{ditem.name}}</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item *ngIf="model.partnertype  == 1">
+          <nz-form-label [nzSpan]="4" nzRequired>区域负责人</nz-form-label>
+        </nz-form-item>
+        <nz-form-item *ngIf="model.partnertype  == 1">
+          <nz-form-control [nzSpan]="2" [nzOffset]="2" style="text-align: right;">
+            <i nz-icon type="plus-circle" theme="outline" style="margin-right:5px;" (click)="ItemAdd()"></i>
+          </nz-form-control>
+          <div *ngFor="let item of LXRArray; let i = index">
+            <nz-form-control [nzSpan]="2" *ngIf="i!=0" [nzOffset]="2" >
+              </nz-form-control>
+            <nz-form-control [nzSpan]="6">
+              <input nz-input name="{{item.lxrid}}" placeholder="联系人" [(ngModel)]="item.name">
+            </nz-form-control> 
+            <nz-form-control [nzSpan]="8">
+              <input nz-input class="border-left-0" name="{{item.lxfsid}}" placeholder="联系方式" [(ngModel)]="item.telphone">
+            </nz-form-control>
+            <nz-form-control [nzSpan]="6" style="text-align: left;">
+              <span *ngIf="i==0">&nbsp;</span>
+                <i nz-icon type="minus-circle" *ngIf="i!=0" theme="outline" style="margin-left:5px;" (click)="ItemDel(item,1)"></i>
+              </nz-form-control>
+          </div>
+        </nz-form-item>
+        <nz-form-item *ngIf="model.partnertype  == 2">
+          <nz-form-label [nzSpan]="4" nzFor="qymc" nzRequired>企业名称</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <input nz-input name="qymc" placeholder="" [(ngModel)]="model.qymc">
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item *ngIf="model.partnertype  == 2">
+          <nz-form-label [nzSpan]="4" nzFor="fr">法人</nz-form-label>
+          <nz-form-control [nzSpan]="6">
+            <input nz-input name="fr" placeholder="法人" [(ngModel)]="model.fr">
+          </nz-form-control>
+          <nz-form-control [nzSpan]="8">
+            <input class="border-left-0"  nz-input name="lxdh" placeholder="联系方式" [(ngModel)]="model.lxdh">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">担保人</nz-form-label>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="2" [nzOffset]="2" style="text-align: right;">
+            <i nz-icon type="plus-circle" theme="outline" style="margin-right:5px;" (click)="DBRItemAdd()"></i>
+          </nz-form-control>
+          <div *ngFor="let item of DBRArray; let i = index">
+            <nz-form-control [nzSpan]="2" *ngIf="i!=0" [nzOffset]="2" >
+              </nz-form-control> 
+            <nz-form-control [nzSpan]="6">
+              <input nz-input name="{{item.dbrid}}" placeholder="担保人" [(ngModel)]="item.name">
+            </nz-form-control> 
+            <nz-form-control [nzSpan]="8" class="input-lxr">
+              <input class="border-left-0" nz-input name="{{item.dbrlxfsid}}" placeholder="联系方式" [(ngModel)]="item.telphone">
+            </nz-form-control>
+            <nz-form-control [nzSpan]="6" style="text-align: left;">
+              <span *ngIf="i==0">&nbsp;</span>
+                <i nz-icon type="minus-circle" *ngIf="i!=0" theme="outline" style="margin-left:5px;" (click)="ItemDel(item,2)"></i>
+              </nz-form-control>
+          </div>
+        </nz-form-item>
+      
+        
+       
+      
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="seladdress" nzRequired>合伙区域</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+              <nz-cascader 
+              name="city" 
+              [nzOptions]="chinaCity" 
+              (ngModelChange)="onCustomSelected($event)" 
+              [(ngModel)]="values" 
+              [nzLabelProperty]="'name'"
+              [nzValueProperty]="'name'"
+              [nzShowSearch]="true"
+              [nzPlaceHolder]="regionPlaceHolder"
+              (nzSelect)="citySelect($event)"
+             > </nz-cascader>
+            <!-- <ngx-address name="seladdress" [(ngModel)]="seladdress" [options]="opt" (onSelected)="onCustomSelected($event)"></ngx-address> -->
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item >
+          <nz-form-label [nzSpan]="4" nzFor="qymc" nzRequired>区域名称</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <input nz-input name="regionname" placeholder="" [(ngModel)]="model.regionname">
+          </nz-form-control>
+        </nz-form-item>
+
+      
+        <nz-form-item> 
+            <nz-form-control  [nzSpan]="22" [nzOffset]="1">
+                <nz-divider nzText="保证金应缴纳金额" nzOrientation="left" class="label-t"></nz-divider>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-control [nzSpan]="20" [nzOffset]="4">
+              <span>意向金&nbsp;&nbsp;</span>
+              <nz-input-group nzAddOnAfter="万" style="width:25%">
+                <input type="text" name="yxj" nz-input [(ngModel)]="model.yxj">
+              </nz-input-group>
+            <span>基本保证金&nbsp;&nbsp;</span>
+            <nz-input-group nzAddOnAfter="万" style="width:25%">
+              <input type="text" name="jbbzj" nz-input [(ngModel)]="model.jbbzj">
+            </nz-input-group>
+            <span style="margin-left:10px;">增量保证金&nbsp;&nbsp;</span>
+            <nz-input-group nzAddOnAfter="万" style="width:25%">
+              <input type="text" name="zlbzj" nz-input [(ngModel)]="model.zlbzj">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item *ngIf="false"  >
+            <nz-form-label [nzSpan]="6" nzFor="typeindex">意向金</nz-form-label>
+           <nz-form-control [nzSpan]="8" >
+               <nz-input-group nzAddOnAfter="万">
+                 <input type="text" name="yxj" nz-input [(ngModel)]="model.yxj">
+               </nz-input-group>
+           </nz-form-control>
+         </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="typeindex">基础保证金</nz-form-label>
+           <nz-form-control [nzSpan]="8" >
+             <nz-input-group nzAddOnAfter="万" >
+               <input type="text" name="jbbzj" nz-input [(ngModel)]="model.jbbzj">
+             </nz-input-group>
+           </nz-form-control>
+         </nz-form-item>
+         <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="typeindex">增量保证金</nz-form-label>
+           <nz-form-control [nzSpan]="8">
+             <nz-input-group nzAddOnAfter="万" >
+               <input type="text" name="zlbzj" nz-input [(ngModel)]="model.zlbzj">
+             </nz-input-group>
+           </nz-form-control>
+         </nz-form-item>
+      
+         <nz-form-item> 
+            <nz-form-control  [nzSpan]="22" [nzOffset]="1">
+                <nz-divider nzText="业务政策" nzOrientation="left" class="label-t"></nz-divider>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="fxcdbl">风险承担比例</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-radio-group [(ngModel)]="model.fxcdbl" name="fxcdbl" (ngModelChange)="Change_cdbl($event)">
+              <label nz-radio [nzValue]="100">100%</label>
+              <label nz-radio [nzValue]="50">50%</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="typeindex">一年</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <span class="marginitem">新车{{ConfigData.one.xc}}%</span><span class="marginitem">二手车{{ConfigData.one.esc}}%</span>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="typeindex">两年</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <span class="marginitem">新车{{ConfigData.two.xc}}%</span><span class="marginitem">二手车{{ConfigData.two.esc}}%</span>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="typeindex">三年</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-input-group nzAddOnBefore="新车" nzAddOnAfter="%">
+              <input type="text" name="snxc" nz-input [(ngModel)]="model.snxc">
+            </nz-input-group>
+          </nz-form-control>
+          <nz-form-control [nzSpan]="8">
+            <nz-input-group nzAddOnBefore="二手车" nzAddOnAfter="%">
+              <input type="text" name="snrsc" nz-input [(ngModel)]="model.snesc">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="dzqk">垫资情况</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-radio-group [(ngModel)]="model.dzqk" name="dzqk">
+                <label nz-radio [nzValue]="ditem.value" *ngFor="let ditem of dzqkArray">{{ditem.name}}</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="dzf">垫资费</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-radio-group [(ngModel)]="model.dzf" name="dzf">
+                  <label nz-radio [nzValue]="ditem.value" *ngFor="let ditem of dzfArray">{{ditem.name}}</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+        <nz-form-item> 
+            <nz-form-control  [nzSpan]="22" [nzOffset]="1">
+                <nz-divider nzText="业务杂费" nzOrientation="left" class="label-t"></nz-divider>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="ywzfpgf">评估费</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-input-group nzAddOnAfter="元">
+              <input type="text" name="ywzfpgf" nz-input [(ngModel)]="model.ywzfpgf">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="ywzfgpsf">GPS费</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-input-group nzAddOnAfter="元">
+              <input type="text" name="ywzfgpsf" nz-input [(ngModel)]="model.ywzfgpsf">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="ywzfgzf">公证费</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-input-group nzAddOnAfter="元">
+              <input type="text" name="ywzfgzf" nz-input [(ngModel)]="model.ywzfgzf">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="remark">备注</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+</div>
+
+<div class="modal-footer">
+    <button nz-button nzType="primary" (click)="saveClick('1000')" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存草稿</button>
+  <button nz-button nzType="primary" (click)="saveClick('1010')" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存提交</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

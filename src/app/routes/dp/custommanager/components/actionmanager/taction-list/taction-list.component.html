@@ -1,0 +1,76 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+            </nz-col>
+          </nz-row>
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <th>序号</th>
+            <!-- <th>标识码</th> -->
+            <th>活动开始时间</th>
+            <th>活动结束时间</th>
+            <th>活动名称</th>
+            <th>创建人</th>
+            <th>活动状态</th>
+            <th>分享次数</th>
+            <th>打开次数</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{i +1}}</td>
+            <!-- <td>{{data.keycode}}</td> -->
+            <td>{{data.startdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.enddate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.title}}</td>
+            <td>{{data.organizer}}</td>
+            <td>{{data.isvalid|mkenumformatpipe:'stateArray'}}</td>
+            <td>{{data.sharecount}}</td>
+            <td>{{data.openactioncount}}</td>
+            <td>
+                <a (click)="stopItem(data)">停止</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="editItem(data)">修改</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="deleteItem(data)">删除</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="readItem(data)">查看</a>
+            </td>
+
+                        
+
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

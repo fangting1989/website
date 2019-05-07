@@ -1,0 +1,83 @@
+<div class="page-container">
+  <div class="content-wrap" style="width:100%;background: #fff;" [ngStyle]="{'height':changeHeight+'px'}">
+    <as-split  [gutterSize]="5">
+      <as-split-area size="20" style="min-width:230px;">
+        <div class="addtype-but">
+            <button nz-button nzType="primary"  (click)="addClick(1)">添加类别</button>
+            <button nz-button nzType="primary"  (click)="addClick(2)">添加角色</button>
+        </div>
+        <nz-tree  [nzData]="TreeData" nzShowIcon="true" nzAsyncData="true" nzExpandAll="false"  (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event,null)">
+        </nz-tree>
+
+      </as-split-area>
+      <as-split-area size="80">
+        <nz-card [nzBordered]="false" nzTitle="部门编辑" *ngIf="typeItemBox==1">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="email">角色类别</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-tree-select name="roletypepid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+                [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.roletypepid"
+                [nzNodes]="SelTypeTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event,1)">
+              </nz-tree-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="roletypename">角色类别名称</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="roletypename" type="text" id="roletypename" [(ngModel)]="model.roletypename">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="roletypeindex">角色类别索引</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="roletypeindex" type="text" id="roletypeindex" [(ngModel)]="model.roletypeindex">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="8" [nzOffset]="4">
+                <button nz-button nzType="primary" (click)="okClick(okType)" type="submit" >保存</button>
+                <button nz-button class="ml-sm" (click)="deleteClick('typeDelete')">删除</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-card>
+        <nz-card [nzBordered]="false" nzTitle="用户编辑" *ngIf="typeItemBox==2">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="email">角色类别</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-tree-select name="roletypeid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+                    [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.roletypeid"
+                    [nzNodes]="SelTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event,1)">
+                  </nz-tree-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="rolename">角色名称</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="rolename" type="text" id="rolename" [(ngModel)]="model.rolename">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="typeindex">是否有效</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-radio-group [(ngModel)]="model.state" name="state" >
+                  <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="14" [nzOffset]="3">
+                <button nz-button nzType="primary" (click)="okClick()" type="submit" >保存</button>
+                <button nz-button class="ml-sm" (click)="deleteClick()">删除</button>
+                <button nz-button class="ml-sm" (click)="prowerUser()">授权用户系统</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-card>
+      </as-split-area>
+    </as-split>
+  </div>
+</div>

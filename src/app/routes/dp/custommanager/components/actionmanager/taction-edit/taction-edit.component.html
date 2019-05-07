@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+  <se label="活动名称">
+    <input type="text" name="title" nz-input [(ngModel)]="model.title" name="title" />
+  </se>
+  <se label="是否有效">
+    <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+        <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+</se>
+  <se label="开始时间">
+      <nz-date-picker name="startdate" [(ngModel)]="model.startdate" (ngModelChange)="onChange_Start($event)"></nz-date-picker>
+  </se>
+  <se label="结束时间">
+      <nz-date-picker name="enddate" [(ngModel)]="model.enddate" (ngModelChange)="onChange_End($event)"></nz-date-picker>
+  </se>
+  <se label="活动图片" [col]="1" extra="最好采用 正方形图片">
+      <div class="uploadImg col-sm-10" >
+          <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control" style="display:none;">
+          <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+          <div class="imgBox" *ngIf="!ShowUpload">
+            <span class="closeBut" (click)="closeImg()">&times;</span>
+            <img [src]="ImageSrc" width="100%" height="auto" />
+          </div>
+        </div>
+    </se>
+
+  <se label="备注" [col]="1">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button *ngIf=" !model.cannotedit " nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

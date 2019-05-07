@@ -1,0 +1,84 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+        <form nz-form [nzLayout]="'inline'"  class="search__form">
+            <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+              <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                  <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+              <nz-col class="sure-more">
+                <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+                <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
+                  {{expandForm ? '收起' : '展开'}}
+                  <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+                </a>
+              </nz-col>
+            </nz-row>
+          </form>
+          <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+            <se label="是否有效:" line>
+                <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                  (nzCheckedChange)="changeState($event, i)">
+                  {{i.name}}
+                </nz-tag>
+            </se>
+  
+          </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+      <ng-container>
+        <nz-table #ajaxTable
+            nzShowSizeChanger
+            [nzData]="DataList"
+            [(nzPageIndex)]="PageNum"
+            [nzFrontPagination]="false"
+            [(nzPageSize)]="PageSize"
+            [nzTotal]="TotalCount"
+            (nzPageIndexChange)="loadData()"
+            (nzPageSizeChange)="loadData()" >
+          <thead>
+            <tr>
+              <th rowspan="2">序号</th>
+              <!-- <th>标识码</th> -->
+              <th  rowspan="2">收款时间</th>
+              <th  rowspan="2">姓名</th>
+              <th  rowspan="2">办理人</th>
+              <th  rowspan="2">区域</th>
+              <th colspan="3">待收款项(万)</th>
+              <th  rowspan="2">付款凭证</th>
+              <th  rowspan="2">打款凭证</th>
+            </tr>
+            <tr>
+                <!-- <th>意向金</th> -->
+                <th>基本保证金</th>
+                <th>增量保证金</th> 
+                <th>合计</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td>{{i +1}}</td>
+              <td>{{data.SUREDATE|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+              <td>{{data.PARTNER_NAME}}</td>
+              <td>{{data.PNAME}}</td>
+              <td>{{data.REGION}}</td>
+              <!-- <td>{{data.YXJ}}</td> -->
+              <td>{{data.JCBZJ}}</td>
+              <td>{{data.ZLBZJ}}</td>
+              <td>{{data.totalmoney}}</td>
+              <td>
+                <a (click)="readFkpz(data)">查看</a>
+              </td>
+              <td>
+                  <a (click)="readDkpz(data)">查看</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

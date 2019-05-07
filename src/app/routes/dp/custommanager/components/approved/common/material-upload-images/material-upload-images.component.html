@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+  <div class="modal-body">
+      <!-- <div>
+          <img id="sshowimage" *ngIf="IsshowImages" src="{{ShowImagePath}}" alt="Picture">
+        </div> -->
+
+    <div class="upload-box">
+        <div class="village-img re" *ngFor="let item of Images" (click)="ImageItemClick(item)">
+            <img src="{{item.content || item.filepath}}" width="" height="" alt="">
+            <span class="delete ab" (click)="deleteImg(item)" *ngIf="ComponentMode != 'read'">
+                <img src="assets/imgs/del.png" />
+            </span>
+        </div>
+        <div *ngIf="ComponentMode == 'read' && Images.length == 0">
+          对不起，您还未上传过图片资料
+        </div>
+        <div class="village-img re" *ngIf="ComponentMode != 'read'">
+            <img src="assets/imgs/up-img.png" class="up-img" />
+            <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+        </div>
+    </div>
+    
+  </div> 
+  
+  <div class="modal-footer">
+    <button *ngIf="ComponentMode != 'read'" nz-button nzType="primary" (click)="saveClick()" type="submit"  [nzLoading]="submitting">保存</button>
+    <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+  </div>

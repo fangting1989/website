@@ -1,0 +1,96 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+        <form nz-form [nzLayout]="'inline'"  class="search__form">
+            <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+              <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                  <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                  <nz-form-control>
+                    <nz-input-group [nzSuffix]="suffixIconSearch" class="w100">
+                        <input type="text" [(ngModel)]="searchObject.searchText" name="txtsearch" nz-input placeholder="姓名/手机号查询" />
+                      </nz-input-group>
+                      <ng-template #suffixIconSearch>
+                        <i nz-icon type="search" (click)="SearchClick($event)"></i>
+                      </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+              <nz-col>
+                <!-- <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button> -->
+                <a class="icon-more" *ngIf="ShowMore" (click)="expandForm=!expandForm">
+                  {{expandForm ? '收起' : '展开'}}
+                  <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+                </a>
+              </nz-col>
+            </nz-row>
+          </form>
+          <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+            <se label="是否有效" line>
+                <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                  (nzCheckedChange)="changeState($event, i)">
+                  {{i.name}}
+                </nz-tag>
+            </se>
+            <se label="按客户类型" line>
+                <nz-tag *ngFor="let i of CustomType; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                  (nzCheckedChange)="changeState($event, i)">
+                  {{i.name}}
+                </nz-tag>
+            </se>
+          </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+            <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+                <i nz-icon type="plus"></i>
+                <span>新建</span>
+              </button> -->
+      <ng-container>
+        <nz-table #ajaxTable
+            nzShowSizeChanger
+            [nzData]="DataList"
+            [(nzPageIndex)]="PageNum"
+            [nzFrontPagination]="false"
+            [(nzPageSize)]="PageSize"
+            [nzTotal]="TotalCount"
+            (nzPageIndexChange)="loadData()"
+            (nzPageSizeChange)="loadData()" >
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>申请时间</th>
+              <th>姓名</th>
+              <th>联系方式</th>
+              <th>区域</th>
+              <th>推广员</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2019-03-02</td>
+              <td>陈小如</td>
+              <td>130****3323</td>
+              <td>浙江·杭州</td>
+              <td>分享甲</td>
+              <td>
+                  <a >移动到</a>
+                </td>
+            </tr>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td>{{i +1}}</td>
+              <td>{{data.createdate}}</td>
+              <td>{{data.customername}}</td>
+              <td>{{data.customertel}}</td>
+              <td>{{data.region}}</td>
+              <td>{{data.customertype}}</td>
+              <td>{{data.fromtype}}</td>
+              <td>
+                <a (click)="editItem(data)">移动到</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

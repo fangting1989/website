@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>model.producttype-->
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+  <se label="产品类别">
+      <nz-tree-select
+      [nzNodes]="SelTypeTreeData"
+      [nzDefaultExpandedKeys]="expandKeys"
+      [nzDropdownMatchSelectWidth]="true" 
+      name="producttype"
+      [nzDropdownStyle]="{ 'max-height': '300px' }" 
+      nzPlaceHolder="请选择.."
+      [(ngModel)]="model.producttype"
+     >
+    </nz-tree-select>
+  </se>
+  <se label="商品名称">
+    <input type="text" name="productname" nz-input [(ngModel)]="model.productname" name="productname" />
+  </se>
+  <se label="商品关键字">
+    <input type="text" name="productwords" nz-input [(ngModel)]="model.productwords" name="productwords" />
+  </se>
+  <se label="是否有效">
+      <nz-radio-group [(ngModel)]="model.productvalid" name="productvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+  </se>
+  <se label="商品图片" [col]="1" extra="最好采用 正方形图片">
+    <div class="uploadImg col-sm-10" >
+        <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control" style="display:none;">
+        <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+        <div class="imgBox" *ngIf="!ShowUpload">
+          <span class="closeBut" (click)="closeImg()">&times;</span>
+          <img [src]="ImageSrc" width="100%" height="auto" />
+        </div>
+      </div>
+  </se>
+  <se [col]="1" *ngIf="model.keycode" class="se-no-label">
+    <button nz-button nzType="dashed" (click)="addProdUnit()" >增加规格</button>
+  </se>
+  <se [col]="1" *ngIf="model.keycode" class="se-no-label"   >
+    <nz-table #ajaxTable
+      [nzData]="UnitDataList" 
+      [nzShowPagination]="false"
+    >
+        <thead>
+          <tr>
+            <th>规格名称</th>
+            <th>规格单位</th>
+            <th>价格</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.unitname}}</td>
+            <td>{{data.unit}}</td>
+            <td>{{data.currpice}}</td>
+            <td>
+              <a (click)="deleteUnitItem(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+  </se>
+  <!-- <se label="单价">
+    <input type="text" name="productprice" nz-input [(ngModel)]="model.productprice" name="productprice" />
+  </se>
+  <se label="当前价格">
+    <input type="text" name="productcurprice" nz-input [(ngModel)]="model.productcurprice" name="productcurprice" />
+  </se> -->
+  <se label="是否置顶">
+      <nz-radio-group [(ngModel)]="model.istop" name="istop">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+  </se>
+  <se label="数量">
+    <input type="text" name="amount" nz-input [(ngModel)]="model.amount" name="amount" />
+  </se>
+  <se label="备注" [col]="1">
+      <textarea nz-input placeholder="" name="productdesc" id="productdesc" nzAutosize [(ngModel)]="model.productdesc"></textarea>
+  </se>
+  <se label="分享说明" [col]="1">
+      <textarea nz-input placeholder="" name="wechatshare" id="wechatshare" nzAutosize [(ngModel)]="model.wechatshare"></textarea>
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" >保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

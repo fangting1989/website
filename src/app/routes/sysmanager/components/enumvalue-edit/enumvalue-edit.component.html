@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<div class="content-wrap" style="width:100%;background: #fff;" [ngStyle]="{'height':changeHeight+'px'}">
+  <as-split  [gutterSize]="5">
+    <as-split-area size="20" style="min-width:200px;">
+      <div class="addtype-but">
+        <button nz-button nzType="primary" (click)="addClick()">添加枚举</button>
+      </div>
+      <nz-tree nzShowIcon="true" [nzData]="TreeData" nzAsyncData="true" nzExpandAll="false"  (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event)">
+      </nz-tree>
+    </as-split-area>
+    <as-split-area size="80">
+      <form nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="email">枚举类别</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-tree-select name="pid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+              [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.pid"
+              [nzNodes]="SelTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event)">
+            </nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="enumname">名称</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <input nz-input name="enumname" type="text" id="enumname" [(ngModel)]="model.enumname">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="enumvalue">枚举值</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <input nz-input name="enumvalue" type="text" id="enumvalue" [(ngModel)]="model.enumvalue">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="enumindex">索引</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <input nz-input name="enumindex" type="text" id="enumindex" [(ngModel)]="model.enumindex">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="isvalid">是否有效</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid" >
+              <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzFor="enumdesc">备注</nz-form-label>
+          <nz-form-control [nzSpan]="8">
+            <textarea nz-input placeholder="" name="enumdesc" id="enumdesc" nzAutosize [(ngModel)]="model.enumdesc"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </as-split-area>
+  </as-split>
+</div>
+<div class="modal-footer">
+    <button nz-button class="ml-sm" (click)="deleteClick()">删除</button>
+  <button nz-button nzType="primary" (click)="okClick()" type="submit" >保存</button>
+</div>

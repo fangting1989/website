@@ -1,0 +1,47 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" class="search__form">
+        <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+          <nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+              <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="姓名/手机号查询"
+                  id="txtsearch">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col>
+            <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+              [nzLoading]="loading">查询</button>
+          </nz-col>
+        </nz-row>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+      <button nz-button (click)="fpClick()" [nzType]="'primary'" class="btn-add">
+        <i nz-icon type="plus"></i>
+        <span>确定</span>
+      </button>
+      <ng-container>
+        <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()">
+          <thead>
+            <tr>
+              <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+              <th>姓名</th>
+              <th>创建时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+               <td nzShowCheckbox [(nzChecked)]="data.active" [nzDisabled]="false" (nzCheckedChange)="refreshStatus()"></td>
+               <td>{{data.adminusernickname}}</td>
+              <td>{{data.createdate |mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

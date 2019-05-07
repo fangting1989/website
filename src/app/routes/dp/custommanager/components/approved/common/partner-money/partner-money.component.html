@@ -1,0 +1,66 @@
+<div *ngIf="BankCardObject.name">
+<div nz-row nzGutter="4" >
+  <div nz-col nzSpan="24" class="label-t f16">银行信息  <button nz-button [nzSize]="'small'"  [nzType]="'primary'" class="ml-sm" (click)="editBankItem(BankCardObject)">编辑</button></div>
+</div>
+<div nz-row nzGutter="4" >
+  <div nz-col nzSpan="22" nzOffset="2">账户：{{BankCardObject.name}}</div>
+</div>
+<div nz-row nzGutter="4" >
+  <div nz-col nzSpan="22" nzOffset="2">开户行：{{BankCardObject.bankname}}</div>
+</div>
+<div nz-row nzGutter="4" >
+  <div nz-col nzSpan="22" nzOffset="2">账号：{{BankCardObject.account}}</div>
+</div>
+</div>
+<div nz-row nzGutter="16" class="mt-sm mb-sm">
+  <div nz-col nzSpan="22" class="label-t f16">
+    总应缴纳金额:{{TotalMoney}}万元,已缴纳金额{{TotalDS}}万元
+  </div>
+</div>
+<div nz-row nzGutter="4" class="mt-sm mb-sm"> 
+  <div nz-col nzSpan="22" nzOffset="2" >
+      意向金{{dataItem.yxj}}万元,已缴纳{{TotalYXJ}}万元
+  </div>
+</div>
+<div nz-row nzGutter="4" class="mt-sm mb-sm">
+  <div nz-col nzSpan="22" nzOffset="2">
+      基础保证金{{dataItem.jbbzj}}万元,已缴纳{{TotalJCBZJ}}万元
+  </div>
+</div>
+<div nz-row nzGutter="4" class="mt-sm mb-sm">
+  <div nz-col nzSpan="22" nzOffset="2"> 
+      增量保证金{{dataItem.zlbzj}}万元,已缴纳{{TotalZLBZJ}}万元
+  </div>
+</div>
+<div nz-row nzGutter="4" class="mt-sm mb-sm">
+    <div nz-col nzSpan="22" class="label-t f16">
+        缴款记录
+    </div>
+  </div>
+<div nz-row nzGutter="4" >
+  <div nz-col nzSpan="22" >
+    <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList"  [nzFrontPagination]="false"
+      (nzPageIndexChange)="loadNeedMoneyList()" (nzPageSizeChange)="loadNeedMoneyList()">
+      <thead>
+        <tr>
+          <th>缴纳时间</th>
+          <th>意向金</th>
+          <th>基础保证金</th>
+          <th>增量保证金</th>
+          <th>状态</th>
+          <th>金额</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data; let i = index">
+          <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+          <td>{{data.yxj}}</td>
+          <td>{{data.jcbzj}}</td> 
+          <td>{{data.zlbzj}}</td>
+          <td>{{data.isvalid == 99?'已确认':'财务未确认'}}</td>
+          <td>{{data.totalmoney}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+$border-color:#e8e8e8;
+$text-border-color: #d9d9d9;
+$label-color:rgba(0, 0, 0, 0.55);
+
+body,.ant-table {
+    font-family: "PingFang SC", 'Microsoft YaHei UI', 'Microsoft YaHei', "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    // font-family: Roboto,San Francisco,"Helvetica Neue",Helvetica,Arial,PingFangSC-Light,"Hiragina Sans GB","WenQuanYi Micro Hei",'microsoft yahei ui','microsoft yahei',sans-serif;
+}
+.inlineblock{
+    display: inline-block;
+    vertical-align: top;
+}
+.content-wrap{
+    .addtype-but{
+        padding:12px;
+        text-align: center;
+        border-bottom: 1px solid $border-color;
+    }  
+}
+
+.ant-table{
+    tr,thead tr{
+        border: 1px solid $border-color !important;
+    }
+    .ant-table-placeholder{
+        border: 1px solid $border-color;
+        border-top:none; 
+    }
+}
+.w100{
+    width:100% !important;
+}
+.tcenter{
+    text-align: center !important;
+}
+.ant-modal-content{
+    .addtype-but{
+        padding:12px;
+        text-align: center;
+        border-bottom: 1px solid $border-color;
+    }
+}
+.mform{
+    se-error.ant-form-explain{
+        display: flex;
+      }
+}
+.ant-form-item{
+    margin-bottom: 3px;
+}
+//修正se，没有label
+.se-no-label{
+    .se__label{
+      width:20px !important;
+    }
+  }
+
+//意见轴
+.advicelist{
+    margin: 20px; 
+    .adviceitem {
+        margin-left: 20px;
+    }
+    .ad{
+        margin-left:10px;
+        color:red;
+    }
+}
+
+.nopaddingbodystyle.ant-card{
+    .ant-card-body{
+        padding:0px !important;
+    }
+}
+.page-container{
+    .search__form{
+        /*去除下边距*/
+        .ant-form-item {
+            margin-bottom: 0px;
+        }
+        .sure-more{
+            padding-left: 0px !important;
+            .anticon{
+                margin-top:8px;
+                color: rgba(0,0,0,0.65);;
+            }
+        }
+    }
+    .more-form{
+        .ngx-address{
+            width:350px;
+        }
+    }
+    .addtype-but{
+        padding:12px;
+        text-align: center;
+        border-bottom: 1px solid $border-color;
+    }
+    .btn-add{ 
+        margin-bottom: 12px;
+    }
+}
+
+/**modal*/
+.modal-header{
+    .modal-title{
+        color:#000;
+        font-weight: 700;
+    }
+}
+.ngx-address{
+    font-size: 14px !important;
+    line-height: 22px;
+    .ngx-address-title{
+        border:1px solid $text-border-color !important;
+        margin-top: 3px !important;
+    }
+    
+}
+
+.label-t{
+    color:$label-color;
+    font-weight: 700;
+}
+.f16{
+    font-size: 16px;
+}
+
+.noData{
+    .ant-table-placeholder{
+        display: none !important;
+    }
+}
+.apprived-item{
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #FAFAFA;
+    .p{
+        font-weight: 700;
+    }
+}

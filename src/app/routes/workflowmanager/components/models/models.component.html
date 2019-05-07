@@ -1,0 +1,114 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="是否有效:" line>
+              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                (nzCheckedChange)="changeState($event, i)">
+                {{i.name}}
+              </nz-tag>
+          </se>
+
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <!--<th>序号</th>-->
+            <th>标识码</th>
+            <th>GSBT-公示标题</th>
+            <th>JZRQ-截止日期</th>
+            <th>GSNR-公示内容</th>
+            <th>XZQ_DM-行政区代码</th>
+            <th>XM_CJ-项目层级</th>
+            <th>XM_ZT-项目状态</th>
+            <th>SH_ZT-审核状态</th>
+            <th>FB_SJ-发布时间</th>
+            <th>GY_FS-供应方式</th>
+            <th>OLD_CJGS_GUID-调整前公示标识</th>
+            <th>GS_DW-公示单位</th>
+            <th>GS_SJ_S-公示开始时间</th>
+            <th>GS_SJ_E-公示结束时间</th>
+            <th>ZD_SL-宗地数量</th>
+            <th>ZPG_SJ_S-招拍挂开始时间</th>
+            <th>ZPG_SJ_E-招拍挂结束时间</th>
+            <th>ZPG_LX-招拍挂类型</th>
+            <th>GS_LX-公示类型</th>
+            <th>DW_DZ-单位地址</th>
+            <th>BG_NR-变更内容</th>
+            <th>LX_DW-联系单位</th>
+            <th>ROWSTATE行状态</th>
+            <th>CREATE_TIME系统创建时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <!--<td>{{i +1}}</td>-->
+            <td>{{data.keycode}}</td>
+            <td>{{data.b}}</td>
+            <td>{{data.c}}</td>
+            <td>{{data.d}}</td>
+            <td>{{data.e}}</td>
+            <td>{{data.f}}</td>
+            <td>{{data.g}}</td>
+            <td>{{data.h}}</td>
+            <td>{{data.i}}</td>
+            <td>{{data.j}}</td>
+            <td>{{data.k}}</td>
+            <td>{{data.l}}</td>
+            <td>{{data.m}}</td>
+            <td>{{data.n}}</td>
+            <td>{{data.o}}</td>
+            <td>{{data.p}}</td>
+            <td>{{data.q}}</td>
+            <td>{{data.r}}</td>
+            <td>{{data.s}}</td>
+            <td>{{data.t}}</td>
+            <td>{{data.u}}</td>
+            <td>{{data.v}}</td>
+            <td>{{data.rowstate}}</td>
+            <td>{{data.createtime}}</td>
+            <td>
+              <a (click)="editItem(data)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

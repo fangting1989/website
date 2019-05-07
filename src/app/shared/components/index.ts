@@ -1,0 +1,1 @@
+export * from './editor-tinymce/editor-tinymce.component';

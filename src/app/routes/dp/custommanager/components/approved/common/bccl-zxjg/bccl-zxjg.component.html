@@ -1,0 +1,46 @@
+<div nz-row nzGutter="4">
+    <div nz-col nzSpan="24">
+        <nz-divider nzText="材料信息" nzOrientation="left" class="label-t fs15"></nz-divider>
+    </div> 
+    <div *ngFor="let item of imageCollection">
+      <div nz-col nzSpan="24" class="label-t">{{item.name}}</div>
+      <div nz-col nzSpan="24">
+        <div class="img-items">
+          <div class="con-items" *ngFor="let imageItem of item.imgs" (click)="ImageItemClick(imageItem)">
+            <img class="img" src="./assets/imgs/up-img.png" *ngIf="imageItem.imgarray.length == 0" alt="">
+            <div class="swiper-container" *ngIf="imageItem.imgarray.length > 0">
+              <div class="swiper-wrapper"> 
+                <div class="swiper-slide" *ngFor="let image of imageItem.imgarray">
+                    <img class="it-img" src="{{image.filepath}}" alt="点击查看">
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="name ">
+              {{imageItem.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" class="label-t f16">
+        <nz-divider nzText="征信结果" nzOrientation="left" class="label-t fs15"></nz-divider>
+    </div>
+  </div>
+  <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+    <!-- <nz-form-item>
+      <nz-form-label [nzSpan]="4" class="label-t f16">征信结果</nz-form-label>
+    </nz-form-item>  -->
+    <nz-form-item>
+      <nz-form-control [nzSpan]="16" [nzOffset]="1">
+        <textarea nz-input placeholder="" nzRequired  name="content" id="content"
+          [nzAutosize]="{minRows: 4}" [(ngModel)]="model.content"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="12" [nzOffset]="2" *ngIf="ComponentMode=='edit'">
+        <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+          [nzLoading]="submitting">保存</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>

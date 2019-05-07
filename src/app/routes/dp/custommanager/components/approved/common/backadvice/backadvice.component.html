@@ -1,0 +1,14 @@
+<!-- <div nz-col class="gutter-row" nzSpan="16">
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="4" nzOffset="4">意见:</div>
+      <div nz-col nzSpan="16"></div>
+    </div>
+  </div> -->
+
+  <div class="my-md" *ngIf="Count">
+      <nz-alert [nzType]="'error'" [nzShowIcon]="true" [nzMessage]="message">
+        <ng-template #message>
+            <span class="label-t">{{modelbh.approvedpersion}}</span> <span style="margin:0px 5px;">修改意见:</span> {{modelbh.approvedadvice}}
+        </ng-template>
+      </nz-alert>
+    </div>

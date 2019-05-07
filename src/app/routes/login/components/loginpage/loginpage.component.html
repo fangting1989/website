@@ -1,0 +1,49 @@
+<div class="loginpage">
+  <div class="signinpanel">
+    <div nz-row>
+      <div nz-col nzSpan="4">
+
+      </div>
+      <div nz-col nzSpan="12">
+      </div>
+      <div nz-col nzSpan="8">
+        <form class="dataform" nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+          <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+          <h2>用户登入</h2>
+          <nz-form-item>
+            <nz-form-control>
+              <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-user">
+                <input nz-input formControlName="userName" placeholder="账号">
+              </nz-input-group>
+              <nz-form-explain *ngIf="userName.dirty && userName.errors">
+                请输入账号
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-lock">
+                <input nz-input type="password" formControlName="password" placeholder="密码">
+              </nz-input-group>
+              <nz-form-explain *ngIf="password.dirty && password.errors">
+                请输入密码 
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="http.loading" nzBlock>
+              登录
+            </button>
+            <div class="other">
+              <a [routerLink]="['/passport/login']" style="float:left;">管理员登入</a>
+              <a class="forgot" (click)="msg.error('请联系管理员')">忘记密码</a>
+            </div>
+          </nz-form-item>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,106 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" class="search__form">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+            <nz-form-control>
+              <nz-input-group [nzSuffix]="suffixIconSearch" class="w100">
+                        <input type="text" [(ngModel)]="searchObject.searchText" name="txtsearch" nz-input placeholder="姓名/手机号查询" />
+                      </nz-input-group>
+                      <ng-template #suffixIconSearch>
+                        <i nz-icon type="search" (click)="SearchClick($event)"></i>
+                      </ng-template>
+              <!-- <input nz-input  placeholder="姓名/手机号查询" id="txtsearch"> -->
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col class="sure-more">
+          <!-- <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button> -->
+          <a class="icon-more" (click)="expandForm=!expandForm">{{expandForm ? '收起条件' : '更多条件'}}
+            <i class="anticon" title="{{expandForm ? '收起条件' : '更多条件'}}" [class.anticon-down]="!expandForm"
+              [class.anticon-up]="expandForm"></i>
+          </a>
+        </nz-col>
+      </nz-row>
+    </form>
+    <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+      <se label="按客户类别" line>
+        <nz-tag *ngFor="let i of CustomerType; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+          (nzCheckedChange)="changeState($event, i)">
+          {{i.name}}
+        </nz-tag>
+      </se>
+      <se label="按区域" line>
+        <nz-cascader 
+          name="city" 
+          [nzOptions]="chinaCity" 
+          (ngModelChange)="oncityChanges($event)" 
+          [(ngModel)]="values" 
+          [nzLabelProperty]="'name'"
+          [nzValueProperty]="'name'"
+          [nzShowSearch]="true"
+          [nzPlaceHolder]="regionPlaceHolder"
+          (nzSelect)="citySelect($event)"
+         > </nz-cascader>
+      </se>
+      <se label="按时间" line>
+        <nz-range-picker name="searchdataRange" class="searchdataRange" [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker>
+      </se>
+      
+    </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button> -->
+    <ng-container>
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+        [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+        (nzPageSizeChange)="loadData()">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>创建时间</th>
+            <th>负责人</th>
+            <th>联系方式</th>
+            <th>区域</th>
+            <th>客户类型</th>
+            <th>客户来源</th>
+            <th>最近联系</th>
+            <th>备注</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{i +1}}</td>
+            <td>{{data.createdate |mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.customername}}</td>
+            <td>{{data.customertel}}</td>
+            <td>{{data.region}}</td>
+            <td>{{data.customertype |mkenumformatpipe:'customertype'}}</td>
+            <td>{{data.fromtype |mkenumformatpipe:'fromtype' }}</td>
+            <td>{{data.lastlink}}</td>
+            <td>{{data.remark}}</td>
+            <td>
+              <a (click)="moveItem(data)" nz-popover nzTrigger="click" [(nzVisible)]="data.visible"
+                [nzContent]="contentTemplate">移动到</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="readItem(data)">查看</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="unlockItem(data)">解锁</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>
+
+<ng-template #contentTemplate>
+  <nz-tag nzMode="checkable" *ngFor="let item of CustomerType" [nzChecked]="CurrItem.customertype == item.value"
+    (nzCheckedChange)="moveChange($event,item)">{{item.name}}</nz-tag>
+</ng-template>

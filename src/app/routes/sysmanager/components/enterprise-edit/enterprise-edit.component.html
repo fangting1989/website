@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+  <form nz-form> 
+    <nz-form-item> 
+      <nz-form-label [nzSpan]="4" nzFor="enterprisename">公司名称</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="enterprisename" type="text" id="enterprisename" [(ngModel)]="model.enterprisename">
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4" nzFor="legalperson">法人</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="legalperson" type="text" id="legalperson" [(ngModel)]="model.legalperson">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item> 
+      <nz-form-label [nzSpan]="4" nzFor="logourl">公司图标</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+          <div class="uploadImg col-sm-10" >
+            <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control" style="display:none;">
+            <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+            <div class="imgBox" *ngIf="!ShowUpload">
+              <span class="closeBut" (click)="closeImg()">&times;</span>
+              <img [src]="ImageSrc" width="100%" height="auto" />
+            </div>
+          </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+     
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="linktel">联系电话</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="linktel" type="text" id="linktel" [(ngModel)]="model.linktel">
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4" nzFor="businesscard">营业执照</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="businesscard" type="text" id="businesscard" [(ngModel)]="model.businesscard">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="startdate">开始时间</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <nz-date-picker name="startdate" [nzClassName]="'datetime-style'" [(ngModel)]="model.startdate" (ngModelChange)="onChange_startdate($event)"></nz-date-picker>
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4" nzFor="enddate">结束时间</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <nz-date-picker name="enddate" [nzClassName]="'datetime-style'" [(ngModel)]="model.enddate" (ngModelChange)="onChange_enddate($event)"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="isvalid">是否有效</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid" >
+          <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4" nzFor="validdate">有效截止时间</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <nz-date-picker name="validdate"  [nzClassName]="'datetime-style'" [(ngModel)]="model.validdate" (ngModelChange)="onChange_validdate($event)"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="remark">备注</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" >保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

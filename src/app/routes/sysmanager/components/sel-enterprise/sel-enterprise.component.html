@@ -1,0 +1,46 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'">查询</button>
+            </nz-col>
+          </nz-row>
+        </form>
+    <ng-container>
+      <nz-table #basicTable [nzData]="DataList">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>企业名称</th>
+            <th>法人</th>
+            <th>联系电话</th>
+            <th>营业执照</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data; let i = index">
+              <td>{{i + 1}}</td>
+            <td>{{data.enterprisename}}</td>
+            <td>{{data.legalperson}}</td>
+            <td>{{data.linktel}}</td>
+            <td>{{data.businesscard}}</td>
+            <td>
+              <a (click)="selItem(data)">选择</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+
+  </nz-card>
+</div>

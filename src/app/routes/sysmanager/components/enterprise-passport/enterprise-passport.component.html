@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzFor="loginname">账号</nz-form-label>
+      <nz-form-control [nzSpan]="11">
+        <input nz-input name="loginname" type="text" id="loginname" [(ngModel)]="model.loginname">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item> 
+      <nz-form-label [nzSpan]="7" nzFor="adminuserpwd">密码</nz-form-label>
+      <nz-form-control [nzSpan]="11">
+        <input nz-input name="adminuserpwd" type="text" id="adminuserpwd" [(ngModel)]="model.adminuserpwd">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="isvalid">是否有效</nz-form-label>
+        <nz-form-control [nzSpan]="11">
+          <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid" >
+            <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+  </form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" >保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

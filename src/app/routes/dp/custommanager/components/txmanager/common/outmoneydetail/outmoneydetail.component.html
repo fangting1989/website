@@ -1,0 +1,59 @@
+<div nz-row nzGutter="4">
+  <div nz-col class="gutter-row" nzSpan="16">
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="12">申请时间:{{dataItem.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</div>
+      <div nz-col nzSpan="12">申请人:{{dataItem.partnername}}</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24">基础信息</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="22" nzOffset="2">申请人身份：{{dataItem.partnertype|mkenumformatpipe:'partnertypeArray'}}</div>
+    </div>
+    <div nz-row nzGutter="4" *ngFor="let item of LXRArray">
+      <div nz-col nzSpan="12" nzOffset="2">联系人：{{item.name}}&nbsp;&nbsp;{{item.telphone}}</div>
+    </div>
+    <div nz-row nzGutter="4" *ngFor="let item of DBRArray">
+      <div nz-col nzSpan="12" nzOffset="2">担保人：{{item.name}}&nbsp;&nbsp;{{item.telphone}}</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="22" nzOffset="2">合伙区域：{{dataItem.region}} </div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24">政策相关</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="2">风险承担比例：{{dataItem.fxcdbl}}%</div>
+
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="2">保证金应该缴金额：基础保证金{{dataItem.jbbzj}}万 增量保证金{{dataItem.zlbzj}}万</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="2"> 业务政策：</div>
+    </div>
+    <div nz-row nzGutter="4">
+        <div nz-col nzSpan="24" nzOffset="6"> 一年：新车{{dataItem.ynxc}}%， 二手车{{dataItem.ynesc}}%</div>
+      </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="6"> 二年：新车{{dataItem.enxc}}%， 二手车{{dataItem.enesc}}%</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="6"> 三年：新车{{dataItem.snxc}}%， 二手车{{dataItem.snesc}}%</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="2"> 垫资情况：{{dataItem.dzqk|mkenumformatpipe:'dzqkArray'}}</div>
+    </div>
+    <div nz-row nzGutter="4">
+      <div nz-col nzSpan="24" nzOffset="2">业务杂费：评估费{{dataItem.ywzfpgf}}元，GPS费{{dataItem.ywzfgpsf}}元，公证费{{dataItem.ywzfgzf}}元</div>
+    </div>
+  </div>
+  <!-- <div nz-col class="gutter-row" nzSpan="8">
+    <div class="gutter-box state-box">
+      <div> 合伙状态</div>
+      <div> ·业务开展中</div>
+      <div> 修改</div>
+      <div> 合伙期限：2019.02.03-2020.03.04</div>
+    </div>
+  </div> -->
+</div>

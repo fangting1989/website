@@ -1,0 +1,27 @@
+/**组件名称*/
+TActionEditComponent,
+TActionListComponent,
+
+/*service*/
+public tactionList(data): any {
+    return this.baseServices.getData("TActionApiService/find", data,WebConfig.RequestUrl.dpworkservice)
+}
+
+public tactionIn(data): any {
+    return this.baseServices.postData("TActionApiService/insert", data,WebConfig.RequestUrl.dpworkservice)
+}
+
+public tactionUp(data): any {
+    return this.baseServices.postData("TActionApiService/update", data,WebConfig.RequestUrl.dpworkservice)
+}
+
+public tactionDel(data): any {
+    return this.baseServices.getData("TActionApiService/delete", data,WebConfig.RequestUrl.dpworkservice)
+}
+
+/**index.ts*/
+export * from './taction/taction-list/taction-list.component';
+export * from './taction/taction-edit/taction-edit.component';
+
+/**路由相关****/
+      { path: 'tactionlist', component: TActionListComponent },

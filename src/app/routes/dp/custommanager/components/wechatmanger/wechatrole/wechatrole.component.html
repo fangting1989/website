@@ -1,0 +1,52 @@
+<div class="page-container">
+  <div class="content-wrap" style="width:100%;background: #fff;" [ngStyle]="{'height':changeHeight+'px'}">
+    <as-split [gutterSize]="5">
+      <as-split-area size="20" style="min-width:230px;">
+        <nz-card [nzBordered]="false" nzTitle="角色列表" class="nopaddingbodystyle">
+          <div nz-row nzGutter="4">
+            <div nz-col nzSpan="24" class="item" [ngClass]="{'active': item.active==true}" *ngFor="let item of roleList" (click)="loadUserList(item)">
+              <span class="text">{{item.name}}</span>
+              </div>
+          </div>
+        </nz-card>
+      </as-split-area>
+      <as-split-area size="80">
+        <nz-card [nzBordered]="false" nzTitle="用户清单">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+            <i nz-icon type="plus"></i>
+            <span>新增</span>
+          </button>
+          <ng-container>
+            <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum"
+              [nzFrontPagination]="false" [(nzPageSize)]="PageSize" [nzTotal]="TotalCount"
+              (nzPageIndexChange)="loadData()" (nzPageSizeChange)="loadData()">
+              <thead>
+                <tr>
+                  <th>姓名</th>
+                  <th>创建时间</th>
+                  <th *ngIf="hasmenu">审核提现</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of ajaxTable.data; let i = index">
+                  <td>{{data.username}}</td>
+                  <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+                  <td *ngIf="hasmenu">
+                    <nz-radio-group [(ngModel)]="data.hasright" [nzButtonStyle]="'solid'" (ngModelChange)="RightChange($event,data)">
+                      <label nz-radio-button nzValue="{{dditem.value}}" *ngFor="let dditem of RightArray">{{dditem.name}}</label>
+                    </nz-radio-group>
+                  </td>
+                  <td >
+                      <a (click)="deleteItem(data)">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </ng-container>
+        </nz-card>
+
+      </as-split-area>
+    </as-split>
+  </div>
+</div>

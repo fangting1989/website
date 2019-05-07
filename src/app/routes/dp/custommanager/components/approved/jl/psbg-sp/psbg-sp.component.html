@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+  <nz-tabset [nzType]="'card'">
+    <nz-tab nzTitle="基础信息">
+        <app-component-tpartner-read [dataItem]="dataItem"></app-component-tpartner-read>
+    </nz-tab>
+    <nz-tab nzTitle="审核材料">
+        <app-component-bccl-zxjg [dataItem]="dataItem" [ComponentMode]="'read'"></app-component-bccl-zxjg>
+    </nz-tab>
+    <nz-tab nzTitle="资金">
+        <app-component-partner-money [dataItem]="dataItem" ></app-component-partner-money>
+      </nz-tab>
+    <nz-tab nzTitle="评审报告">
+        <app-component-psbg-read [dataItem]="dataItem" [ComponentMode]="'readonly'"></app-component-psbg-read>
+    </nz-tab>
+    <nz-tab nzTitle="审核进度">
+        <app-component-proinstapproved [dataItem]="dataItem"></app-component-proinstapproved>
+    </nz-tab>
+  </nz-tabset>
+  
+  <div class="modal-footer">
+    <button nz-button nzType="primary" (click)="ProinstBack()">驳回</button>
+    <button nz-button nzType="primary" (click)="ProinstSubmit()">提交审批</button>
+    <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+  </div>

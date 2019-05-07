@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="typeindex">汇款金额</nz-form-label>
+  </nz-form-item>
+  <nz-form-item *ngIf="false">
+    <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="yxj">意向金</nz-form-label>
+    <nz-form-control [nzSpan]="8">
+      <nz-input-group nzAddOnAfter="万元">
+        <input type="text" name="yxj" nz-input [(ngModel)]="model.yxj">
+      </nz-input-group>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      <span class="tip-text">意向金:{{TotalSY_YXJ}}万元</span>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="jcbzj">基础保证金</nz-form-label>
+    <nz-form-control [nzSpan]="8">
+      <nz-input-group nzAddOnAfter="万元">
+        <input type="text" name="jcbzj" nz-input [(ngModel)]="model.jcbzj">
+      </nz-input-group>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      <span class="tip-text">基础保证金:{{TotalSY_JCBZJ}}万元</span>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="zlbzj">增量保证金</nz-form-label>
+    <nz-form-control [nzSpan]="8">
+      <nz-input-group nzAddOnAfter="万元">
+        <input type="text" name="zlbzj" nz-input [(ngModel)]="model.zlbzj">
+      </nz-input-group>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      <span class="tip-text">增量保证金:{{TotalSY_ZLBZJ}}万元</span>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" [nzOffset]="2" nzFor="remark">备注</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="typeindex">汇款凭证</nz-form-label>
+    </nz-form-item>
+</form>
+<div class="modal-body">
+  <div class="upload-box">
+    <div class="village-img re" *ngFor="let item of Images">
+      <img src="{{item.content || item.filepath}}" width="" height="" alt="">
+      <span class="delete ab" (click)="deleteImg(item)" *ngIf="ComponentMode != 'read'">
+        <img src="assets/imgs/del.png" />
+      </span>
+    </div>
+    <div *ngIf="ComponentMode == 'read' && Images.length == 0">
+      对不起，您还未上传过图片资料
+    </div>
+    <div class="village-img re" *ngIf="ComponentMode != 'read'">
+      <img src="assets/imgs/up-img.png" class="up-img" />
+      <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+</div>

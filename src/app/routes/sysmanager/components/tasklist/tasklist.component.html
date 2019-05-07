@@ -1,0 +1,92 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" (ngSubmit)="getData()" class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="q.no" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="所属类目" line>
+            <!-- <tag-select> -->
+              <nz-tag *ngFor="let i of categories; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                (nzCheckedChange)="changeCategory($event, idx)">
+                {{i.text}}
+              </nz-tag>
+            <!-- </tag-select> -->
+          </se>
+          <se label="owner" line>
+            <nz-select [(ngModel)]="q.owners" name="owners" [nzMode]="'tags'" style="max-width: 286px;">
+              <nz-option *ngFor="let i of owners" [nzLabel]="i.name" [nzValue]="i.id"></nz-option>
+            </nz-select>
+            <a class="ml-sm" (click)="setOwner()">只看自己的</a>
+          </se>
+          <se label="其它选项">
+            <div class="ant-form ant-form-inline">
+              <nz-form-item>
+                <nz-form-label nzFor="rate">作者</nz-form-label>
+                <nz-form-control>
+                  <nz-select [(ngModel)]="q.user" name="user" [nzPlaceHolder]="'不限'" [nzShowSearch]="true" style="width: 100px;">
+                    <nz-option [nzLabel]="'李三'" [nzValue]="'lisa'"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzFor="rate">好评度</nz-form-label>
+                <nz-form-control>
+                  <nz-select [(ngModel)]="q.rate" name="rate" [nzPlaceHolder]="'不限'" [nzShowSearch]="true" style="width: 100px;">
+                    <nz-option [nzLabel]="'优秀'" [nzValue]="'good'"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </se>
+        </form>
+  </nz-card>
+
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="createComponentModal()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    
+    <ng-container>
+      <nz-table #basicTable [nzData]="dataSet">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>任务名称</th>
+            <th>任务组</th>
+            <th>任务描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.name}}</td>
+            <td>{{data.age}}</td>
+            <td>{{data.address}}</td>
+            <td>
+              <a>Action 一 {{data.name}}</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a>Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+
+  </nz-card>
+</div>

@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<sv-container class="mb-lg" [col]="2">
+  <sv label="创建时间">{{dataItem.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+  <sv label="力理人">{{dataItem.pname}}</sv>
+</sv-container>
+<nz-divider nzText="基本信息" nzOrientation="left" class="label-t"></nz-divider>
+<sv-container class="mb-lg" [col]="1">
+  <sv label="负责人" [col]="2">{{dataItem.customername}}</sv>
+  <sv [col]="2"> 
+      <button nz-button nzType="primary" [nzSize]="'small'" (click)="EditItem()">编辑</button>
+  </sv>
+  <sv label="联系方式">{{dataItem.customertel}}</sv>
+  <sv label="地址">{{dataItem.region}}</sv>
+  <sv label="区域名称">{{dataItem.regionname}}</sv>
+  <sv label="客户类型">{{dataItem.customertype |mkenumformatpipe:'customertype'}}</sv>
+</sv-container>
+<nz-divider nzText="沟通记录" nzOrientation="left" class="label-t"></nz-divider>
+
+<div nz-row nzGutter="4" >
+    <div nz-col nzSpan="20" nzOffset="2">
+        <textarea nz-input placeholder="" name="content" id="content" nzAutosize [(ngModel)]="model.content"></textarea>
+    </div>
+</div>
+
+<div nz-row nzGutter="4" class="mt-sm" >
+    <div nz-col nzSpan="6" nzOffset="18">
+        <button nz-button nzType="primary" (click)="SaveClick()">保存</button>
+    </div>
+</div>
+<div nz-row nzGutter="4" >
+    <div nz-col nzSpan="20" nzOffset="2">
+        历史记录
+    </div>
+</div>
+<div nz-row nzGutter="4" >
+    <div nz-col nzSpan="20" nzOffset="2"> 
+        <div nz-row nzGutter="4" *ngFor="let item of DataList" class="mt-sm item-log">
+            <div nz-col nzSpan="12">{{item.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</div>
+            <div nz-col nzSpan="12">办理人:{{item.blpersion}}</div>
+            <div nz-col nzSpan="24"> 
+                <div class="content">沟通内容:{{item.blcontent}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+
+  <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+      <nz-form-item>
+          <nz-form-label [nzSpan]="4">移动到</nz-form-label>
+          <nz-form-control [nzSpan]="12"  >
+            <select [(ngModel)]="model.backcode" name="backcode" class="w100 select-e">
+                <option *ngFor="let item of BackArray" [value]='item.value'>{{item.name}}</option>
+            </select>
+          </nz-form-control>
+        </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4">意见内容</nz-form-label>
+        <nz-form-control [nzSpan]="12" >
+            <textarea nz-input placeholder="" nzRequired style="min-height: 80px;" name="advice" id="content"  [nzAutosize]="{minRows: 4}"  [(ngModel)]="model.advice"></textarea>
+          </nz-form-control>
+      </nz-form-item>
+    </form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="ProinstBack()">驳回</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+</div>

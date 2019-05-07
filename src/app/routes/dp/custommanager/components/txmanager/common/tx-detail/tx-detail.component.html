@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<div nz-row nzGutter="4">
+  <div nz-col nzSpan="24">申请内容</div> 
+  <div nz-col nzSpan="24">
+    <nz-table nzTemplateMode class="noData">
+      <thead>
+        <tr>
+          <th>申请时间</th>
+          <th>申请人</th>
+          <th>联系方式</th>
+          <th>申请金额</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{dataItem.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+          <td>{{dataItem.outmoneyperson}}</td>
+          <td>{{dataItem.isvalid}}</td>
+          <td>{{dataItem.amount}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div nz-col nzSpan="24" *ngIf="false">业务考评</div>
+  <div nz-col nzSpan="24" *ngIf="false">
+    <nz-table nzTemplateMode  class="noData">
+      <thead>
+        <tr>
+          <th>推荐人</th>
+          <th>区域</th>
+          <th>业务量</th>
+          <th>完成时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td>B</td>
+          <td>C</td>
+          <td>D</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div nz-col nzSpan="24" *ngIf="approvedlist.length">
+    <div nz-row nzGutter="4"  *ngFor="let item of approvedlist" class="apprived-item">
+      <div nz-col nzSpan="24"  class="p">{{item.partname}}审核意见:</div>
+      <div nz-col nzSpan="24"  nzOffset="2">
+        {{item.approvedadvice}}
+      </div>
+      <div nz-col nzSpan="24" >审核人:{{item.approvedpersion}}<span style="margin-left:15px;">{{item.approveddate|mkdateformatpipe:'YYYY-MM-DD'}}</span></div>
+    </div>
+  </div>
+  
+  
+  <div nz-col nzSpan="24">{{PartName}}审核意见</div>
+  <div nz-col nzSpan="24">
+    <textarea nz-input placeholder="" nzRequired style="min-height: 80px;" name="advice" id="content"  [nzAutosize]="{minRows: 4}"  [(ngModel)]="model.advice"></textarea>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="SubmitClick()">提交保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+</div>

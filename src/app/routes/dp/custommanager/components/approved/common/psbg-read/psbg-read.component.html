@@ -1,0 +1,162 @@
+<div class="content" *ngIf="ComponentMode == 'read'">
+  <h2 class="head-txt">事业合伙人委员会管理部初审报告</h2>
+  <div class="t-line"><div class="text-name l-title inlineblock">被审核方：</div><div class="inlineblock w-580">{{dataItem.partnername}}</div></div>
+  <div class="t-line" *ngIf="dataItem.fr"><div class="text-name l-title inlineblock" >法人：</div><div class="inlineblock w-580">{{dataItem.fr}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock">审 核 方：</div><div class="inlineblock w-580">{{model.shf}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock">复 核 方：</div><div class="inlineblock w-580">{{model.fhf}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock">初审时间：</div><div class="inlineblock w-580">{{dataItem.createdate|mkdateformatpipe:'YYYY.MM.DD'}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock">审核材料：</div><div class="inlineblock w-580">{{model.shcl}}</div></div>
+  <div class="t-line"><div class="text-name l-title">审核内容：</div></div>
+  <div class="t-line"><div class="text-name l-title w-200 m-l-20">1.主体信息审查：</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">公司信息：</div><div  class="inlineblock w-545">{{model.gsxx}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">法人身份证：</div><div  class="inlineblock w-545">{{model.frsfz}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">户口本：</div><div  class="inlineblock w-545">{{model.hkb}}</div></div>
+  <div class="t-line"><div class="text-name l-title w-200 m-l-20">2.资信信息审查</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">资产证明：</div><div  class="inlineblock w-545">{{model.zczm}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">征信情况：</div><div  class="inlineblock w-545">{{model.zxqk}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">备注：</div><div  class="inlineblock w-545">{{model.remark}}</div></div>
+  <div class="t-line"><div class="text-name l-title w-200 m-l-20">3.能力情况审查</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">业务能力：</div><div  class="inlineblock w-545">{{model.ywnl}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">风控能力：</div><div  class="inlineblock w-545">{{model.fknl}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock m-l-50">经济能力：</div><div  class="inlineblock w-545">{{model.jjnl}}</div></div>
+  <div class="t-line"><div class="text-name l-title inlineblock w-90 m-l-20" style="margin-right:24px;">4.综合评价</div><div  class="inlineblock w-545">{{model.zhnl}}</div></div>
+</div>
+
+
+<form nz-form #f="ngForm" class="mform" gutter="8" *ngIf="ComponentMode != 'read'">
+  <nz-form-item>
+    <nz-form-control [nzSpan]="24" class="tcenter">
+      <span class="label-t f16 ">评审报告</span>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">
+      被审核方：
+    </nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      {{dataItem.partnername}}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">
+      审核方：
+    </nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      {{model.shf}}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">复核方:</nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      <input type="text" name="fhf" nz-input [(ngModel)]="model.fhf" [disabled]="ComponentMode == 'readonly'">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">初审时间:</nz-form-control>
+    <nz-form-control [nzSpan]="8">
+      {{dataItem.createdate|mkdateformatpipe:'YYYY-MM-DD'}}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">审核材料:</nz-form-control>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="shcl" id="shcl" nzAutosize [(ngModel)]="model.shcl"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">审核内容:</nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">1、主体信息审核:</nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="gsxx" class="label-t">公司信息</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="gsxx" id="gsxx" nzAutosize [(ngModel)]="model.gsxx"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="frsfz" class="label-t">法人身份证</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="frsfz" id="frsfz" nzAutosize [(ngModel)]="model.frsfz"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="hkb" class="label-t">户口本</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="hkb" id="hkb" nzAutosize [(ngModel)]="model.hkb"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">2、资信信息审查:</nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="zczm" class="label-t">资产证明</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="zczm" id="zczm" nzAutosize [(ngModel)]="model.zczm"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="zxqk" class="label-t">征信情况</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="zxqk" id="zxqk" nzAutosize [(ngModel)]="model.zxqk"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="remark" class="label-t">备注</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">3、能力情况审查:</nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="ywnl" class="label-t">业务能力</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="ywnl" id="ywnl" nzAutosize [(ngModel)]="model.ywnl"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="fknl" class="label-t">风控能力</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="fknl" id="fknl" nzAutosize [(ngModel)]="model.fknl"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="jjnl" class="label-t">经济能力</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <textarea nz-input placeholder="" nzRequired name="jjnl" id="jjnl" nzAutosize [(ngModel)]="model.jjnl"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="4" class="label-t">4、综合评价:</nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="16" [nzOffset]="4">
+      <textarea nz-input placeholder="" nzRequired name="zhnl" id="zhnl" nzAutosize [(ngModel)]="model.zhnl"
+        [disabled]="ComponentMode == 'readonly'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="ComponentMode != 'unedit' && ComponentMode != 'readonly'">
+    <nz-form-control [nzSpan]="12" [nzOffset]="4">
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+        [nzLoading]="submitting">保存</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

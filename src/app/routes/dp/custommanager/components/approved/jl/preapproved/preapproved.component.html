@@ -1,0 +1,71 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'" class="search__form">
+        <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+          <nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+              <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="姓名/手机号查询"
+                  id="txtsearch">
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col class="sure-more">
+            <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+              [nzLoading]="loading">查询</button>
+            <a class="icon-more" (click)="expandForm=!expandForm">
+              {{expandForm ? '收起' : '展开'}}
+              <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+            </a>
+          </nz-col>
+        </nz-row>
+      </form>
+      <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+        <se label="按审核进度" line>
+          <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+            (nzCheckedChange)="changeState($event, i)">
+            {{i.name}}
+          </nz-tag>
+        </se>
+        <se label="按客户来源" line>
+          <nz-tag *ngFor="let i of CustomType; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+            (nzCheckedChange)="changeState($event, i)">
+            {{i.name}}
+          </nz-tag>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+      <ng-container>
+        <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()">
+          <thead>
+            <tr>
+              <th>申请时间</th>
+              <th>业务编号</th>
+              <th>申请人</th>
+              <th>联系方式</th>
+              <th>经办人</th>
+              <th>审核进度</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+              <td>{{data.partnercode}}</td>
+              <td>{{data.partnername}}</td>
+              <td>{{data.telephone}}</td>
+              <td>{{data.pname}}</td>
+              <td>{{data.isvalid|mkenumformatpipe:'partnerisvalid'}}</td>
+              <td *ngIf="data.isvalid == 1060">
+                <a (click)="readReport(data)">预审评审报告</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

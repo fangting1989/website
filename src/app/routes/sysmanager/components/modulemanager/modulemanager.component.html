@@ -1,0 +1,103 @@
+<div class="alain-default__content-title">
+  <h1 *ngIf="!hasEnterprise">
+    您当前操作的是【{{EnterPriseObject.enterprisename}}】<span><button nz-button nzType="default" (click)="SelEnterPrise()">选择企业</button></span>
+  </h1>
+  <h1 *ngIf="hasEnterprise">
+    您当前操作的是【{{EnterPriseObject.enterprisename}}】<span><button nz-button nzType="default"
+        (click)="SelEnterPrise()">重新企业</button><button nz-button nzType="default"
+        (click)="SelDefault()">管理后台</button></span>
+  </h1>
+</div>
+<!-- <div class="page-container"> -->
+<div class="content-wrap" style="width:100%;background: #fff;" [ngStyle]="{'height':changeHeight+'px'}">
+  <as-split [gutterSize]="5">
+    <as-split-area size="20" style="min-width:230px;">
+      <div class="addtype-but">
+        <button nz-button nzType="primary" (click)="addClick()">添加菜单</button>
+      </div>
+      <nz-tree nzShowIcon="true" [nzData]="TreeData" nzAsyncData="true" nzExpandAll="false"
+        (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event,null)">
+      </nz-tree>
+
+    </as-split-area>
+    <as-split-area size="80">
+      <nz-card [nzBordered]="false" nzTitle="菜单编辑">
+        <form nz-form>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="email">菜单类别</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <nz-tree-select name="modulepid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+                [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }"
+                [(ngModel)]="model.modulepid" [nzNodes]="SelTreeData" [nzAsyncData]="true"
+                (nzExpandChange)="TreeChild($event,1)">
+              </nz-tree-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="cansel">是否为菜单项</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <nz-radio-group [(ngModel)]="model.cansel" name="cansel" (ngModelChange)="SelIsMenuItem($event)">
+                <label nz-radio-button [nzValue]="1"><span>目录</span></label>
+                <label nz-radio-button [nzValue]="2"><span>菜单项</span></label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="modulename">菜单名称</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <input nz-input name="modulename" type="text" id="modulename" [(ngModel)]="model.modulename">
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item *ngIf="model.modulepid == '-1'">
+            <nz-form-label [nzSpan]="4" nzFor="moduleicon"><span>图标
+                <a target="_blank" href="https://ant.design/components/icon-cn/#components-icon-demo-iconfont">
+                  <i nz-icon nz-tooltip nzTitle="点击访问图标地址" type="question-circle" theme="outline"></i>
+                </a>
+              </span>
+            </nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <input nz-input name="moduleicon" type="text" id="moduleicon"
+                [(ngModel)]="model.moduleicon"><em>&nbsp;&nbsp;(例如:anticon anticon-appstore)</em>
+            </nz-form-control>
+          </nz-form-item>
+
+
+          <nz-form-item *ngIf="model.cansel == 2">
+            <nz-form-label [nzSpan]="4" nzFor="moduleurl">菜单地址</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <input nz-input name="moduleurl" type="text" id="moduleurl" [(ngModel)]="model.moduleurl">
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="isvalid">是否有效</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+                <label nz-radio-button *ngFor="let item of stateArray"
+                  [nzValue]="item.value"><span>{{item.name}}</span></label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="moduleindex">菜单索引</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <input nz-input name="moduleindex" type="text" id="moduleindex" [(ngModel)]="model.moduleindex">
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="4" nzFor="remark">备注</nz-form-label>
+            <nz-form-control [nzSpan]="8">
+              <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize
+                [(ngModel)]="model.remark"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzSpan]="8" [nzOffset]="4">
+              <button nz-button nzType="primary" (click)="okClick()" type="submit">保存</button>
+              <button nz-button class="ml-sm" (click)="deleteClick()">删除</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </nz-card>
+    </as-split-area>
+  </as-split>
+</div>

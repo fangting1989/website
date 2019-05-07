@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<div class="modal-body">
+  <div class="upload-box">
+      <div class="village-img re" *ngFor="let item of Images">
+          <img src="{{item.content || item.filepath}}" width="" height="" alt="">
+          <span class="delete ab" (click)="deleteImg(item)">
+              <img src="assets/imgs/del.png" />
+          </span>
+      </div>
+      <div class="village-img re">
+          <img src="assets/imgs/up-img.png" class="up-img" />
+          <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+      </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit"  [nzLoading]="submitting">保存</button>
+  <button nz-button nzType="primary" (click)="SubmitClick()" type="submit"  [nzLoading]="submitting">完成</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
+</div>

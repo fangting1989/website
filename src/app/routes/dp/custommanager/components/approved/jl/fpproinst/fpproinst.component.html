@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<nz-card [nzBordered]="false">
+    <button nz-button (click)="SureClick()" [nzType]="'primary'" [nzLoading]="submitting" class="btn-add">
+        <span>确定</span>
+      </button>
+  <ng-container>
+    <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+      [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()" (nzPageSizeChange)="loadData()">
+      <thead>
+        <tr>
+          <th></th>
+          <th>创建时间</th>
+          <th>审核专员</th>
+          <th>待处理</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data; let i = index">
+          <td nzShowCheckbox [(nzChecked)]="data.active" [nzDisabled]="false" (nzCheckedChange)="refreshStatus(data)"></td>
+          <td>{{data.createdate |mkdateformatpipe:'YYYY-MM-DD'}}</td>
+          <td>{{data.adminusernickname}}</td>
+          <td>{{data.count}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-card>

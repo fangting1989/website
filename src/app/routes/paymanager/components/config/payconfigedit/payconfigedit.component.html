@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="类别" error="请选择" required>
+    <nz-radio-group [(ngModel)]="model.paytype" name="paytype">
+      <label nz-radio-button *ngFor="let item of paytypeArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+    </nz-radio-group>
+  </se>
+  <se label="appid" error="请填写" required>
+    <input type="text" nz-input [(ngModel)]="model.appid" name="appid" required>
+  </se>
+  <se label="appsecret" error="请填写" required>
+    <input type="text" nz-input [(ngModel)]="model.appsecret" name="appsecret" required>
+  </se>
+  <se label="商户号" error="请填写" required>
+    <input type="text" nz-input [(ngModel)]="model.machid" name="machid" required>
+  </se>
+  <se label="支付key" error="请填写" required>
+    <input type="text" nz-input [(ngModel)]="model.paykey" name="paykey" required>
+  </se>
+  <se label="回调地址" error="请填写" [col]="1" required>
+    <input type="text" nz-input [(ngModel)]="model.callbackurl" name="callbackurl" required>
+  </se>
+  <se label="是否有效" error="请填写">
+    <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+      <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+    </nz-radio-group>
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

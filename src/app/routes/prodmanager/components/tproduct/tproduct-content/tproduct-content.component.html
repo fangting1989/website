@@ -1,0 +1,8 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<editor-tinymce [elementId]="'prod-tinymce-editor'" [initialContent]="model.productcontent"  (onEditorContentChange)="keyupHandler($event)"></editor-tinymce>
+<div class="modal-footer">
+    <button nz-button nzType="primary" (click)="saveClick()" type="submit" [nzLoading]="submitting">保存</button>
+    <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+  </div>
