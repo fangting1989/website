@@ -1,5 +1,8 @@
 <nz-timeline >
     <!-- nzMode="alternate" -->
+    <nz-timeline-item>
+      <div class="curr-proinst">当前环节: <span class="text-red">{{dataItem.isvalid|mkenumformatpipe:'partnerisvalid'}}</span></div>
+    </nz-timeline-item>
   <nz-timeline-item *ngFor="let item of ProinstList">
     <div class="proinstItem">
       <div nz-row nzGutter="4">

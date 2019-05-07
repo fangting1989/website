@@ -59,8 +59,8 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control [nzSpan]="4" class="label-t">审核材料:</nz-form-control>
-    <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="shcl" id="shcl" nzAutosize [(ngModel)]="model.shcl"
+    <nz-form-control [nzSpan]="16"> <!--mkautosize -->
+      <textarea nz-input placeholder="" class="item-textarea"   nzRequired name="shcl" id="shcl" nzAutosize  [(ngModel)]="model.shcl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
@@ -75,7 +75,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="gsxx" class="label-t">公司信息</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="gsxx" id="gsxx" nzAutosize [(ngModel)]="model.gsxx"
+      <textarea nz-input placeholder="" class="item-textarea" nzRequired name="gsxx" id="gsxx" nzAutosize [(ngModel)]="model.gsxx"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>

@@ -11,3 +11,4 @@ declare var tinymce: any;
 declare var Swiper:any;
 declare var ComFun:any;
 declare var chinaCity:any;
+declare var autosize:any;

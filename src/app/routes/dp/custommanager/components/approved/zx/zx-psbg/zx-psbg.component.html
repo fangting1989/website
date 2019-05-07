@@ -1,7 +1,7 @@
 <div class="modal-header">
   <div class="modal-title">{{data.HeadText}}</div>
 </div>
-<nz-tabset [nzType]="'card'">
+<nz-tabset [nzType]="'card'" (nzSelectChange)="tabChange($event)">
   <nz-tab nzTitle="基础信息">
     <app-component-tpartner-read [dataItem]="dataItem"></app-component-tpartner-read>
   </nz-tab>
@@ -12,7 +12,7 @@
       <app-component-partner-money [dataItem]="dataItem" ></app-component-partner-money>
     </nz-tab>
   <nz-tab nzTitle="评审报告">
-      <app-component-psbg-read [dataItem]="dataItem" [ComponentMode]="'edit'"></app-component-psbg-read>
+      <app-component-psbg-read #psbg [dataItem]="dataItem" [ComponentMode]="'edit'"></app-component-psbg-read>
   </nz-tab>
   <nz-tab nzTitle="审核进度">
       <app-component-proinstapproved [dataItem]="dataItem"></app-component-proinstapproved>

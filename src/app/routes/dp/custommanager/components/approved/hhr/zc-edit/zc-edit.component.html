@@ -147,7 +147,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="6" [nzOffset]="2" nzFor="fxcdbl">风险承担比例</nz-form-label>
       <nz-form-control [nzSpan]="8">
-        <nz-radio-group [(ngModel)]="model.fxcdbl" name="fxcdbl">
+        <nz-radio-group [(ngModel)]="model.fxcdbl" name="fxcdbl" (ngModelChange)="Change_cdbl($event)">
           <label nz-radio [nzValue]="100">100%</label>
           <label nz-radio [nzValue]="50">50%</label>
         </nz-radio-group>

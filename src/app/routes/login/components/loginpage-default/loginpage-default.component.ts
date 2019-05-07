@@ -131,7 +131,7 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
             { type: WebConfig.UserObjectCookie.type, expire: WebConfig.UserObjectCookie.expire })
           // 清空路由复用信息
           this.tokenService.set({
-            token:result.data.token
+            token:result.data.token?result.data.token:"NOTOKEN"
           })
           this.reuseTabService.clear();
           // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响

@@ -23,22 +23,27 @@ import { comservices,dataServices} from './services'
 import {
   mkDateformatPipe,
   mkStateArray,
-  mkEnumformatPipe
+  mkEnumformatPipe,
 } from './pipes';
 import { EditorTinymceComponent } from './components';
+
+import {
+  mkAutoSizeDirective
+} from './directives';
 
 
 // #region your componets & directives
 const COMPONENTS = [
   EditorTinymceComponent,
 ];
-const DIRECTIVES = [];
+const DIRECTIVES = [mkAutoSizeDirective];
 const PROVIDERS = [comservices];
 const PIPES = [
   mkDateformatPipe,
   mkStateArray,
-  mkEnumformatPipe
+  mkEnumformatPipe,
 ]
+
 // #endregion
 
 @NgModule({

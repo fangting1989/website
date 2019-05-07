@@ -1,0 +1,1 @@
+export * from './mkAutoSize/mkAutoSize.directive';

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { NzMessageService, NzModalRef,NzModalService } from 'ng-zorro-antd';
 import { dataServices } from '../../../../services';
 import { Enums } from './../../../../../../../shared/utils/enums';
@@ -10,13 +10,17 @@ import { Utils} from './../../../../../../../shared/utils/utils';
 import * as moment from  'moment'
 import { ModalHelper } from '@delon/theme';
 import {TurnbackComponent} from  '../../common/turnback/turnback.component'
-
+import {PsbgReadComponent} from './../../common/psbg-read/psbg-read.component';
 @Component({
   selector: 'app-zx-psbg',
   templateUrl: './zx-psbg.component.html',
   styleUrls: ['./zx-psbg.component.scss']
 })
 export class ZxPsbgComponent implements OnInit {
+
+  @ViewChild('psbg')
+  psbg:PsbgReadComponent;
+
   data: any;
   dataItem: any = {}
   model: any = {}
@@ -63,6 +67,10 @@ export class ZxPsbgComponent implements OnInit {
     
   }
   
+  tabChange(e){
+    console.log(e)
+    this.psbg.dataChange(this.dataItem)
+  }
 
   cancelClick() {
     this.closeModal();

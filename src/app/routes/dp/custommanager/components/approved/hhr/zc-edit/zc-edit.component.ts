@@ -39,7 +39,6 @@ export class ZcEditComponent implements OnInit {
     private modalService:NzModalService
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
-    this.ConfigData = WebConfig.hhr
     // this.values = ''
     this.seladdress = '' 
   }
@@ -77,6 +76,8 @@ export class ZcEditComponent implements OnInit {
     //至少一个
     this.DBRArray.push({dbrid:UUID.UUID(),dbrlxfsid:UUID.UUID()})
     this.regionPlaceHolder = this.model.region == null?'请选择..':this.model.region
+    //默认配置
+    this.ConfigData = WebConfig.hhr[this.model.fxcdbl]
   }
 
   loadLinkpartnerList(){
@@ -312,7 +313,9 @@ export class ZcEditComponent implements OnInit {
     })
   }
 
-
+  Change_cdbl(e){
+    this.ConfigData = WebConfig.hhr[e]
+  }
 
   cancelClick() {
     this.closeModal();

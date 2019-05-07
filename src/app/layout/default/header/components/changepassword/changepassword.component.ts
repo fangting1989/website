@@ -19,6 +19,7 @@ export class ChangepasswordComponent implements OnInit {
   model: any = {}
   EnterPriseCode:any = {}
   submitting:any = false;
+  data:any;
   constructor(private msg: NzMessageService,
     private dataServices: defaultServices,
     private modal: NzModalRef,

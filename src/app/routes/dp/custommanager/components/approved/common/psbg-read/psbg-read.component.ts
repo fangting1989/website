@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter,ChangeDetectorRef ,NgZone } from '@angular/core';
 import { NzMessageService, NzModalRef,NzModalService } from 'ng-zorro-antd';
 import { dataServices } from '../../../../services';
 import { Enums } from './../../../../../../../shared/utils/enums';
@@ -23,13 +23,16 @@ export class PsbgReadComponent implements OnInit {
   LXRArray:any = []
   DBRArray:any = []
   UserName:any;
+  randomData:any ;
   submitting:any;
   constructor(
     private msg: NzMessageService,
     private dataServices: dataServices,
     private modal: NzModalRef,
     private comservices: comservices,
-    private modalService:NzModalService
+    private modalService:NzModalService,
+    private cdr: ChangeDetectorRef,
+    private zone:NgZone,
   ) { 
     this.EnterPriseCode = comservices.getEnterPrise
     this.UserName = this.comservices.getUserName 
@@ -38,6 +41,23 @@ export class PsbgReadComponent implements OnInit {
   ngOnInit() {
     this.model.shf = this.UserName
     this.loadData()
+  }
+
+  dataChange(data){
+    console.log(data)
+    var self = this;
+    this.randomData  =Math.random();
+    this.cdr.detectChanges();
+    this.zone.run(()=>{
+      self.randomData  =Math.random();
+    })
+
+    var array = document.getElementsByClassName("item-textarea");
+    console.log(array)
+    for (var i=0;i<array.length;i++){
+      autosize(array[i])
+    }
+
   }
 
   loadData(){
