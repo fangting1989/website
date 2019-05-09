@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output,EventEmitter,ChangeDetectorRef ,NgZone } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter,AfterViewChecked,DoCheck,ChangeDetectorRef ,NgZone } from '@angular/core';
 import { NzMessageService, NzModalRef,NzModalService } from 'ng-zorro-antd';
 import { dataServices } from '../../../../services';
 import { Enums } from './../../../../../../../shared/utils/enums';
@@ -8,6 +8,8 @@ import { UUID } from 'angular2-uuid';
 import {_} from 'underscore'
 import { Utils} from './../../../../../../../shared/utils/utils';
 import * as moment from  'moment'
+
+// ,AfterViewChecked,DoCheck
 
 @Component({
   selector: 'app-component-psbg-read',
@@ -38,26 +40,10 @@ export class PsbgReadComponent implements OnInit {
     this.UserName = this.comservices.getUserName 
   }
 
+
   ngOnInit() {
     this.model.shf = this.UserName
     this.loadData()
-  }
-
-  dataChange(data){
-    console.log(data)
-    var self = this;
-    this.randomData  =Math.random();
-    this.cdr.detectChanges();
-    this.zone.run(()=>{
-      self.randomData  =Math.random();
-    })
-
-    var array = document.getElementsByClassName("item-textarea");
-    console.log(array)
-    for (var i=0;i<array.length;i++){
-      autosize(array[i])
-    }
-
   }
 
   loadData(){

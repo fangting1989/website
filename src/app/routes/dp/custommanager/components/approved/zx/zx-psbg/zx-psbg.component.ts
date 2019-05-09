@@ -66,11 +66,6 @@ export class ZxPsbgComponent implements OnInit {
   InitData(){
     
   }
-  
-  tabChange(e){
-    console.log(e)
-    this.psbg.dataChange(this.dataItem)
-  }
 
   cancelClick() {
     this.closeModal();

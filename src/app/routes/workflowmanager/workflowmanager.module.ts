@@ -13,10 +13,12 @@ import { dataServices } from './services';
 
 import {
   AtestComponent,
-  BtestComponent
+  BtestComponent,
+  ModelEditComponent,
+  ModelsComponent,
+  ModelAddComponent,
 } from './components';
-import { ModelsComponent } from './components/models/models.component';
-import { ModelEditComponent } from './components/models/model-edit/model-edit.component';
+import { ProcesslistComponent } from './components/processlist/processlist.component';
 
 
 @NgModule({
@@ -35,12 +37,16 @@ import { ModelEditComponent } from './components/models/model-edit/model-edit.co
     WorkflowComponent,
     ModelsComponent,
     ModelEditComponent,
+    ModelAddComponent,
+    ProcesslistComponent,
   ],
   providers: [
     dataServices
   ],
   entryComponents: [
-    WorkflowComponent
+    WorkflowComponent,
+    ModelEditComponent,
+    ModelAddComponent
   ]
 })
 export class WorkflowManagerModule {

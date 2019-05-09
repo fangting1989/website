@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalState} from './../../../../core/common';
 import { dataServices } from '../../services';
+import {Router} from '@angular/router';
 import { _ } from 'underscore';
 import {
   NzMessageService,
@@ -8,7 +9,7 @@ import {
 } from 'ng-zorro-antd';
 import { ModalHelper } from '@delon/theme';
 import { comservices} from '../../../../shared/services';
-
+import {ModelAddComponent} from './model-add/model-add.component';
 @Component({
   selector: 'app-models',
   templateUrl: './models.component.html',
@@ -16,21 +17,24 @@ import { comservices} from '../../../../shared/services';
 })
 export class ModelsComponent implements OnInit {
   DataList:any = []
-  searchObject:any = {};
+  searchObject:any = {
+    state:1
+  };
   PageNum:any = 1;
   PageSize:any = 10;
   TotalCount:any = 0;
   expandForm:any = false;
   loading = false;
   EnterPriseCode:any;
-  StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
+  StateArray:any = [{name:"流程",value:1},{name:'案例模型',value:2},{name:'表单',value:3},{name:'决策表',value:4},{name:'应用程序',value:5}]
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
     private modalHelper:ModalHelper,
     private dataServices:dataServices,
     private comservices:comservices,
-    private _state:GlobalState
+    private _state:GlobalState,
+    private router:Router,
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -66,17 +70,15 @@ export class ModelsComponent implements OnInit {
   }
 
   addClick(record: any = {}){
-    // var data = {HeadText:'编辑'}
-    // const modal = this.modalHelper.create(TCjgsEditComponent,{ data: data},{size:800}).subscribe(res => {
-    //   this.loadData()
-    // });
+    var data = {HeadText:'新增模型'}
+    const modal = this.modalHelper.create(ModelAddComponent,{ data: data},{size:800}).subscribe(res => {
+      this.loadData()
+    });
   }
 
   editItem(item){
-    // var data = {HeadText:'编辑',itemdata:item}
-    // const modal = this.modalHelper.create(TCjgsEditComponent,{ data: data},{size:800}).subscribe(res => {
-    //   this.loadData()
-    // });
+    //页面跳转
+    this.router.navigate(['/workflow/modeledit'],{ queryParams: { modelId: item.id } });
   }
 
   deleteItem(item){
@@ -88,19 +90,45 @@ export class ModelsComponent implements OnInit {
       nzOkType    : 'danger',
       nzOnOk      : () => {
         var postData = {
-          keycode:item.keycode
+          modelId:item.id
         }
-        // self.dataServices.tcjgsDel(postData).subscribe(result => {
-        //   if (result != null) {
-        //     self.msg.success("删除成功!");
-        //     self.loadData()
-        //   }
-        // })
+        self.dataServices.model_delete(postData).subscribe(result => {
+          if (result != null) {
+            self.msg.success("删除成功!");
+            self.loadData()
+          }
+        })
       },
       nzCancelText: '取消',
       nzOnCancel  : () => {
 
       }
     });
+  }
+
+  export(item){
+    var self = this;
+    var postData:any = {
+      modelId:item.id
+    }
+    
+    this.dataServices.model_export(postData).subscribe(result => {
+      if (result != null) {
+        console.log(result);
+      }
+    })
+
+  }
+  deploy(item){
+    var self = this;
+    var postData:any = {
+      modelId:item.id
+    }
+    this.dataServices.model_deploymodel(postData).subscribe(result => {
+      if (result != null) {
+        console.log(result);
+      }
+    })
+
   }
 }

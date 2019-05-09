@@ -24,6 +24,7 @@ import {
   mkDateformatPipe,
   mkStateArray,
   mkEnumformatPipe,
+  mkSafeUrlformatPipe,
 } from './pipes';
 import { EditorTinymceComponent } from './components';
 
@@ -42,6 +43,7 @@ const PIPES = [
   mkDateformatPipe,
   mkStateArray,
   mkEnumformatPipe,
+  mkSafeUrlformatPipe,
 ]
 
 // #endregion

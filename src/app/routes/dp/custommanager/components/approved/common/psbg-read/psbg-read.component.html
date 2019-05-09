@@ -60,7 +60,7 @@
   <nz-form-item>
     <nz-form-control [nzSpan]="4" class="label-t">审核材料:</nz-form-control>
     <nz-form-control [nzSpan]="16"> <!--mkautosize -->
-      <textarea nz-input placeholder="" class="item-textarea"   nzRequired name="shcl" id="shcl" nzAutosize  [(ngModel)]="model.shcl"
+      <textarea nz-input placeholder="" class="item-textarea" [mkautosize]='1'   nzRequired name="shcl" id="shcl" nzAutosize  [(ngModel)]="model.shcl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
@@ -75,21 +75,21 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="gsxx" class="label-t">公司信息</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" class="item-textarea" nzRequired name="gsxx" id="gsxx" nzAutosize [(ngModel)]="model.gsxx"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="gsxx" id="gsxx" nzAutosize [(ngModel)]="model.gsxx"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="frsfz" class="label-t">法人身份证</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="frsfz" id="frsfz" nzAutosize [(ngModel)]="model.frsfz"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="frsfz" id="frsfz" nzAutosize [(ngModel)]="model.frsfz"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="hkb" class="label-t">户口本</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="hkb" id="hkb" nzAutosize [(ngModel)]="model.hkb"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="hkb" id="hkb" nzAutosize [(ngModel)]="model.hkb"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
@@ -100,21 +100,21 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="zczm" class="label-t">资产证明</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="zczm" id="zczm" nzAutosize [(ngModel)]="model.zczm"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="zczm" id="zczm" nzAutosize [(ngModel)]="model.zczm"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="zxqk" class="label-t">征信情况</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="zxqk" id="zxqk" nzAutosize [(ngModel)]="model.zxqk"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="zxqk" id="zxqk" nzAutosize [(ngModel)]="model.zxqk"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="remark" class="label-t">备注</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"
+      <textarea nz-input placeholder=""  [mkautosize]='1' nzRequired name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
@@ -125,7 +125,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="ywnl" class="label-t">业务能力</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="ywnl" id="ywnl" nzAutosize [(ngModel)]="model.ywnl"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="ywnl" id="ywnl" nzAutosize [(ngModel)]="model.ywnl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
 
     </nz-form-control>
@@ -133,14 +133,14 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="fknl" class="label-t">风控能力</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="fknl" id="fknl" nzAutosize [(ngModel)]="model.fknl"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="fknl" id="fknl" nzAutosize [(ngModel)]="model.fknl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="jjnl" class="label-t">经济能力</nz-form-label>
     <nz-form-control [nzSpan]="16">
-      <textarea nz-input placeholder="" nzRequired name="jjnl" id="jjnl" nzAutosize [(ngModel)]="model.jjnl"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="jjnl" id="jjnl" nzAutosize [(ngModel)]="model.jjnl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>
@@ -149,7 +149,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control [nzSpan]="16" [nzOffset]="4">
-      <textarea nz-input placeholder="" nzRequired name="zhnl" id="zhnl" nzAutosize [(ngModel)]="model.zhnl"
+      <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="zhnl" id="zhnl" nzAutosize [(ngModel)]="model.zhnl"
         [disabled]="ComponentMode == 'readonly'"></textarea>
     </nz-form-control>
   </nz-form-item>

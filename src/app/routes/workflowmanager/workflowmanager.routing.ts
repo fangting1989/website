@@ -7,7 +7,9 @@ import { WorkflowComponent,
 import {
   AtestComponent,
   BtestComponent,
-  ModelsComponent
+  ModelsComponent,
+  ModelEditComponent,
+  ProcesslistComponent
 } from './components';
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
     component: WorkflowmanagerMain,
     children: [
       { path: 'modellist', component: ModelsComponent },
+      { path: 'modeledit', component: ModelEditComponent },
+      { path: 'processlist', component: ProcesslistComponent },
       { path: 'tasklist', component: WorktasklistComponent },
       { path: 'A', component: AtestComponent },
       { path: 'B', component: BtestComponent },
