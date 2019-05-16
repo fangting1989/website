@@ -68,7 +68,7 @@
             <td>{{data.isvalid |mkenumformatpipe:'partnerisvalid'}}</td>
             <td> <a (click)="ReadData(data)">查看</a></td>
             <td *ngIf="data.isvalid == 1020">
-              <a (click)="ZxEdit(data)">征信录入</a>
+              <a (click)="ZxEdit(data)">信息录入</a>
             </td>
             <td *ngIf="data.isvalid == 1025">
                 <a (click)="editBccl(data)">补充材料</a>

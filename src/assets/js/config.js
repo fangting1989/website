@@ -1,6 +1,6 @@
 WebConfig =
         {
-                loginTitle:'稻普合伙招商管理平台',
+                loginTitle:'后台内容管理平台',
                 pageTitle:'后台内容管理平台',
                 headTitle: '瑞懿科技',  
                 CompanyName:'瑞懿科技', //版权公司
@@ -29,7 +29,7 @@ WebConfig =
                         // sellsiteservice:"sellsite-service/",
                         sellsiteservice:'http://127.0.0.1:8220/',
                         dpworkservice:'http://127.0.0.1:8700/',
-                        workflowservice:'http://127.0.0.1:8400/',
+                        flowableworkflow:'http://127.0.0.1:8400/',
                 },
                 hhr:{
                         100:{

@@ -67,7 +67,7 @@
         <thead>
           <tr>
             <th>序号</th>
-            <th>创建时间</th>
+            <th>头像</th>
             <th>姓名</th>
             <th>联系方式</th>
             <th>区域</th>
@@ -83,7 +83,7 @@
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
             <td>{{i +1}}</td>
-            <td>{{data.createdate}}</td>
+            <td><img src="{{data.weChatImg }}" style="height:22px;width:22px;" /> </td>
             <td>{{data.memName || data.weChatName}}</td>
             <td>{{data.memMobile}}</td>
             <td>{{data.region}}</td>

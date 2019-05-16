@@ -122,7 +122,7 @@ export class EnumerationComponent implements OnInit {
   }
 
   addClick(index){
-    this.model = {}
+    this.model = {isvalid:1}
     this.typeItemBox = index
   }
 

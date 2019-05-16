@@ -1,1 +1,72 @@
-<button nz-button (click)="ProinstWorkFlow()">工作流</button>
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+        <form nz-form [nzLayout]="'inline'"  class="search__form">
+            <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+              <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                  <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+              <nz-col>
+                <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+                <a class="icon-more" (click)="expandForm=!expandForm">
+                  {{expandForm ? '收起' : '展开'}}
+                  <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+                </a>
+                <button style="float:right;margin-right: 20px;" nz-button type="button" (click)="addTask($event)" [nzType]="'primary'" ><i nz-icon type="plus"></i>创建业务</button>
+              </nz-col>
+            </nz-row>
+          </form>
+          <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+            <se label="是否有效:" line>
+                <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+                  (nzCheckedChange)="changeState($event, i)">
+                  {{i.name}}
+                </nz-tag>
+            </se>
+  
+          </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+      <ng-container>
+        <nz-table #ajaxTable
+            nzShowSizeChanger
+            [nzData]="DataList"
+            [(nzPageIndex)]="PageNum"
+            [nzFrontPagination]="false"
+            [(nzPageSize)]="PageSize"
+            [nzTotal]="TotalCount"
+            (nzPageIndexChange)="loadData()"
+            (nzPageSizeChange)="loadData()" >
+          <thead>
+            <tr>
+              <!--<th>序号</th>-->
+              <th>标识码</th>
+              <th>模型名称</th>
+              <th>key</th>
+              <th>创建时间</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <!--<td>{{i +1}}</td>-->
+              <td>{{data.id}}</td>
+              <td>{{data.key}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.processDefinitionId}}</td>
+              <td>{{data.taskDefinitionKey}}</td>
+              <td>
+                  <a (click)="OpenProcess(data)">打开流程组件</a>
+                <!-- <a (click)="dealtask(data)">业务办理</a> -->
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

@@ -1,0 +1,102 @@
+<div class="page-container">
+  <div class="content-wrap" style="width:100%;background: #fff;" [ngStyle]="{'height':changeHeight+'px'}">
+    <as-split [gutterSize]="5">
+      <as-split-area size="20" style="min-width:230px;">
+        <div class="addtype-but">
+          <button nz-button nzType="primary" (click)="addClick(1)">添加类别</button>
+          <button nz-button nzType="primary" (click)="addClick(2)">添加组件</button>
+        </div>
+        <nz-tree [nzData]="TreeData" nzShowIcon="true" nzAsyncData="true" nzExpandAll="false"  (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event)">
+        </nz-tree>
+
+      </as-split-area>
+      <as-split-area size="80">
+        <nz-card [nzBordered]="false" nzTitle="类别编辑" *ngIf="typeItemBox==1">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="email">上级类别</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-tree-select name="pid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+                  [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.pid"
+                  [nzNodes]="SelTypeTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event)">
+                </nz-tree-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="componenttypename">类别名称</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="componenttypename" type="text" id="componenttypename" [(ngModel)]="model.componenttypename">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="componenttypeindex">类别索引</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="componenttypeindex" type="text" id="componenttypeindex" [(ngModel)]="model.componenttypeindex">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="isvalid">是否有效</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid" >
+                  <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="8" [nzOffset]="4">
+                <button nz-button nzType="primary" (click)="okClick()" type="submit" >保存</button>
+                <button nz-button class="ml-sm" (click)="deleteClick()">删除</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-card>
+        <nz-card [nzBordered]="false" nzTitle="组件编辑" *ngIf="typeItemBox==2">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="email">枚举类别</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-tree-select name="componenttypeid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
+                  [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.componenttypeid"
+                  [nzNodes]="SelTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event)">
+                </nz-tree-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="componentname">组件名称</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="componentname" type="text" id="componentname" [(ngModel)]="model.componentname">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="componenturl">地址</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="componenturl" type="text" id="componenturl" [(ngModel)]="model.componenturl">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="componentindex">索引</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <input nz-input name="componentindex" type="text" id="componentindex" [(ngModel)]="model.componentindex">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" nzFor="isvalid">是否有效</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid" >
+                  <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="8" [nzOffset]="4">
+                <button nz-button nzType="primary" (click)="okClick()" type="submit" >保存</button>
+                <button nz-button class="ml-sm" (click)="deleteClick()">删除</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-card>
+      </as-split-area>
+    </as-split>
+  </div>
+</div>

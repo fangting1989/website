@@ -76,7 +76,7 @@ export class DdkpageComponent implements OnInit {
      this.dataServices.file_shd_download(postData).subscribe(result => {
        this.msg.remove( loadding.messageId) 
       if(result){
-        window.location = WebConfig.RequestUrl.dpworkservice + result.data
+        window.location =WebConfig.BaseUrl+WebConfig.RequestUrl.dpworkservice + result.data
       }
     })
   }

@@ -1,8 +1,29 @@
-<page-header  [tab]="tab">
-  <ng-template #tab>
-    <nz-tabset [nzSelectedIndex]="pos">
-      <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (nzClick)="to(i)"></nz-tab>
-    </nz-tabset>
-  </ng-template>
-</page-header>
-<router-outlet></router-outlet>
+<div class="page-container">
+  <nz-card [nzBordered]="false" nzTitle="流程名称">
+    <ng-container>
+      这是我的测试内容
+    </ng-container>
+  </nz-card>
+  
+
+
+  <nz-row [nzGutter]="24" class="py-lg">
+      <nz-col [nzSpan]="6">
+        <nz-card class="ant-card__body-nopadding" >
+          <a (click)="ItemClick(item)" *ngFor="let item of DataList"   class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':item.active===true}">{{item.name}}</a>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="18">
+          <workflow-component-panel *ngFor="let componentitem of ComponentList" [ComponentItem]="componentitem"></workflow-component-panel>
+      </nz-col>
+    </nz-row>
+
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <button style="float:right;margin-right: 20px;" nz-button type="button" (click)="DealTask($event)"
+        [nzType]="'primary'"><i nz-icon type="plus"></i>转出业务</button>
+      <button style="float:right;margin-right: 20px;" nz-button type="button" (click)="ClosePage()"
+        [nzType]="'primary'"><i nz-icon type="plus"></i>关闭</button>
+    </ng-container>
+  </nz-card>
+</div>

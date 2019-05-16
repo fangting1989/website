@@ -1,7 +1,6 @@
 import { Component, OnInit,ChangeDetectionStrategy,TemplateRef, ViewChild,ChangeDetectorRef } from '@angular/core';
 import {GlobalState} from './../../../../core/common';
-import { usersysmanagerServices } from '../../services';
-import { comservices} from '../../../../shared/services';
+import { dataServices } from '../../services';
 import { _ } from 'underscore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
@@ -12,12 +11,13 @@ import {
 import { ModalHelper } from '@delon/theme';
 import { Enums } from './../../../../shared/utils/enums';
 
+
 @Component({
-  selector: 'app-userlist',
-  templateUrl: './userlist.component.html',
-  styleUrls: ['./userlist.component.scss']
+  selector: 'app-comp-defined',
+  templateUrl: './comp-defined.component.html',
+  styleUrls: ['./comp-defined.component.scss']
 })
-export class UserlistComponent implements OnInit {
+export class CompDefinedComponent implements OnInit {
 
   changeHeight: number;
   TreeData:any= [];
@@ -25,24 +25,21 @@ export class UserlistComponent implements OnInit {
   okType: string;
   SelTypeTreeData:any;
   SelTreeData:any;
-  EnterPriseCode:any;
   model:any = {}
   stateArray:any = Object.assign([],Enums.stateArray);
   expandKeys:any = []
   constructor(
     private _state: GlobalState,
     private nzDropdownService: NzDropdownService,
-    private sysService: usersysmanagerServices,
+    private dataServices: dataServices,
     private fb: FormBuilder, 
     private msg: NzMessageService,
     private cdr: ChangeDetectorRef,
     private modalService:NzModalService,
     private modalHelper:ModalHelper,
-    private comservices:comservices
   ) {
     this._state.notifyDataChanged('app.nav', { level: 1, NavName: "枚举管理", routerLink: "./sysmanager/enumeration" });
     this.changeHeight = window.innerHeight - 110;
-    this.EnterPriseCode = comservices.getEnterPrise
   }
   
   ngOnInit() {
@@ -55,36 +52,38 @@ export class UserlistComponent implements OnInit {
   }
 
   LoadTreeData(){
-    this.model = {}
+    this.model = {
+      isvalid:1
+    }
     this.SelTreeData = []
-    //初始化选择 {key:"-1",title:"默认类别",isLeaf:true}
-    this.SelTypeTreeData = []
+    //初始化选择
+    this.SelTypeTreeData = [{key:"-1",title:"默认类别",isLeaf:true}]
     //加载默认数据
-    this.loadChildTreeData(-1,null,null)
+    this.loadChildTreeData(-1,null)
   }
 
-  TreeChild(e,type){
+  TreeChild(e){
     if(e.eventName == 'expand'){
       if(e.node.origin.type == "node"){
         e.node.isLoading = false
         return
       }
       //清空当前节点子节点
-      this.loadChildTreeData(e.node.key,e,type)
+      this.loadChildTreeData(e.node.key,e)
     }
   }
 
-  loadChildTreeData(pId,event,type){
+  loadChildTreeData(pId,event){
     if(event){
       event.node.clearChildren();
     }
     var self = this;
-    this.sysService.usertype_childlist({ parentid:pId,enterpriseid:this.EnterPriseCode }).subscribe(result => {
+    this.dataServices.Componenttype_childlist({ parentid:pId }).subscribe(result => {
       if(result){
         var mmmdata:any = [];
         _.each(result.data,item =>{
-          item.key =  item.userTypeID
-          item.title = item.typename
+          item.key =  item.componenttypeid
+          item.title = item.componenttypename
           item.type = "nodetype"
           mmmdata.push(item)
           
@@ -107,15 +106,12 @@ export class UserlistComponent implements OnInit {
     if(pId == -1 || !event){
       return;
     }
-    if(type){
-      return
-    }
-    this.sysService.user_findbytype({ keycode:pId,enterpriseid:this.EnterPriseCode }).subscribe(result => {
+    this.dataServices.Component_findbytype({ keycode:pId }).subscribe(result => {
       if(result){
         var mmmdata:any = [];
         _.each(result.data,item =>{
-          item.key = item.kedycode
-          item.title = item.adminusernickname,
+          item.key = item.componentid
+          item.title = item.componentname,
           item.type = "node"
           item.isLeaf = true
           mmmdata.push(item)
@@ -127,9 +123,7 @@ export class UserlistComponent implements OnInit {
   }
 
   addClick(index){
-    this.model = {
-      isvalid:1 
-    }
+    this.model = {isvalid:1}
     this.typeItemBox = index
   }
 
@@ -145,19 +139,17 @@ export class UserlistComponent implements OnInit {
   }
   okClick(){
     var self = this;
-    this.model.enterpriseid = this.EnterPriseCode;
     if(this.typeItemBox == 1){
-      
       //类别保存
       if(this.model.keycode){
-        this.sysService.upUserType(this.model).subscribe(result => {
+        this.dataServices.tcomponenttypeUp(this.model).subscribe(result => {
           if(result){
             this.msg.success("操作成功!");
             self.LoadTreeData();
           }
         })
       }else{
-        this.sysService.inUserType(this.model).subscribe(result => {
+        this.dataServices.tcomponenttypeIn(this.model).subscribe(result => {
           if(result){
             this.msg.success("操作成功!");
             self.LoadTreeData();
@@ -165,20 +157,16 @@ export class UserlistComponent implements OnInit {
         })
       }
     }else if(this.typeItemBox == 2){
-      if(!this.model.usertypeid){
-        this.msg.error("请选择用户类别")
-        return
-      }
       //保存
       if(this.model.keycode){
-        this.sysService.upUser(this.model).subscribe(result => {
+        this.dataServices.tcomponentUp(this.model).subscribe(result => {
           if(result){
             this.msg.success("操作成功!");
             self.LoadTreeData();
           }
         })
       }else{
-        this.sysService.inUser(this.model).subscribe(result => {
+        this.dataServices.tcomponentIn(this.model).subscribe(result => {
           if(result){
             this.msg.success("操作成功!");
             self.LoadTreeData();
@@ -189,6 +177,7 @@ export class UserlistComponent implements OnInit {
   }
 
   deleteClick(){
+    this.model
     var self = this;
     if(this.typeItemBox == 1){
       //类别删除
@@ -202,7 +191,7 @@ export class UserlistComponent implements OnInit {
           var postData = {
             keycode:self.model.keycode
           }
-          self.sysService.deUserType(postData).subscribe(result => {
+          self.dataServices.tcomponenttypeDel(postData).subscribe(result => {
             if (result != null) {
               self.msg.success("删除成功!");
               self.LoadTreeData();
@@ -225,7 +214,7 @@ export class UserlistComponent implements OnInit {
           var postData = {
             keycode:self.model.keycode
           }
-          self.sysService.deUser(postData).subscribe(result => {
+          self.dataServices.tcomponentDel(postData).subscribe(result => {
             if (result != null) {
               self.msg.success("删除成功!");
               self.LoadTreeData();
@@ -239,5 +228,4 @@ export class UserlistComponent implements OnInit {
       });
     }
   }
-
 }

@@ -2,14 +2,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkflowmanagerMain } from './workflowmanager.main';
 
 import { WorkflowComponent,
-  WorktasklistComponent } from './compts';
+  WorktasklistComponent,
+  WorktaskcreateComponent,
+   } from './compts';
 
 import {
   AtestComponent,
   BtestComponent,
   ModelsComponent,
   ModelEditComponent,
-  ProcesslistComponent
+  ProcesslistComponent,
+  ProcessconfigComponent,
+  CompDefinedComponent,
 } from './components';
 
 const routes: Routes = [
@@ -20,7 +24,11 @@ const routes: Routes = [
       { path: 'modellist', component: ModelsComponent },
       { path: 'modeledit', component: ModelEditComponent },
       { path: 'processlist', component: ProcesslistComponent },
+      { path: 'processconfig', component: ProcessconfigComponent },
+      { path: 'compdefined', component: CompDefinedComponent },
       { path: 'tasklist', component: WorktasklistComponent },
+      { path: 'tasklistcreate', component: WorktaskcreateComponent },
+      { path: 'taskworkflow', component: WorkflowComponent },
       { path: 'A', component: AtestComponent },
       { path: 'B', component: BtestComponent },
       { path: '**', redirectTo: 'tasklist' },

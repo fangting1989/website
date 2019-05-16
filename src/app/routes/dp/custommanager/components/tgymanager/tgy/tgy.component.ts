@@ -45,7 +45,8 @@ export class TgyComponent implements OnInit {
       pagesize:this.PageSize,
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
-      enterpriseid: this.EnterPriseCode
+      enterpriseid: this.EnterPriseCode,
+      encrypt:true
     }
     this.dataServices.tmemberList(postData).subscribe(result => {
       if (result != null) {
@@ -56,12 +57,12 @@ export class TgyComponent implements OnInit {
   }
 
   SearchClick(e){
-    this.PageNum = 0
+    this.PageNum = 1
     this.loadData();
   }
 
   changeState(e,item){
-    this.PageNum = 0;
+    this.PageNum = 1;
     this.loadData();
   }
 

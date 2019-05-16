@@ -45,10 +45,11 @@
         <tr>
           <th>缴纳时间</th>
           <th *ngIf="false">意向金</th>
-          <th>基础保证金</th>
-          <th>增量保证金</th>
+          <th>基础保证金(万)</th>
+          <th>增量保证金(万)</th>
           <th>状态</th>
-          <th>金额</th>
+          <th>金额(万)</th>
+          <th>备注</th>
         </tr>
       </thead>
       <tbody>
@@ -59,6 +60,7 @@
           <td>{{data.zlbzj}}</td>
           <td>{{data.isvalid == 99?'已确认':'财务未确认'}}</td>
           <td>{{data.totalmoney}}</td>
+          <td>{{data.remark}}</td>
         </tr>
       </tbody>
     </nz-table>

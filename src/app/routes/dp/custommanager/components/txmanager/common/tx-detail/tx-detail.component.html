@@ -55,13 +55,13 @@
   </div>
   
   
-  <div nz-col nzSpan="24">{{PartName}}审核意见</div>
-  <div nz-col nzSpan="24">
+  <div nz-col nzSpan="24" *ngIf="dataItem.passstate >0">{{PartName}}审核意见</div>
+  <div nz-col nzSpan="24" *ngIf="dataItem.passstate >0">
     <textarea nz-input placeholder="" nzRequired style="min-height: 80px;" name="advice" id="content"  [nzAutosize]="{minRows: 4}"  [(ngModel)]="model.advice"></textarea>
   </div>
 </div>
 
 <div class="modal-footer">
-  <button nz-button nzType="primary" (click)="SubmitClick()">提交保存</button>
+  <button *ngIf="dataItem.passstate >0" nz-button nzType="primary" (click)="SubmitClick()">提交保存</button>
   <button nz-button class="ml-sm" (click)="cancelClick()">关闭</button>
 </div>

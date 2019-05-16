@@ -1,51 +1,82 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivationEnd } from '@angular/router';
+import { Component, Input, ViewContainerRef, ViewChild, QueryList, ViewChildren, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit } from '@angular/core';
+import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-
+import { dataServices } from '../../services';
+import {_} from 'underscore';
+//import { Components } from './../../workflowmanager.components';
+//import {AtestComponent} from './../../components/atest/atest.component';
+import { ComponentPanelComponent } from './component-panel/component-panel.component';
 @Component({
   selector: 'app-workflow',
+  //entryComponents: [...Components],
   templateUrl: './workflow.component.html',
   styleUrls: ['./workflow.component.scss']
 })
-export class WorkflowComponent implements OnInit {
-  private router$: Subscription;
-  tabs: any[] = [
-    {
-      key: 'A',
-      tab: '待分配',
-    },
-    {
-      key: 'B',
-      tab: '待审核',
-    },
-  ];
+export class WorkflowComponent implements OnDestroy, OnInit {
+  task: any = {};
+  DataList:any = [];
+  ComponentList:any = [];
+  // @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private dataServices: dataServices,
+    private resolver: ComponentFactoryResolver,
+  ) { }
 
-  pos = 0;
 
-  constructor(private router: Router) {}
-
-  private setActive() {
-    const key = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
-    const idx = this.tabs.findIndex(w => w.key === key);
-    if (idx !== -1) this.pos = idx;
-  }
 
   ngOnInit(): void {
-    this.router$ = this.router.events
-      .pipe(filter(e => e instanceof ActivationEnd))
-      .subscribe(() => this.setActive());
-    this.setActive();
+    //接收参数
+    this.task.taskId = this.route.snapshot.queryParams["taskId"];
+    this.task.taskcode = this.route.snapshot.queryParams["taskcode"];
   }
 
-  to(item: any) {
-    this.router.navigateByUrl(`/workflow/${item.key}`);
+  ngAfterContentInit() {
+    this.loadComponent()
+    //console.log(this.childComponents)
   }
 
   ngOnDestroy() {
-    this.router$.unsubscribe();
+
   }
 
+  loadComponent() {
+    var self = this;
+    var postData:any = {
+      taskDefinitionKey: this.task.taskcode
+    }
+    this.dataServices.opentaskComponent(postData).subscribe(result => {
+      if (result != null) {
+        self.DataList = result.data;
+        if(self.DataList.length > 0 ){
+          self.ComponentList = self.DataList[0].componentlist
+        }
+      }
+    })
+  }
+
+  ItemClick(item){
+    _.each(this.DataList,it=>{it.active = false})
+    this.ComponentList =item.componentlist;
+    item.active = true;
+  }
+
+  DealTask(e) {
+    // var self = this;
+    // var postData: any = {
+    //   id: this.taskId
+    // }
+    // this.dataServices.task_finishcurrtask(postData).subscribe(result => {
+    //   if (result != null) {
+    //     console.log(result);
+    //   }
+    // })
+  }
+
+  ClosePage() {
+    this.router.navigate(['/workflow/tasklist']);
+  }
 }
 
 

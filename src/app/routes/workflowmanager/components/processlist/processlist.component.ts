@@ -14,7 +14,7 @@ import { comservices} from '../../../../shared/services';
 @Component({
   selector: 'app-processlist',
   templateUrl: './processlist.component.html',
-  styleUrls: ['./processlist.component.scss']
+  styleUrls: ['./processlist.component.less']
 })
 export class ProcesslistComponent implements OnInit {
   DataList:any = []
@@ -53,11 +53,20 @@ export class ProcesslistComponent implements OnInit {
     if(this.searchObject.searchText){
       postData.filterText = this.searchObject.searchText
     }
-    this.dataServices.process_model(postData).subscribe(result => {
+    this.dataServices.process_find(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount = result.recordcount;
       }
     })
+  }
+
+  SearchClick(e){
+    this.loadData();
+  }
+  readProcessDefAct(item){
+    var self = this;
+    this.router.navigate(['/workflow/processconfig'],{ queryParams: { processId: item.id } });
+    
   }
 }

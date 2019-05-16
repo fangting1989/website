@@ -1,0 +1,58 @@
+<page-header [title]="'单号：234231029431'" [logo]="logo" [action]="action">
+  <ng-template #logo>
+    <nz-avatar nzSize="large" [nzText]="'流程'"></nz-avatar>
+  </ng-template>
+  <ng-template #action>
+    <nz-button-group>
+      <button nz-button>查看流程图</button>
+    </nz-button-group>
+  </ng-template>
+</page-header>
+
+<div class="main">
+  <ul nz-menu class="menu">
+    <!-- [nzSelectable]="item.active" -->
+    <li nz-menu-item *ngFor="let item of DataList" [nzSelected]="item.active" (click)="ItemClick(item)">{{item.name}}
+    </li>
+  </ul>
+  <div class="content">
+    <div class="title"><button nz-button nzType="primary" (click)="addContent()">增加组件内容</button></div>
+    <nz-card class="content-panel" nzType="inner" [nzTitle]="data.name" *ngFor="let data of ContentList" [nzExtra]="extraTemplate">
+        <nz-card (click)="AddComponent(data)"
+        style="width:25%; height: 134px; display: inline-flex; align-items: center;justify-content: center;">
+        <div>
+          <i nz-icon type="plus"></i> 增加组件
+        </div>
+      </nz-card>
+      <nz-card [nzActions]="[op1, op2]" *ngFor="let dataitem of data.ComponentList" style="width:25%;">
+        <ng-template #op1>
+          <a (click)="editComponentItem(dataitem)">编辑</a>
+        </ng-template>
+        <ng-template #op2>
+          <a (click)="delComponentItem(dataitem)">删除</a>
+        </ng-template>
+        <nz-card-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+          <ng-template #nzAvatar>
+            <nz-avatar nzSize="large" [nzText]="'组件'"></nz-avatar>
+          </ng-template>
+          <ng-template #nzTitle>
+            <a>{{dataitem.componentname}}</a>
+          </ng-template>
+          <ng-template #nzDescription>
+            <ellipsis>{{dataitem.description}}</ellipsis>
+          </ng-template>
+        </nz-card-meta>
+      </nz-card>
+
+      <ng-template #extraTemplate>
+          <nz-dropdown >
+              <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+              <ul nz-menu>
+                <li nz-menu-item (click)="EditContentItem(data)" >编辑</li>
+                <li nz-menu-item (click)="DelContentItem(data)" >删除</li>
+              </ul>
+            </nz-dropdown>
+        </ng-template>
+    </nz-card>
+  </div>
+</div>

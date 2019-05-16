@@ -7,7 +7,7 @@
           <thead>
             <tr>
               <th>填写时间</th>
-              <th>意向金</th>
+              <th *ngIf="false">意向金</th>
               <th>基础保证金</th>
               <th>增量保证金</th>
               <th>状态</th>
@@ -17,7 +17,7 @@
           <tbody>
             <tr *ngFor="let data of ajaxTable.data; let i = index">
               <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
-              <td>{{data.yxj}}</td>
+              <td *ngIf="false">{{data.yxj}}</td>
               <td>{{data.jcbzj}}</td>
               <td>{{data.zlbzj}}</td>
               <td>{{data.isvalid == 99?'已确认':'未确认'}}</td>
@@ -25,13 +25,13 @@
             </tr>
           </tbody>
         </nz-table>
-
+  
 
  <div class="modal-body">
     <div nz-row nzGutter="4">
         <div nz-col nzSpan="24" class="label-t f16">备注:</div>
         <div nz-col nzSpan="22" nzOffset="2">款项总额:{{TotalMoney}}万元</div>
-        <div nz-col nzSpan="20"  nzOffset="4">已收:意向金:{{TotalYXJ}}万元</div>
+        <div nz-col nzSpan="20"  nzOffset="4" *ngIf="false">已收:意向金:{{TotalYXJ}}万元</div>
         <div nz-col nzSpan="20"  nzOffset="4">基础保证金:{{TotalJCBZJ}}万元</div>
         <div nz-col nzSpan="20"  nzOffset="4">增量保证金:{{TotalZLBZJ}}万元</div>
         <div nz-col nzSpan="22" nzOffset="2"> 待收:{{TotalDS}}万元</div>

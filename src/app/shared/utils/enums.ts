@@ -9,7 +9,7 @@ export const Enums:any = {
     partnerfromtype:[{name:'录入',value:1},{name:'分享获得',value:2}],
     partnerisvalid:[{name:'填写信息',value:1000},{name:'修改政策',value:1005},
         {name:'业务分配',value:1010},
-        {name:'征信结果录入',value:1020},
+        {name:'信息录入',value:1020},
         {name:'补充材料',value:1025},
         {name:'上传汇款单',value:1030},
         {name:'上传收款单',value:1040},{name:'填写报告',value:1050},

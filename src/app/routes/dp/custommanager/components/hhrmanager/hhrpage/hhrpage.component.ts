@@ -49,8 +49,8 @@ export class HhrpageComponent implements OnInit {
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
       enterpriseid: this.EnterPriseCode,
-      dealperson:this.comservices.getUserName,
-      validstate:"1090,1095"
+      // dealperson:this.comservices.getUserName,
+      validstate:"1090"
     }
     this.dataServices.tpartnerList(postData).subscribe(result => {
       if (result != null) {

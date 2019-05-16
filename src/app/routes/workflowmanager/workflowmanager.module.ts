@@ -7,18 +7,15 @@ import { FormsModule } from '@angular/forms';
 import { AngularSplitModule } from 'angular-split';
 
 import {WorkflowComponent,
-  WorktasklistComponent} from './compts'
+  WorktasklistComponent,
+  WorktaskcreateComponent} from './compts'
 //services
 import { dataServices } from './services';
 
-import {
-  AtestComponent,
-  BtestComponent,
-  ModelEditComponent,
-  ModelsComponent,
-  ModelAddComponent,
-} from './components';
-import { ProcesslistComponent } from './components/processlist/processlist.component';
+import {Components} from './workflowmanager.components';
+import { ComponentPanelComponent } from './compts/workflow/component-panel/component-panel.component';
+import { SelWorkflowComponentComponent } from './components/processlist/sel-workflow-component/sel-workflow-component.component';
+import { AddprocesscontentComponent } from './components/processlist/addprocesscontent/addprocesscontent.component';
 
 
 @NgModule({
@@ -31,22 +28,22 @@ import { ProcesslistComponent } from './components/processlist/processlist.compo
   ],
   declarations: [
     WorkflowmanagerMain,
-    AtestComponent,
-    BtestComponent,
+    ...Components,
     WorktasklistComponent,
     WorkflowComponent,
-    ModelsComponent,
-    ModelEditComponent,
-    ModelAddComponent,
-    ProcesslistComponent,
+    WorktaskcreateComponent,
+    ComponentPanelComponent,
+    SelWorkflowComponentComponent,
+    AddprocesscontentComponent,
   ],
   providers: [
     dataServices
   ],
   entryComponents: [
     WorkflowComponent,
-    ModelEditComponent,
-    ModelAddComponent
+    SelWorkflowComponentComponent,
+    AddprocesscontentComponent,
+    ...Components,
   ]
 })
 export class WorkflowManagerModule {

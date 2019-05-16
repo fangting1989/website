@@ -18,7 +18,7 @@ WebConfig =
                 TokenCookie: {
                         name:'__mkweb-website-token-cookies',
                         type:'s',
-                        expire:600
+                        expire:2400
                 },
                 Token: false,
                 RequestUrl: {
