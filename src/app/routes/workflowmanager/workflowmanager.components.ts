@@ -7,6 +7,7 @@ import {
     ProcessconfigComponent,
     ProcesslistComponent,
     CompDefinedComponent,
+    TProcesscomponentEditComponent,
   } from './components';
 
   export const Components = [
@@ -18,4 +19,5 @@ import {
     ProcessconfigComponent,
     ProcesslistComponent,
     CompDefinedComponent,
+    TProcesscomponentEditComponent,
 ]

@@ -19,5 +19,16 @@ export const Enums:any = {
         {name:'完成',value:1100},
        ],
     outmoneyisvalid:[{name:'招商初审',value:1000,partname:'招商部'},{name:'分公司主审',value:1010,partname:'分公司'},
-    {name:'集团终审',value:1020,partname:'集团'},{name:'审批不通过',value:1025},{name:'待打款',value:1030},{name:'完成',value:1040}]
+    {name:'集团终审',value:1020,partname:'集团'},{name:'审批不通过',value:1025},{name:'待打款',value:1030},{name:'完成',value:1040}],
+    ComponentState:{
+        Success:{
+            code:99,
+            msg:'检测通过'
+        },
+        Error:{
+            code:-1,
+            msg:'数据保存'
+        }
+    },
+    ComponentMode:[{name:'只读',value:1},{name:'编辑',value:2}]
 }

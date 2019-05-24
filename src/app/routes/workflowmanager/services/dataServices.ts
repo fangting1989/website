@@ -32,6 +32,15 @@ export class dataServices {
         return this.baseServices.getData("defProcessApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
     }
 
+    public processGet(data): any {
+        return this.baseServices.getData("defProcessApiService/get", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //查看流程图
+    public process_viewimage(data): any {
+        return this.baseServices.getData("defProcessApiService/viewimage", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
+
     //createprocess
     public process_create(data): any {
         return this.baseServices.getData("defProcessApiService/createprocess", data,WebConfig.RequestUrl.flowableworkflow)
@@ -46,7 +55,7 @@ export class dataServices {
     }
     //在办流程查询
     public task_finishcurrtask(data): any {
-        return this.baseServices.getData("taskApiService/finishcurrtask", data,WebConfig.RequestUrl.flowableworkflow)
+        return this.baseServices.postData("taskApiService/finishcurrtask", data,WebConfig.RequestUrl.flowableworkflow)
     }
     //在办流程查询
     public task_delete(data): any {
@@ -133,6 +142,31 @@ export class dataServices {
     public tprocesscontentDel(data): any {
         return this.baseServices.getData("TProcesscontentApiService/delete", data,WebConfig.RequestUrl.flowableworkflow)
     }
+    //锁定任务
+    public task_locktask(data): any {
+        return this.baseServices.getData("taskApiService/locktask", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //释放任务
+    public task_unlocktask(data): any {
+        return this.baseServices.getData("taskApiService/unlocktask", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //历史节点
+    public hisprocesstask(data): any {
+        return this.baseServices.postData("taskApiService/hisprocesstask", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //流程驳回
+    public rollbacktask(data): any {
+        return this.baseServices.postData("taskApiService/rollbacktask", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //驳回意见
+    public rollbackadvice(data): any {
+        return this.baseServices.postData("taskApiService/rollbackadvice", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //流程图
+    public processDiagram(data): any {
+        return this.baseServices.getData("taskApiService/processDiagram", data,WebConfig.RequestUrl.flowableworkflow)
+    }
     
     
+
 }

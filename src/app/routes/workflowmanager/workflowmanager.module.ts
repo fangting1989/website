@@ -8,7 +8,9 @@ import { AngularSplitModule } from 'angular-split';
 
 import {WorkflowComponent,
   WorktasklistComponent,
-  WorktaskcreateComponent} from './compts'
+  WorktaskcreateComponent,
+  TApprovedEditComponent,
+  WorkflowRollbackComponent} from './compts'
 //services
 import { dataServices } from './services';
 
@@ -17,14 +19,18 @@ import { ComponentPanelComponent } from './compts/workflow/component-panel/compo
 import { SelWorkflowComponentComponent } from './components/processlist/sel-workflow-component/sel-workflow-component.component';
 import { AddprocesscontentComponent } from './components/processlist/addprocesscontent/addprocesscontent.component';
 
+import {dpCarWorkFlowComponents} from './../dpcar/dpcarmanager.workflow.component';
+//组件导入
+import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    routing,
     AngularSplitModule,
-    SharedModule
+    SharedModule,
+    routing, 
+    DpcarmanagerModule, 
   ],
   declarations: [
     WorkflowmanagerMain,
@@ -35,6 +41,8 @@ import { AddprocesscontentComponent } from './components/processlist/addprocessc
     ComponentPanelComponent,
     SelWorkflowComponentComponent,
     AddprocesscontentComponent,
+    TApprovedEditComponent,
+    WorkflowRollbackComponent,
   ],
   providers: [
     dataServices
@@ -43,7 +51,11 @@ import { AddprocesscontentComponent } from './components/processlist/addprocessc
     WorkflowComponent,
     SelWorkflowComponentComponent,
     AddprocesscontentComponent,
+    TApprovedEditComponent,
+    WorkflowRollbackComponent,
     ...Components,
+    ...dpCarWorkFlowComponents,
+
   ]
 })
 export class WorkflowManagerModule {

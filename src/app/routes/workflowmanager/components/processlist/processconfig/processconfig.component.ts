@@ -12,6 +12,7 @@ import { comservices} from '../../../../../shared/services';
 
 import {SelWorkflowComponentComponent} from './../sel-workflow-component/sel-workflow-component.component';
 import {AddprocesscontentComponent} from './../addprocesscontent/addprocesscontent.component';
+import {TProcesscomponentEditComponent} from './../tprocesscomponent-edit/tprocesscomponent-edit.component';
 @Component({
   selector: 'app-processconfig',
   templateUrl: './processconfig.component.html',
@@ -19,6 +20,7 @@ import {AddprocesscontentComponent} from './../addprocesscontent/addprocessconte
 })
 export class ProcessconfigComponent implements OnInit {
   model:any ={}
+  processItem:any ={};
   DataList:any = []
   ContentList:any = []
   searchObject:any = {
@@ -32,6 +34,7 @@ export class ProcessconfigComponent implements OnInit {
   loading = false;
   EnterPriseCode:any;
   processId:any;
+  deploymentid:any;
   CurrContentCode:any;
   constructor(
     public msg: NzMessageService,
@@ -48,7 +51,61 @@ export class ProcessconfigComponent implements OnInit {
 
   ngOnInit() {
     this.processId = this.route.snapshot.queryParams["processId"];
+    this.deploymentid = this.route.snapshot.queryParams["deploymentid"];
     this.loadData();
+    this.loadProcessData();
+  }
+
+  loadProcessData(){
+    var postData:any = {
+      processid:this.processId
+    }
+    this.dataServices.processGet(postData).subscribe(result => {
+      if(result){
+        this.processItem = result.data;
+      }
+    })
+  }
+
+  showProcessImage(){
+    var postData:any = {
+      processDefinitionId:this.processId
+    }
+    this.dataServices.process_viewimage(postData).subscribe(result => {
+      if(result){
+        var imageItem = {
+          filepath:WebConfig.BaseUrl + WebConfig.RequestUrl.flowableworkflow+ result.data
+        }
+        ComFun.ImageViewer(imageItem,true)
+      }
+    })
+  }
+
+  deleteProcess(){
+    //
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确认删除对象</b>',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        if(!self.deploymentid){
+          self.msg.error("没有找到标识码");
+          return;
+        }
+        var postData:any = {
+          ids:self.deploymentid
+        }
+        self.dataServices.process_delete(postData).subscribe(result => {
+          if(result){
+            self.goBack();
+          }
+        })
+      }
+    })
+
+    
   }
 
   loadData(){
@@ -121,6 +178,11 @@ export class ProcessconfigComponent implements OnInit {
 
 
   editComponentItem(item){
+    var self = this;
+    var data = {HeadText:'编辑组件',itemdata:item}
+    const modal = this.modalHelper.create(TProcesscomponentEditComponent,{ data: data},{size:800}).subscribe(res => {
+      self.loadContent(self.CurrItem);
+    });
 
   }
 
@@ -180,6 +242,10 @@ export class ProcessconfigComponent implements OnInit {
       
       }
     });
+  }
+
+  goBack(){
+    history.go(-1);
   }
 }
 

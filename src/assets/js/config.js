@@ -30,6 +30,7 @@ WebConfig =
                         sellsiteservice:'http://127.0.0.1:8220/',
                         dpworkservice:'http://127.0.0.1:8700/',
                         flowableworkflow:'http://127.0.0.1:8400/',
+                        dpcarworkservice:'http://127.0.0.1:8750/',
                 },
                 hhr:{
                         100:{

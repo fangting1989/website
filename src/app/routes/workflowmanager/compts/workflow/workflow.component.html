@@ -1,29 +1,70 @@
-<div class="page-container">
-  <nz-card [nzBordered]="false" nzTitle="流程名称">
-    <ng-container>
-      这是我的测试内容
-    </ng-container>
-  </nz-card>
-  
-
-
-  <nz-row [nzGutter]="24" class="py-lg">
-      <nz-col [nzSpan]="6">
-        <nz-card class="ant-card__body-nopadding" >
-          <a (click)="ItemClick(item)" *ngFor="let item of DataList"   class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':item.active===true}">{{item.name}}</a>
-        </nz-card>
-      </nz-col>
-      <nz-col [nzSpan]="18">
-          <workflow-component-panel *ngFor="let componentitem of ComponentList" [ComponentItem]="componentitem"></workflow-component-panel>
-      </nz-col>
-    </nz-row>
-
+<div class="page-container pt-sm">
   <nz-card [nzBordered]="false">
     <ng-container>
-      <button style="float:right;margin-right: 20px;" nz-button type="button" (click)="DealTask($event)"
-        [nzType]="'primary'"><i nz-icon type="plus"></i>转出业务</button>
-      <button style="float:right;margin-right: 20px;" nz-button type="button" (click)="ClosePage()"
-        [nzType]="'primary'"><i nz-icon type="plus"></i>关闭</button>
+      <div class="path-back-bar">
+        <div class="path-back inlineblock">
+          <i nz-icon [type]="'environment'"></i>
+          <a href="javascript:;" class="link backEvt" (click)="navBack()">返回上级</a>&nbsp;&gt;&nbsp;<span
+            class="current-page">贷款材料上传</span>
+        </div>
+        <div style="float: right">
+          <div class="key-value-box inlineblock"><span class="key">借款人：</span><span class="value">测试流程</span></div>
+          <div class="key-value-box inlineblock"><span class="key">订单生成时间：</span><span class="value">2019-05-17
+              19:29</span> <nz-dropdown >
+                <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+                <ul nz-menu>
+                  <li nz-menu-item (click)="ReadProcessImage(data)" >查看流程图</li>
+                  <li nz-menu-item (click)="DelContentItem(data)" >删除</li>
+                </ul>
+              </nz-dropdown></div>
+        </div>
+      </div>
+    </ng-container>
+  </nz-card>
+  <nz-card [nzBordered]="false" *ngIf="RollBackAdviceDataList.length > 0">
+    <ng-container>
+        <nz-alert *ngFor="let item of RollBackAdviceDataList"
+        nzType="error"
+        nzMessage="驳回意见:"
+        [nzDescription]="item.approvedcontent"
+      >
+      </nz-alert>
+    </ng-container>
+    </nz-card>
+
+
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab">
+    <nz-tab *ngFor="let item of DataList" [nzTitle]="item.name">
+        <workflow-component-panel class="component-item" *ngFor="let componentitem of item.componentlist" [ComponentItem]="componentitem" [task]="task">
+        </workflow-component-panel>
+    </nz-tab>
+  </nz-tabset>
+
+
+
+  <!-- <nz-row [nzGutter]="24" class="py-lg">
+    <nz-col [nzSpan]="6">
+      <nz-card class="ant-card__body-nopadding">
+        <a (click)="ItemClick(item)" *ngFor="let item of DataList" class="d-block py-sm px-md"
+          [ngClass]="{'bg-primary-light text-white':item.active===true}">{{item.name}}</a>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="18">
+      <workflow-component-panel *ngFor="let componentitem of ComponentList" [ComponentItem]="componentitem">
+      </workflow-component-panel>
+    </nz-col>
+  </nz-row> -->
+
+  <nz-card [nzBordered]="false" class="wf-btm-card-nav">
+    <ng-container>
+      <div class="nav-panel">
+          <button nz-button nzType="danger" (click)="BackProcess()">退回业务</button>
+          <button  nz-button type="button" (click)="SubmitProcess()"
+            [nzType]="'primary'"><i nz-icon type="plus"></i>提交业务</button>
+            <button  nz-button type="button" (click)="ClosePage()"
+            [nzType]="'default'"><i nz-icon type="plus"></i>关闭返回</button>
+      </div>
+        
     </ng-container>
   </nz-card>
 </div>

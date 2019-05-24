@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<div *ngIf="HisDataList.length == 0">
+  <div>
+    <nz-alert nzType="error" nzMessage="{{errText}}"></nz-alert>
+  </div>
+  <div class="modal-footer">
+    <button nz-button nzType="default" *ngIf="HisDataList.length == 0" (click)="cancelClick()"
+      [nzLoading]="submitting">关闭</button>
+  </div>
+</div>
+
+<div *ngIf="HisDataList.length >0">
+  <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+    <nz-form-item>
+      <nz-form-control [nzSpan]="20" [nzOffset]="2">
+          <nz-select
+          name="targetNodeId"
+          style="width: 120px;"
+          [(ngModel)]="model.targetNodeId"
+          (ngModelChange)="targetChanged($event)"
+          nzAllowClear
+          nzPlaceHolder="Choose"
+        >
+          <nz-option *ngFor="let option of HisDataList" [nzValue]="option.activityid" [nzLabel]="option.activityname"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzSpan]="20" [nzOffset]="2">
+        <textarea nz-input name="approvedcontent" [nzAutosize]="{minRows: 4}"
+          [(ngModel)]="model.approvedcontent"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div class="modal-footer">
+    <button nz-button nzType="primary" *ngIf="HisDataList.length > 0" (click)="saveClick()" type="submit"
+      [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  </div>
+</div>

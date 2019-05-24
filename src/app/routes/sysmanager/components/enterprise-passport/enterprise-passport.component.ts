@@ -34,14 +34,15 @@ export class EnterprisePassportComponent implements OnInit {
   }
 
   loadData(){
-    var self = this;
+    var self = this; 
     var postData = {
       enterpriseid:this.enterpriseData.keycode,
       leveltype:2
     }
     this.sysService.findUser(postData).subscribe(result => {
-      if(result && result.length > 0){
+      if(result && result.data.length > 0){
         this.model = result.data[0]
+        console.log(this.model)
       }
     }) 
   }

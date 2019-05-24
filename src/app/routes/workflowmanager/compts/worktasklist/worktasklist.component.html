@@ -60,9 +60,12 @@
               <td>{{data.name}}</td>
               <td>{{data.processDefinitionId}}</td>
               <td>{{data.taskDefinitionKey}}</td>
-              <td>
-                  <a (click)="OpenProcess(data)">打开流程组件</a>
-                <!-- <a (click)="dealtask(data)">业务办理</a> -->
+              <td class="listnav" *ngIf="data.assign">
+                  <a (click)="OpenProcess(data)">立即处理</a>
+                  <a (click)="unlockTask(data)">解锁</a>
+              </td>
+              <td class="listnav" *ngIf="!data.assign">
+                  <a (click)="dealprocess(data)">立即处理</a>
               </td>
             </tr>
           </tbody>

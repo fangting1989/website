@@ -6,3 +6,4 @@ export * from './models/model-add/model-add.component';
 export * from './processlist/processlist.component';
 export * from './processlist/processconfig/processconfig.component';
 export * from './comp-defined/comp-defined.component';
+export * from './processlist/tprocesscomponent-edit/tprocesscomponent-edit.component';

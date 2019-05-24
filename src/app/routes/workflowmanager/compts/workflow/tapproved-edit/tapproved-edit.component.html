@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+    <nz-form-item>
+        <nz-form-control [nzSpan]="20" [nzOffset]="2">
+            <textarea nz-input name="approvedcontent" [nzAutosize]="{minRows: 4}" [(ngModel)]="model.approvedcontent"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+  <!-- <se [labelWidth]="0">
+      
+  </se> -->
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+</div>

@@ -47,6 +47,7 @@ export class WorktasklistComponent implements OnInit {
     var postData:any = {
       pagesize:this.PageSize,
       pagenum:this.PageNum,
+      currusercode:this.comservices.getUserCode,
       enterpriseid: this.EnterPriseCode
     }
     this.dataServices.taskfind(postData).subscribe(result => {
@@ -66,12 +67,43 @@ export class WorktasklistComponent implements OnInit {
     this.router.navigate(['/workflow/tasklistcreate']);
   }
 
+  //处理流程
+  dealprocess(data){
+    //锁定任务
+    var self = this;
+    var postData:any = {
+      taskid:data.id,
+      usercode: this.comservices.getUserCode,
+      username:this.comservices.getUserName,
+    }
+    this.dataServices.task_locktask(postData).subscribe(result => {
+      if (result != null) {
+        console.log(result)
+        self.OpenProcess(data)
+        
+      }
+    })
+  }
+  unlockTask(data){
+    //锁定任务
+    var self = this;
+    var postData:any = {
+      taskid:data.id,
+    }
+    this.dataServices.task_unlocktask(postData).subscribe(result => {
+      if (result != null) {
+        self.DataList = result.data;
+        self.TotalCount = result.recordcount;
+      }
+    })
+  }
+
   changeState(e,item){
     this.loadData();
   }
 
-  OpenProcess(item){
-    this.router.navigate(['/workflow/taskworkflow'],{ queryParams: { taskid: item.id,taskcode:item.taskDefinitionKey } });
+  OpenProcess(item){ 
+    this.router.navigate(['/workflow/taskworkflow'],{ queryParams: { taskid: item.id,taskcode:item.taskDefinitionKey,processinstanceid:item.processInstanceId } });
   }
 }
 

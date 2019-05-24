@@ -57,8 +57,14 @@ export class UserlistComponent implements OnInit {
   LoadTreeData(){
     this.model = {}
     this.SelTreeData = []
-    //初始化选择 {key:"-1",title:"默认类别",isLeaf:true}
-    this.SelTypeTreeData = []
+    //初始化选择 
+    if(this.typeItemBox == 1){
+      //部门类别可以有默认类别
+      this.SelTypeTreeData = [{key:"-1",title:"默认类别",isLeaf:true}]
+    }else{
+      this.SelTypeTreeData = []
+    }
+    
     //加载默认数据
     this.loadChildTreeData(-1,null,null)
   }

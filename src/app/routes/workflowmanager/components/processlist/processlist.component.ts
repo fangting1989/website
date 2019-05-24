@@ -66,7 +66,8 @@ export class ProcesslistComponent implements OnInit {
   }
   readProcessDefAct(item){
     var self = this;
-    this.router.navigate(['/workflow/processconfig'],{ queryParams: { processId: item.id } });
+    console.log(item)
+    this.router.navigate(['/workflow/processconfig'],{ queryParams: { processId: item.id,deploymentid:item.deploymentid } });
     
   }
 }

@@ -141,3 +141,16 @@ body,.ant-table {
         font-weight: 700;
     }
 }
+/*调整工作流样式*/
+.wf-tab{
+    .ant-tabs-bar{
+        margin:0px !important;
+        border-bottom: 3px solid #1890ff;
+      }
+    &.ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+        background: #1890ff;
+        border-color: #e8e8e8;
+        color: #fff;
+        padding-bottom: 1px;
+    }
+}

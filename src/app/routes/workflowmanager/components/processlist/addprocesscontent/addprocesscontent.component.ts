@@ -10,7 +10,7 @@ import { comservices } from '../../../../../shared/services';
 })
 export class AddprocesscontentComponent implements OnInit {
   data: any;
-  model: any = {}
+  model: any = {isvalid:1}
   EnterPriseCode: any;
   submitting:any = false;
   stateArray: any = Object.assign([], Enums.stateArray);

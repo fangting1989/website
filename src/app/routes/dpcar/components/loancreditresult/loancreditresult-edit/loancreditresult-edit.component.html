@@ -1,0 +1,34 @@
+<div class="modal-header" *ngIf="componentMode == 'module'">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+  <se label="征信编号ID">
+    <input type="text" name="creditid" nz-input [(ngModel)]="model.creditid" name="creditid" />
+  </se>
+  <se label="orderno">
+    <input type="text" name="orderno" nz-input [(ngModel)]="model.orderno" name="orderno" />
+  </se>
+  <se label="creditname">
+    <input type="text" name="creditname" nz-input [(ngModel)]="model.creditname" name="creditname" />
+  </se>
+  <se label="creditunit">
+    <input type="text" name="creditunit" nz-input [(ngModel)]="model.creditunit" name="creditunit" />
+  </se>
+  <se label="征信字段code">
+    <input type="text" name="creditkey" nz-input [(ngModel)]="model.creditkey" name="creditkey" />
+  </se>
+  <se label="征信字段值">
+    <input type="text" name="creditval" nz-input [(ngModel)]="model.creditval" name="creditval" />
+  </se>
+</form>
+<div class="modal-footer" *ngIf="componentMode == 'module'">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

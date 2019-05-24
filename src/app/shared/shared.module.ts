@@ -26,7 +26,8 @@ import {
   mkEnumformatPipe,
   mkSafeUrlformatPipe,
 } from './pipes';
-import { EditorTinymceComponent } from './components';
+import { EditorTinymceComponent,
+  WorkflowBaseComponent } from './components';
 
 import {
   mkAutoSizeDirective

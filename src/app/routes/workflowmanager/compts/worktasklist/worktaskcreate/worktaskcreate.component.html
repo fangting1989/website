@@ -1,58 +1,64 @@
 <div class="page-container">
   <nz-card [nzBordered]="false">
-      <form nz-form [nzLayout]="'inline'"  class="search__form">
-          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
-              <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
-                <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
-                </nz-form-control>
-              </nz-form-item>
-            </nz-col>
-            <nz-col>
-              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <a class="icon-more" (click)="expandForm=!expandForm">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a>
-            </nz-col>
-          </nz-row>
-        </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
-          <se label="是否有效:" line>
-              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
-                (nzCheckedChange)="changeState($event, i)">
-                {{i.name}}
-              </nz-tag>
-          </se>
+    <form nz-form [nzLayout]="'inline'" class="search__form">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..."
+                id="txtsearch">
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col>
+          <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+            [nzLoading]="loading">查询</button>
+          <a class="icon-more" (click)="expandForm=!expandForm">
+            {{expandForm ? '收起' : '展开'}}
+            <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+          </a>
+        </nz-col>
+      </nz-row>
+    </form>
+    <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+      <se label="是否有效:" line>
+        <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
+          (nzCheckedChange)="changeState($event, i)">
+          {{i.name}}
+        </nz-tag>
+      </se>
 
-        </form>
+    </form>
   </nz-card>
   <nz-card [nzBordered]="false">
     <ng-container>
-      <nz-card nzHoverable  [nzActions]="[op1, op2]" *ngFor="let data of DataList" style="width:25%;">
-        <ng-template #op1>
-          <a (click)="msg.success('操作一：' + data.id);">业务说明</a>
-        </ng-template>
-        <ng-template #op2>
-          <a (click)="createUserTask(data)">创建业务</a>
-        </ng-template>
-        <nz-card-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
-          <ng-template #nzAvatar>
-            <nz-avatar nzSize="large" [nzText]="'流程'"></nz-avatar>
-          </ng-template>
-          <ng-template #nzTitle>
-            <a (click)="msg.success('标题：' + data.id);">{{data.name}}</a>
-          </ng-template>
-          <ng-template #nzDescription>
-            <ellipsis>{{data.description}}</ellipsis>
-          </ng-template>
-        </nz-card-meta>
-      </nz-card>
+
+      <nz-row>
+        <nz-col [nzSpan]="6" *ngFor="let data of DataList" class="process-item" >
+            <nz-card nzHoverable [nzActions]="[op1, op2]" >
+                <ng-template #op1>
+                  <a (click)="msg.success('操作一：' + data.id);">业务说明</a>
+                </ng-template>
+                <ng-template #op2>
+                  <a (click)="createUserTask(data)">创建业务</a>
+                </ng-template>
+                <nz-card-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                  <ng-template #nzAvatar>
+                    <nz-avatar nzSize="large" [nzText]="'流程'"></nz-avatar>
+                  </ng-template>
+                  <ng-template #nzTitle>
+                    <a (click)="msg.success('标题：' + data.id);">{{data.name}}</a>
+                  </ng-template>
+                  <ng-template #nzDescription>
+                    <ellipsis>{{data.description}}</ellipsis>
+                  </ng-template>
+                </nz-card-meta>
+              </nz-card>
+        </nz-col>
+      </nz-row>
+
+      
     </ng-container>
   </nz-card>
 </div>
-
-
-
