@@ -50,7 +50,7 @@ export class PsysapprovedlogComponent implements OnInit {
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
       enterpriseid: this.EnterPriseCode,
-      validstate:"1090,1095",
+      minvalidstate:1070,
       dealperson:this.comservices.getUserName
     }
     this.dataServices.tpartnerList(postData).subscribe(result => {

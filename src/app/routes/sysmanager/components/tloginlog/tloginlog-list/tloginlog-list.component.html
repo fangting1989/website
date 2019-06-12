@@ -1,0 +1,52 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+                <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              </nz-col>
+          </nz-row>
+        </form>
+        
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <th>时间</th>
+            <th>用户</th>
+            <th>IP</th>
+            <th>地区</th>
+            <th>浏览器</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.logindate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.username}}</td>
+            <td>{{data.ipaddress}}</td>
+            <td>{{data.cityaddress}}</td>
+            <td>{{data.browername}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

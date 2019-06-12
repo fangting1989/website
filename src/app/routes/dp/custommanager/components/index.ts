@@ -43,6 +43,16 @@ export * from './approved/psys/psysapprovedlog/psysapprovedlog.component';
 export * from './approved/pszs/pszsprocessing/pszsprocessing.component';
 export * from './approved/pszs/pszsapprovedlog/pszsapprovedlog.component';
 
+export * from './approved/zcsh/zcshprocessing/zcshprocessing.component';
+export * from './approved/zcsh/zcshapprovedlog/zcshapprovedlog.component';
+export * from './approved/zcsh/approved-zcsh/approved-zcsh.component';
+export * from './approved/zcsh/zcsh.component';
+
+export * from './approved/psyspre/psyspre.component';
+export * from './approved/psyspre/approved-psyspre/approved-psyspre.component';
+export * from './approved/psyspre/psyspreapprovedlog/psyspreapprovedlog.component';
+export * from './approved/psyspre/psyspreprocessing/psyspreprocessing.component';
+
 export * from './txmanager/zs/zspreapproved/zspreapproved.component';
 export * from './txmanager/zs/zspretx/zspretx.component';
 export * from './txmanager/zs/zspretxlog/zspretxlog.component';

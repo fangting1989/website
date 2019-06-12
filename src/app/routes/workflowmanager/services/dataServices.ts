@@ -166,7 +166,68 @@ export class dataServices {
     public processDiagram(data): any {
         return this.baseServices.getData("taskApiService/processDiagram", data,WebConfig.RequestUrl.flowableworkflow)
     }
-    
-    
+    /*service*/
+    public tworkflowroleList(data): any {
+        return this.baseServices.getData("TWorkflowroleApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
+    }
 
+    public tworkflowroleIn(data): any {
+        return this.baseServices.postData("TWorkflowroleApiService/insert", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+
+    public tworkflowroleUp(data): any {
+        return this.baseServices.postData("TWorkflowroleApiService/update", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+
+    public tworkflowroleDel(data): any {
+        return this.baseServices.getData("TWorkflowroleApiService/delete", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //用户
+    public enterprise_findAllUser(data): any {
+        return this.baseServices.getData("TAdminuserApiService/enterprise_findAllUser", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tuserworkflowroleList(data): any {
+        return this.baseServices.getData("TUserworkflowroleApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tuserworkflowroleIn(data): any {
+        return this.baseServices.postData("TUserworkflowroleApiService/insert", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tuserworkflowroleDel(data): any {
+        return this.baseServices.getData("TUserworkflowroleApiService/delete", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //授权用户
+    public roleproweruser(data): any {
+        return this.baseServices.getData("TUserworkflowroleApiService/roleproweruser", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tprocessenterpriseList(data): any {
+        return this.baseServices.getData("TProcessenterpriseApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
+    public tprocessenterpriseIn(data): any {
+        return this.baseServices.postData("TProcessenterpriseApiService/insert", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
+    public tprocessenterpriseUp(data): any {
+        return this.baseServices.postData("TProcessenterpriseApiService/update", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
+    public tprocessenterpriseDel(data): any {
+        return this.baseServices.getData("TProcessenterpriseApiService/delete", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //授权流程
+    public tprocessenterprise_prowerprocess(data): any {
+        return this.baseServices.getData("TProcessenterpriseApiService/prowerprocess", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //企业流程
+    public enterprise_process(data): any {
+        return this.baseServices.getData("defProcessApiService/enterprise_process", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public troleprocessList(data): any {
+        return this.baseServices.getData("TRoleprocessApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    //角色授权流程
+    public troleprocess_prowerprocess(data): any {
+        return this.baseServices.getData("TRoleprocessApiService/prowerprocess", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
 }

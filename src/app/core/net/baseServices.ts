@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 import { map } from"rxjs/operators";
 import { NzMessageService } from 'ng-zorro-antd';
 import { CacheService } from '@delon/cache'
+import {comservices} from './../../shared/services/comservices';
 @Injectable()
 export class baseServices {
     constructor(
@@ -16,7 +17,8 @@ export class baseServices {
         private _state: GlobalState,
         private Router: Router,
         private msg:NzMessageService,
-        private cacheService:CacheService
+        private cacheService:CacheService,
+        private comservices:comservices,
     ) { }
     public getData(methodurl, data,RequesturL): any {
         let url = WebConfig.BaseUrl +RequesturL + methodurl;
@@ -40,6 +42,8 @@ export class baseServices {
                             this.Router.navigate(['/login']);
                         }
                     }
+                    //刷新cache
+                    this.comservices.resetStorage();
                     if (typeof retData.errid != 'undefined' && retData.errid < 0) {
                         this.msg.error(retData.errmsg)
                         return null
@@ -68,6 +72,8 @@ export class baseServices {
                         this.Router.navigate(['/login']);
                     }
                 }
+                //刷新cache
+                // this.comservices.resetStorage();
                 if (typeof retData.errid != 'undefined' && retData.errid < 0) {
                     this.msg.error(retData.errmsg)
                     return null;

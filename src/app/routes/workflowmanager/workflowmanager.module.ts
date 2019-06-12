@@ -11,6 +11,13 @@ import {WorkflowComponent,
   WorktaskcreateComponent,
   TApprovedEditComponent,
   WorkflowRollbackComponent} from './compts'
+
+  import {
+    ProcessProweruserComponent,
+    ProcessProwerprocessComponent,
+    TProcessenterpriseEditComponent,
+TProcessenterpriseListComponent,
+  } from './components';
 //services
 import { dataServices } from './services';
 
@@ -43,6 +50,10 @@ import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
     AddprocesscontentComponent,
     TApprovedEditComponent,
     WorkflowRollbackComponent,
+    ProcessProweruserComponent,
+    ProcessProwerprocessComponent,
+    TProcessenterpriseEditComponent,
+    TProcessenterpriseListComponent,
   ],
   providers: [
     dataServices
@@ -53,6 +64,8 @@ import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
     AddprocesscontentComponent,
     TApprovedEditComponent,
     WorkflowRollbackComponent,
+    ProcessProweruserComponent,
+    TProcessenterpriseEditComponent,
     ...Components,
     ...dpCarWorkFlowComponents,
 

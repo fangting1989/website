@@ -90,6 +90,7 @@ export class TypelistComponent implements OnInit {
       if(result){
         var mmmdata:any = [];
         _.each(result.data,item =>{
+          console.log(item)
           item.key =  item.objectTypeID
           item.title = item.typeName
           item.type = "nodetype"

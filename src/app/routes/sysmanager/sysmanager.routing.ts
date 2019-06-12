@@ -5,7 +5,8 @@ import {
   ModulemanagerComponent,
   EnumerationComponent,
   TasklistComponent,
-  EnterpriselistComponent
+  EnterpriselistComponent,
+  TLoginLogListComponent
 } from './components';
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
       { path: 'enumeration', component: EnumerationComponent },
       { path: 'tasklist', component: TasklistComponent },
       { path: 'enterpriselist', component: EnterpriselistComponent },
-      
+      { path: 'loginlog', component: TLoginLogListComponent },
     ]
   }
 ];

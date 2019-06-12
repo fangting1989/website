@@ -5,6 +5,7 @@ import { SitemanagerMain } from './sitemanager.main';
 import { SharedModule } from '@shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { AngularSplitModule } from 'angular-split';
+import { FileUploadModule } from 'ng2-file-upload';
 import {
   TWebcoreEditComponent,
   TWebcoreListComponent,
@@ -18,6 +19,7 @@ import { dataServices } from './services';
     FormsModule,
     routing,
     AngularSplitModule,
+    FileUploadModule,
     SharedModule
   ],
   declarations: [

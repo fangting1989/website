@@ -28,6 +28,7 @@ export class ApprovedZsysComponent implements OnInit {
   ConfigData:any = {}
   LXRArray:any = []
   ProinstList:any = []
+  AdviceList:any = []
   // values:any;
   stateArray: any = Object.assign([], Enums.stateArray);
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
@@ -57,7 +58,21 @@ export class ApprovedZsysComponent implements OnInit {
   }
 
   InitData(){
-    
+    this.loadzsysApproved();
+  }
+
+  loadzsysApproved(){
+    var self = this;
+    var postData = {
+      enterpriseid: this.EnterPriseCode,
+      partnercode:this.dataItem.keycode,
+    }
+    this.dataServices.advice_ys(postData).subscribe(result => {
+      if (result != null && result.data.length) {
+        console.log(result)
+        this.AdviceList = result.data
+      }
+    })
   }
 
   loadApproved(){

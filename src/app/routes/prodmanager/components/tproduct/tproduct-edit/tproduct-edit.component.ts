@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
-import { NzMessageService, NzModalRef,NzModalService } from 'ng-zorro-antd';
+import { NzMessageService,NzModalService } from 'ng-zorro-antd';
 import { prodServices } from '../../../services';
 import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
@@ -8,7 +8,7 @@ import {_} from 'underscore';
 import { TproductunitComponent} from '../tproductunit/tproductunit.component'
 import { ModalHelper } from '@delon/theme';
 
-
+import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tproduct-edit',
   templateUrl: './tproduct-edit.component.html',
@@ -24,7 +24,6 @@ export class TProductEditComponent implements OnInit {
   ShowUpload:any = true;
   ImageSrc:any = '#';
   imgUrl: SafeUrl;
-  dd:any = "5"
   @ViewChild('file')
   file: ElementRef;
 
@@ -34,34 +33,43 @@ export class TProductEditComponent implements OnInit {
 
   constructor(private msg: NzMessageService,
     private dataServices: prodServices,
-    private modal: NzModalRef,
     private comservices: comservices,
     private sanitizer:DomSanitizer,
     private modalHelper:ModalHelper,
-    private modalService:NzModalService
+    private modalService:NzModalService,
+    private route:ActivatedRoute,
+    
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
 
   ngOnInit() {
-    if (this.data) {
-      if (!this.data.HeadText) {
-        this.data.HeadText = "内容编辑"
-      }
-      if (this.data.itemdata) {
-        this.model = Object.assign({}, this.data.itemdata);
-        if(this.model.productimage && this.model.productimage != ''){
-          this.ShowUpload = false;
-          this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.productimage;
-          this.file.nativeElement.value = null;
-        }
-        this.UnitDataList = this.model.listproductunit
-        this.model.producttype = "0"
-      }
-    }
-    this.model.selected = false;
-    this.loadTreeData();
+    this.loadData();
+  }
 
+  loadData(){
+    var self = this;
+    this.model = {}
+    this.model.keycode = this.route.snapshot.queryParams["keycode"];
+    this.model.enterpriseid = this.comservices.getEnterPrise
+    if(this.model.keycode){
+      this.dataServices.tproductList(this.model).subscribe(result => {
+        if (result != null && result.data.length > 0) {
+          self.model = result.data[0];
+          if(this.model.productimage && this.model.productimage != ''){
+            this.ShowUpload = false;
+            this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.productimage;
+            this.file.nativeElement.value = null;
+          }
+          this.UnitDataList = this.model.listproductunit
+          //this.model.producttype = "0"
+        }
+        this.loadTreeData();
+      })
+    }else{
+      this.loadTreeData();
+    }
+    
   }
 
   loadTreeData(){
@@ -81,7 +89,10 @@ export class TProductEditComponent implements OnInit {
         var treeData  = [];
         self.GetTreeData(-1,treeData,treeDataArray);
         self.SelTypeTreeData = treeData;
-        self.model.producttype = self.data.itemdata.producttype + ""
+        if(self.model){
+          self.model.producttype = self.model.producttype + ""
+        }
+        
       }
     })
   }
@@ -111,8 +122,6 @@ export class TProductEditComponent implements OnInit {
   }
 
   closeModal() {
-    this.modal.close(true);
-    this.modal.destroy();
   }
 
   //---图片---

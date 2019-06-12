@@ -14,7 +14,7 @@
           <nz-col class="sure-more">
             <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
               [nzLoading]="loading">查询</button>
-            <a class="icon-more" (click)="expandForm=!expandForm">
+            <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
               {{expandForm ? '收起' : '展开'}}
               <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
             </a>

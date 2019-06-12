@@ -55,6 +55,11 @@ export class dataServices {
         return this.baseServices.getData("TPartnerApiService/find", data,WebConfig.RequestUrl.dpworkservice)
     }
 
+    public tpartner_bzjList(data): any {
+        return this.baseServices.getData("TPartnerApiService/find_bzj", data,WebConfig.RequestUrl.dpworkservice)
+    }
+
+
     public tpartnerfinishList(data): any {
         return this.baseServices.getData("TPartnerApiService/findfinish", data,WebConfig.RequestUrl.dpworkservice)
     }
@@ -123,6 +128,10 @@ export class dataServices {
     public tpartnerpsbgys(data): any {
         return this.baseServices.postData("TPartnerApiService/psbgys", data,WebConfig.RequestUrl.dpworkservice)
     }
+    //评审预审
+    public tpartner_psyspretg(data): any {
+        return this.baseServices.postData("TPartnerApiService/psyspretg", data,WebConfig.RequestUrl.dpworkservice)
+    }
     //评审一审
     public tpartnerpsystg(data): any {
         return this.baseServices.postData("TPartnerApiService/psystg", data,WebConfig.RequestUrl.dpworkservice)
@@ -173,7 +182,10 @@ export class dataServices {
     public xgzc(data): any {
         return this.baseServices.postData("TPartnerApiService/xgzc", data,WebConfig.RequestUrl.dpworkservice)
     }
-
+    public zcsh(data): any {
+        return this.baseServices.postData("TPartnerApiService/zcsh", data,WebConfig.RequestUrl.dpworkservice)
+    }
+    
     /*TBankcard service*/
     public tbankcardList(data): any {
         return this.baseServices.getData("TBankcardApiService/find", data,WebConfig.RequestUrl.dpworkservice)
@@ -259,6 +271,9 @@ export class dataServices {
     //获得终审一审的意见
     public advice_spys(data): any {
         return this.baseServices.getData("TApprovedApiService/advice_spys", data,WebConfig.RequestUrl.dpworkservice)
+    }
+    public advice_ys(data): any {
+        return this.baseServices.getData("TApprovedApiService/advice_ys", data,WebConfig.RequestUrl.dpworkservice)
     }
     
     

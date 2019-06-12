@@ -52,7 +52,7 @@ export class BzjPageComponent implements OnInit {
       enterpriseid: this.EnterPriseCode,
       maxvalidstate:"1090"
     }
-    this.dataServices.tpartnerList(postData).subscribe(result => {
+    this.dataServices.tpartner_bzjList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount = result.recordcount;

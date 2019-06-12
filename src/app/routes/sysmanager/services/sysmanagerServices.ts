@@ -229,5 +229,31 @@ export class sysmanagerServices {
     //系统模块数据
     public menuList(data): any {
         return this.baseServices.getData("systemController/findsm", data,WebConfig.RequestUrl.baseservice)
+    }public tloginlogList(data): any {
+        return this.baseServices.getData("TLoginLogApiService/find", data,WebConfig.RequestUrl.baseservice)
+    }
+    
+    public tloginlogIn(data): any {
+        return this.baseServices.postData("TLoginLogApiService/insert", data,WebConfig.RequestUrl.baseservice)
+    }
+    
+    public tloginlogUp(data): any {
+        return this.baseServices.postData("TLoginLogApiService/update", data,WebConfig.RequestUrl.baseservice)
+    }
+    
+    public tloginlogDel(data): any {
+        return this.baseServices.getData("TLoginLogApiService/delete", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tsystemconfigList(data): any {
+        return this.baseServices.getData("TSystemconfigApiService/find", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tsystemconfigIn(data): any {
+        return this.baseServices.postData("TSystemconfigApiService/insert", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tsystemconfigUp(data): any {
+        return this.baseServices.postData("TSystemconfigApiService/update", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tsystemconfigDel(data): any {
+        return this.baseServices.getData("TSystemconfigApiService/delete", data,WebConfig.RequestUrl.baseservice)
     }
 }

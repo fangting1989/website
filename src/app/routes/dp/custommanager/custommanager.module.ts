@@ -61,6 +61,14 @@ TActionListComponent,
     TurnbackComponent,
     WechatroleComponent,
     BzjPageComponent,
+    ApprovedZcshComponent,
+    ZcshapprovedlogComponent,
+    ZcshprocessingComponent,
+    ZcshComponent,
+    PsyspreComponent,
+    ApprovedPsyspreComponent,
+    PsyspreapprovedlogComponent,
+    PsyspreprocessingComponent,
 } from './components';
 
 //services
@@ -187,6 +195,14 @@ TActionListComponent,
     HrrgkComponent,
     DpComponentImageComponent,
     EditBankcardComponent,
+    ApprovedZcshComponent,
+    ZcshapprovedlogComponent,
+    ZcshprocessingComponent,
+    ZcshComponent,
+    PsyspreComponent,
+    ApprovedPsyspreComponent,
+    PsyspreapprovedlogComponent,
+    PsyspreprocessingComponent,
   ],
   providers: [
     dataServices
@@ -218,6 +234,8 @@ TActionListComponent,
     DdkImagesUploadComponent,
     DpComponentImageComponent,
     EditBankcardComponent,
+    ApprovedZcshComponent,
+    ApprovedPsyspreComponent
   ]
 })
 export class CustommanagerModule {

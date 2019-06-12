@@ -1,7 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService , NzModalService } from 'ng-zorro-antd';
-import { CacheService } from '@delon/cache'
+import { CacheService } from '@delon/cache';
+import {
+  SocialService,
+  SocialOpenType,
+  TokenService,
+  DA_SERVICE_TOKEN,
+} from '@delon/auth';
 @Injectable()
 export class comservices {
 
@@ -11,6 +17,7 @@ export class comservices {
       private router:Router,
       private msg:NzMessageService,
       private cacheService:CacheService,
+      @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
   ) {
     
   }
@@ -45,5 +52,22 @@ export class comservices {
       this.router.navigate(['/login'])
       return ""
     }
-  } 
+  }
+
+  //重置对应的缓存存储时间
+  resetStorage(){
+    var UserObject = this.cacheService.getNone(WebConfig.UserObjectCookie.name)
+    if(this.UserObject){
+      this.cacheService.set(WebConfig.UserObjectCookie.name,UserObject,
+        {type:WebConfig.UserObjectCookie.type,expire:WebConfig.UserObjectCookie.expire})
+    }
+    //重置Token
+    var TokenData = this.tokenService.get().token
+    //重新存储
+    if(this.tokenService.get().token){
+      this.tokenService.set({
+        token:TokenData
+      })
+    }
+  }
 }

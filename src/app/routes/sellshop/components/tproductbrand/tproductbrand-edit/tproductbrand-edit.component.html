@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="类别名称">
+    <input type="text" name="brandname" nz-input [(ngModel)]="model.brandname" name="brandname" />
+  </se>
+  <se label="联系人">
+    <input type="text" name="linkman" nz-input [(ngModel)]="model.linkman" name="linkman" />
+  </se>
+  <se label="联系电话">
+    <input type="text" name="linktel" nz-input [(ngModel)]="model.linktel" name="linktel" />
+  </se>
+  <se label="联系地址">
+    <input type="text" name="linkaddress" nz-input [(ngModel)]="model.linkaddress" name="linkaddress" />
+  </se>
+  <se label="类别顺序">
+    <input type="text" name="brandindex" nz-input [(ngModel)]="model.brandindex" name="brandindex" />
+  </se>
+  <se label="备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

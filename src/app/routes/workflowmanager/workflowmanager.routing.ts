@@ -7,13 +7,14 @@ import { WorkflowComponent,
    } from './compts';
 
 import {
-  AtestComponent,
-  BtestComponent,
   ModelsComponent,
   ModelEditComponent,
   ProcesslistComponent,
   ProcessconfigComponent,
   CompDefinedComponent,
+  TWorkflowroleListComponent,
+  ProcessProwerprocessComponent,
+  TProcessenterpriseListComponent
 } from './components';
 
 const routes: Routes = [
@@ -29,8 +30,9 @@ const routes: Routes = [
       { path: 'tasklist', component: WorktasklistComponent },
       { path: 'tasklistcreate', component: WorktaskcreateComponent },
       { path: 'taskworkflow', component: WorkflowComponent },
-      { path: 'A', component: AtestComponent },
-      { path: 'B', component: BtestComponent },
+      { path: 'workflowrole', component: TWorkflowroleListComponent },
+      { path:'prowerprocess',component:ProcessProwerprocessComponent},
+      { path: 'processenterpriselist', component: TProcessenterpriseListComponent },
       { path: '**', redirectTo: 'tasklist' },
     ]
   }

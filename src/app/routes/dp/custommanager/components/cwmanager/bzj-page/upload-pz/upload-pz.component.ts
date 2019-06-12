@@ -78,7 +78,16 @@ export class UploadPzComponent implements OnInit {
   }
 
 
-  saveClick() { 
+  saveClick() {
+    if(Utils.accSub(this.model.jcbzj,this.TotalSY_JCBZJ) > 0){
+      this.msg.error("基础保证金超过缴存额")
+      return;
+    }
+    if(Utils.accSub(this.model.zlbzj,this.TotalSY_ZLBZJ) > 0){
+      this.msg.error("增量保证金超过缴存额")
+      return; 
+    }
+
     //判断条件
     if(this.Images.length  == 0){
       this.msg.error("请选择图片")

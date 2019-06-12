@@ -23,8 +23,10 @@ import { DashboardDefaultComponent } from './components/dashboard-default/dashbo
   providers: [
     dataServices
   ],
-  exports:[
-    Dashboard_1Component, Dashboard_2Component
+  entryComponents:[
+    Dashboard_1Component, 
+    Dashboard_2Component,
+    DashboardDefaultComponent, 
   ]
 })
 export class DashboardModule {}

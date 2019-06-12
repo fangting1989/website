@@ -1,76 +1,46 @@
-<div class="page-container">
-  <nz-card [nzBordered]="false">
-      <form nz-form [nzLayout]="'inline'"  class="search__form">
-          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
-              <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
-                <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
-                </nz-form-control>
-              </nz-form-item>
-            </nz-col>
-            <nz-col>
-              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <a class="icon-more" (click)="expandForm=!expandForm">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a>
-            </nz-col>
-          </nz-row>
-        </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
-          <se label="是否有效:" line>
-              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
-                (nzCheckedChange)="changeState($event, i)">
-                {{i.name}}
-              </nz-tag>
-          </se>
+<page-header [title]="'配置信息'">
+</page-header>
 
-        </form>
-  </nz-card>
-  <nz-card [nzBordered]="false">
-          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
-              <i nz-icon type="plus"></i>
-              <span>新建</span>
-            </button>
-    <ng-container>
-      <nz-table #basicTable [nzData]="DataList">
-        <thead>
-          <tr>
-            <!--<th>序号</th>-->
-            <th>标识码</th>
-            <th>类别</th>
-            <th>关键字</th>
-            <th>内容</th>
-            <th>是否有效</th>
-            <th>图片</th>
-            <th>地址</th>
-            <th>说明</th>
-            <th>企业内码</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of basicTable.data; let i = index">
-            <!--<td>{{i +1}}</td>-->
-            <td>{{data.keycode}}</td>
-            <td>{{data.webcoretype}}</td>
-            <td>{{data.webcorewords}}</td>
-            <td>{{data.webcorecontent}}</td>
-            <td>{{data.webcorevalid}}</td>
-            <td>{{data.webcoreimage}}</td>
-            <td>{{data.webcoreurl}}</td>
-            <td>{{data.webcoredesc}}</td>
-            <td>{{data.enterpriseid}}</td>
-            <td>
-              <a (click)="editItem(data)">编辑</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteItem(data)">删除</a>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
-    </ng-container>
-  </nz-card>
+<div class="main">
+  <div class="content">
+    <nz-card class="content-panel" nzType="inner" [nzTitle]="'首页图片'"
+      [nzExtra]="extraTemplate">
+      <div nz-row>
+        <div nz-col class="process-item" [nzSpan]="6">
+          <nz-card 
+            style=" height: 117px; display: flex; align-items: center;justify-content: center;">
+            <div class="mmg">
+              <i nz-icon type="plus"></i> 增加图片
+            </div>
+            <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+          </nz-card>
+        </div>
+        <div nz-col class="process-item" [nzSpan]="6" *ngFor="let dataitem of MainpicList">
+          <nz-card [nzActions]="[op1, op2]">
+            <ng-template #op1>
+              <a (click)="editComponentItem(dataitem)">编辑</a>
+            </ng-template>
+            <ng-template #op2>
+              <a (click)="delComponentItem(dataitem)">删除</a>
+            </ng-template>
+            <nz-card-meta  [nzDescription]="nzDescription">
+              <ng-template #nzDescription>
+                <img class="img" src="{{dataitem.content || dataitem.filepath}}" width="" height="" alt="">
+              </ng-template>
+            </nz-card-meta>
+          </nz-card>
+        </div>
+      </div>
+      <ng-template #extraTemplate>
+        <nz-dropdown>
+          <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+          <ul nz-menu>
+            <li nz-menu-item (click)="EditContentItem(data)">编辑</li>
+            <li nz-menu-item (click)="DelContentItem(data)">删除</li>
+          </ul>
+        </nz-dropdown>
+      </ng-template>
+    </nz-card>
+
+  </div>
 </div>

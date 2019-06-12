@@ -12,6 +12,7 @@ export class dataServices {
     public partner(data): any {
         return this.baseServices.getData("StaticsService/partner", data,WebConfig.RequestUrl.dpworkservice)
     }
-    
-    
+    public tsystemconfigList(data): any {
+        return this.baseServices.getData("TSystemconfigApiService/find", data,WebConfig.RequestUrl.baseservice)
+    }
 }

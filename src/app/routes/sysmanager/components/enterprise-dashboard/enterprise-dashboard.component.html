@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzFor="systemconfigwords">桌面</nz-form-label>
+    <nz-form-control [nzSpan]="11">
+      <input nz-input name="systemconfigwords" type="text" id="systemconfigwords" [(ngModel)]="model.systemconfigwords">
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div class="modal-footer">
+<button nz-button nzType="primary" (click)="saveClick()" type="submit" >保存</button>
+<button nz-button *ngIf="model.keycode" nzType="primary" (click)="deleteClick()" type="submit" >删除</button>
+<button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

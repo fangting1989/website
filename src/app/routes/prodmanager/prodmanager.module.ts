@@ -40,7 +40,6 @@ import { prodServices } from './services';
     prodServices
   ],
   entryComponents: [
-    TProductEditComponent,
     TproductImagesComponent,
     TproductContentComponent,
     TproductunitComponent

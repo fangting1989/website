@@ -21,4 +21,10 @@ export class dataServices {
     public twebcoreDel(data): any {
         return this.baseServices.getData("TWebcoreApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
     }
+    public uploadImg(data): any {
+        return this.baseServices.UploadFile("TFileApiService/fileupload", data,WebConfig.RequestUrl.fileuploadpath)
+    }
+    public loadImg(data): any {
+        return this.baseServices.getData("TFileApiService/find", data,WebConfig.RequestUrl.fileuploadpath)
+    }
 }

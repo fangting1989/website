@@ -99,6 +99,10 @@ export class WorkflowComponent implements OnDestroy, OnInit {
 
   }
 
+  DelContentItem(){
+    this.msg.info("改功能还在开发中.")
+  }
+
   //提交
   SubmitProcess(){
     var self = this;

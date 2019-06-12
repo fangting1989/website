@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<nz-divider nzText="基础信息" nzOrientation="left"></nz-divider>
+<app-component-tpartner-read [dataItem]="dataItem"></app-component-tpartner-read>
+<nz-divider nzText="审批意见" nzOrientation="left"></nz-divider>
+<form nz-form #ff="ngForm" class="mform" se-container="1" gutter="32">
+  <nz-form-item>
+    <nz-form-control [nzSpan]="12" [nzOffset]="4">
+      <textarea nz-input placeholder="" nzRequired name="approvedadvice" id="approvedadvice"
+        [nzAutosize]="{minRows: 4}" [(ngModel)]="modelyj.approvedadvice"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="12" [nzOffset]="4">
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="ff.invalid"
+        [nzLoading]="submitting">保存</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<!-- <nz-tabset [nzType]="'card'">
+  <nz-tab nzTitle="基础信息">
+      <app-component-tpartner-read [dataItem]="dataItem"></app-component-tpartner-read>
+  </nz-tab>
+  <nz-tab nzTitle="审核材料">
+      <app-component-bccl-zxjg [dataItem]="dataItem" [ComponentMode]="'read'"></app-component-bccl-zxjg>
+  </nz-tab>
+  <nz-tab nzTitle="资金">
+      <app-component-partner-money [dataItem]="dataItem" ></app-component-partner-money>
+    </nz-tab>
+  <nz-tab nzTitle="评审报告">
+      <app-component-psbg-read [dataItem]="dataItem" [ComponentMode]="'readonly'"></app-component-psbg-read>
+  </nz-tab>
+  <nz-tab nzTitle="审核进度">
+      <app-component-proinstapproved [dataItem]="dataItem"></app-component-proinstapproved>
+  </nz-tab>
+</nz-tabset> -->
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="ProinstBack()">驳回</button>
+  <button nz-button nzType="primary" (click)="ProinstSubmit()">提交审批</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

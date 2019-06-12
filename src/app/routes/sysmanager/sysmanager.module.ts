@@ -15,7 +15,9 @@ import {
   EnterpriselistComponent,
   EnterpriseEditComponent,
   EnterprisePassportComponent,
-  SelEnterpriseComponent
+  SelEnterpriseComponent,
+  TLoginLogListComponent,
+  EnterpriseDashboardComponent
 } from './components';
 
 //services
@@ -39,7 +41,9 @@ import { sysmanagerServices } from './services';
     EnterpriseEditComponent,
     EnumvalueEditComponent,
     EnterprisePassportComponent,
-    SelEnterpriseComponent
+    SelEnterpriseComponent,
+    TLoginLogListComponent,
+    EnterpriseDashboardComponent
   ],
   providers: [
     sysmanagerServices
@@ -49,7 +53,8 @@ import { sysmanagerServices } from './services';
     EnterpriseEditComponent,
     EnumvalueEditComponent,
     EnterprisePassportComponent,
-    SelEnterpriseComponent
+    SelEnterpriseComponent,
+    EnterpriseDashboardComponent
   ]
 })
 export class SysmanagerModule {

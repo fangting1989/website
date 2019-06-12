@@ -61,7 +61,7 @@ export class WechatroleComponent implements OnInit {
   }
 
   loadUserList(item){
-    if(item.name == '评审初审'){
+    if(item.name == '评审一审'){
       this.hasmenu = true;
     }else{
       this.hasmenu = false;

@@ -4,6 +4,8 @@ import { ModalHelper } from '@delon/theme';
 import {EnterpriseEditComponent} from '../enterprise-edit/enterprise-edit.component';
 import {EnterprisePassportComponent} from '../enterprise-passport/enterprise-passport.component';
 import { sysmanagerServices } from '../../services';
+import {Router} from '@angular/router';
+import {EnterpriseDashboardComponent} from '../enterprise-dashboard/enterprise-dashboard.component';
 @Component({
   selector: 'app-enterpriselist',
   templateUrl: './enterpriselist.component.html',
@@ -23,7 +25,8 @@ export class EnterpriselistComponent implements OnInit {
     private modalService: NzModalService,
     private cdr: ChangeDetectorRef,
     private modalHelper:ModalHelper,
-    private sysmanagerServices:sysmanagerServices
+    private sysmanagerServices:sysmanagerServices,
+    private router:Router,
   ) { }
 
   ngOnInit() {
@@ -94,6 +97,17 @@ export class EnterpriselistComponent implements OnInit {
       nzOnCancel  : () => {
        
       }
+    });
+  }
+
+  prowerProcess(item){
+    this.router.navigate(['/workflow/processenterpriselist'],{ queryParams: { enterpriseid: item.keycode} });
+  }
+
+  editDashboard(item){
+    var data = {HeadText:'账号编辑',itemdata:item}
+    const modal = this.modalHelper.create(EnterpriseDashboardComponent,{ data: data},{size:400}).subscribe(res => {
+      this.loadData()
     });
   }
 }

@@ -8,6 +8,8 @@ import {
     ProcesslistComponent,
     CompDefinedComponent,
     TProcesscomponentEditComponent,
+    TWorkflowroleEditComponent,
+  TWorkflowroleListComponent,
   } from './components';
 
   export const Components = [
@@ -20,4 +22,6 @@ import {
     ProcesslistComponent,
     CompDefinedComponent,
     TProcesscomponentEditComponent,
+    TWorkflowroleEditComponent,
+  TWorkflowroleListComponent,
 ]

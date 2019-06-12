@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalState} from './../../../../../core/common';
 import { prodServices } from '../../../services';
 import { _ } from 'underscore';
+import {Router} from '@angular/router';
 import {
   NzMessageService,
   NzModalService
@@ -33,7 +34,8 @@ export class TProductListComponent implements OnInit {
     private modalHelper:ModalHelper,
     private dataServices:prodServices,
     private comservices:comservices,
-    private _state:GlobalState
+    private _state:GlobalState,
+    private router:Router
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -67,7 +69,8 @@ export class TProductListComponent implements OnInit {
   }
 
   addClick(record: any = {}){
-    var data = {HeadText:'编辑'}
+    var data = {HeadText:'添加商品'}
+    this.router.navigate(['/prodmanager/tproductedit']);
     const modal = this.modalHelper.create(TProductEditComponent,{ data: data},{size:800}).subscribe(res => {
       this.loadData()
     });
@@ -75,9 +78,10 @@ export class TProductListComponent implements OnInit {
 
   editItem(item){
     var data = {HeadText:'编辑',itemdata:item}
-    const modal = this.modalHelper.create(TProductEditComponent,{ data: data},{size:800}).subscribe(res => {
-      this.loadData()
-    });
+    this.router.navigate(['/prodmanager/tproductedit'],{ queryParams: { keycode: item.keycode } });
+    // const modal = this.modalHelper.create(TProductEditComponent,{ data: data},{size:800}).subscribe(res => {
+    //   this.loadData()
+    // });
   }
 
   deleteItem(item){

@@ -2,11 +2,20 @@
     <div class="modal-title">{{data.HeadText}}</div>
   </div>
   <app-component-psbg-read [dataItem]="dataItem"></app-component-psbg-read>
-  <nz-divider ></nz-divider>
+
+  <nz-divider nzText="评审意见" nzOrientation="left"></nz-divider>
+
+<div class="advice">
+      <nz-alert nzType="success" class="item" *ngFor="let item of AdviceList"
+       nzMessage="{{item.approvedpersion}}"
+      nzDescription="{{item.approvedadvice}}"
+       ></nz-alert>
+</div>
+
+<nz-divider nzText="审批意见" nzOrientation="left"></nz-divider>
   <form nz-form #ff="ngForm" class="mform" se-container="1" gutter="32">
     <nz-form-item>
-      <nz-form-label [nzSpan]="4">审批意见</nz-form-label>
-      <nz-form-control [nzSpan]="12" >
+      <nz-form-control [nzSpan]="12" [nzOffset]="4">
           <textarea nz-input placeholder="" nzRequired style="min-height: 80px;" name="approvedadvice" id="approvedadvice"  [nzAutosize]="{minRows: 4}"  [(ngModel)]="modelyj.approvedadvice"></textarea>
         </nz-form-control>
     </nz-form-item>

@@ -1,0 +1,19 @@
+.itemtip{
+    margin:10px;
+    line-height: 30px;
+    .f-right{
+        float:right;
+        .txt{
+            color: rgb(240, 72, 68);
+        }
+    }
+}
+
+.sales-extra {
+    display: inline-block;
+    margin-right: 24px;
+    a {
+        margin-left: 24px;
+        color: rgba(0,0,0,.65);
+    }
+}

@@ -33,6 +33,7 @@ const routes: Routes = [
       { path: 'sitemanager', loadChildren: './sitemanager/sitemanager.module#SitemanagerModule' ,canActivate: [AuthGuard]},
       { path: 'custommanager', loadChildren: './dp/custommanager/custommanager.module#CustommanagerModule' ,canActivate: [AuthGuard],canActivateChild: [AuthGuard]},
       { path: 'workflow', loadChildren: './workflowmanager/workflowmanager.module#WorkflowManagerModule' ,canActivate: [AuthGuard]},
+      { path: 'sellshop', loadChildren: './sellshop/sellshopmanager.module#SellshopmanagerModule' ,canActivate: [AuthGuard]},
     ]
   },
   // 全屏布局

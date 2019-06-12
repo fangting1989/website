@@ -39,6 +39,10 @@ export class TurnbackComponent implements OnInit {
       if (this.data.itemdata) {
         this.dataItem = Object.assign({}, this.data.itemdata);
       }
+      console.log(this.dataItem)
+    }
+    if(this.dataItem.isvalid == 1008){
+      this.BackArray= [{name:'修改政策',value:1005}]
     }
     this.backcode = 1005
   }

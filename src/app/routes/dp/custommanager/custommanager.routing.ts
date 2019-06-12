@@ -46,7 +46,13 @@ TActionListComponent,
     DskpageComponent,
     DsklogpageComponent,
     WechatroleComponent,
-    BzjPageComponent
+    BzjPageComponent,
+    ZcshComponent,
+    ZcshapprovedlogComponent,
+    ZcshprocessingComponent,
+    PsyspreComponent,
+    PsyspreapprovedlogComponent,
+    PsyspreprocessingComponent,
 } from './components';
 
 const routes: Routes = [
@@ -75,6 +81,16 @@ const routes: Routes = [
           { path: '**', redirectTo: 'applyprogress' },
         ], 
       },
+      {
+        path: 'zcsh', 
+        component: ZcshComponent,
+        children: [
+          { path: 'processing', component: ZcshprocessingComponent },
+          { path: 'approvedlog', component:ZcshapprovedlogComponent },
+          { path: '**', redirectTo: 'processing' },
+        ], 
+        
+      },
       { 
         path: 'jlapproved', 
         component: JlapprovedComponent,
@@ -92,6 +108,15 @@ const routes: Routes = [
           { path: 'processing', component: ProcessingComponent },
           { path: 'zxapprovedlog', component: ZxapprovedlogComponent },
           { path: '**', redirectTo: 'processing' },
+        ], 
+      },
+      { 
+        path: 'psyspre', 
+        component: PsyspreComponent,
+        children: [
+          { path: 'psyspreprocessing', component: PsyspreprocessingComponent },
+          { path: 'psyspreapprovedlog', component: PsyspreapprovedlogComponent },
+          { path: '**', redirectTo: 'psyspreprocessing' },
         ], 
       },
       { 
