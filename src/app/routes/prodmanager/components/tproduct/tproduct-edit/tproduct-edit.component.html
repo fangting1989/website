@@ -1,14 +1,7 @@
-<!-- <div class="modal-header">
-  <div class="modal-title">{{data.HeadText}}</div>
-</div> -->
-<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
-<!-- error="请填写" required -->
-<!--<se label="是否有效" error="请填写">
-        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
-          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
-        </nz-radio-group>
-      </se>model.producttype-->
 
+<page-header [title]="'商品编辑'" [autoTitle]="false" [autoBreadcrumb]="false">
+
+</page-header>
 <nz-card [nzBordered]="false">
   <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
     <nz-form-item>
@@ -24,7 +17,12 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">产品品牌</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input type="text" name="name" nz-input [(ngModel)]="model.productbrand" name="name" />
+        <nz-select style="width: 200px;" name="productbrand" nzShowSearch nzAllowClear nzPlaceHolder="选择一个品牌"
+          [(ngModel)]="model.productbrand">
+          <nz-option *ngFor="let option of BrandList" [nzValue]="option.productbrandid" [nzLabel]="option.brandname">
+          </nz-option>
+        </nz-select>
+
       </nz-form-control>
     </nz-form-item>
 
@@ -36,9 +34,10 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzFor="name">商品关键字</nz-form-label>
+      <nz-form-label [nzSpan]="4" nzFor="name">商品简介</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input type="text" name="productwords" nz-input [(ngModel)]="model.productwords" name="productwords" />
+          <textarea nz-input placeholder="" name="productwords" id="productwords" nzAutosize
+          [(ngModel)]="model.productwords"></textarea>
       </nz-form-control>
     </nz-form-item>
 
@@ -72,6 +71,31 @@
 
 
     <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="name">是否包邮</nz-form-label>
+      <nz-form-control [nzSpan]="3">
+        <nz-radio-group (ngModelChange)="SendFeeChanged($event)" [(ngModel)]="model.sendfee_sel" name="sendfee_sel">
+          <label nz-radio-button *ngFor="let item of sendfeeArray"
+            [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </nz-form-control>
+      <nz-form-control [nzSpan]="3" *ngIf="model.sendfee_sel">
+        <nz-input-group nzAddOnBefore="邮费">
+          <input type="text" name="sendfee" nz-input [(ngModel)]="model.sendfee" name="sendfee" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="name">是否支持7天无理由退款</nz-form-label>
+      <nz-form-control [nzSpan]="3">
+        <nz-radio-group [(ngModel)]="model.turnbackday" name="turnbackday">
+          <label nz-radio-button *ngFor="let item of stateArray"
+            [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">单价</nz-form-label>
       <nz-form-control [nzSpan]="12">
         <input type="text" name="productprice" nz-input [(ngModel)]="model.productprice" name="productprice" />
@@ -83,7 +107,7 @@
       <nz-form-control [nzSpan]="12">
         <input type="text" name="productcurprice" nz-input [(ngModel)]="model.productcurprice" name="productcurprice" />
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
 
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">是否置顶</nz-form-label>
@@ -108,20 +132,6 @@
           [(ngModel)]="model.productdesc"></textarea>
       </nz-form-control>
     </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzFor="name">分享说明</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <textarea nz-input placeholder="" name="wechatshare" id="wechatshare" nzAutosize
-          [(ngModel)]="model.wechatshare"></textarea>
-      </nz-form-control>
-    </nz-form-item>
-
-    <!-- <nz-form-item>
-      <nz-form-control [nzSpan]="12" [nzOffset]="4">
-        
-      </nz-form-control>
-    </nz-form-item> -->
   </form>
 </nz-card>
 
@@ -136,7 +146,9 @@
           <tr>
             <th>规格名称</th>
             <th>规格单位</th>
-            <th>价格</th>
+            <th>销售价</th>
+            <th>当前价</th>
+            <th>公务员价</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -144,7 +156,9 @@
           <tr *ngFor="let data of ajaxTable.data; let i = index">
             <td>{{data.unitname}}</td>
             <td>{{data.unit}}</td>
+            <td>{{data.price}}</td>
             <td>{{data.currpice}}</td>
+            <td>{{data.offprice}}</td>
             <td>
               <a (click)="deleteUnitItem(data)">删除</a>
             </td>
@@ -156,11 +170,11 @@
 </nz-card>
 
 <nz-affix style="position: absolute; top: 10px;left:10px">
-  <nz-card [nzBordered]="false" *ngIf="model.keycode">
+  <nz-card [nzBordered]="false">
     <div nz-row>
       <div nz-col nzSpan="12" nzOffset="4">
-          <button nz-button nzType="primary" (click)="saveClick()" type="submit">保存</button>
-          <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+        <button nz-button nzType="primary" (click)="saveClick()" type="submit">保存</button>
+        <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
       </div>
     </div>
   </nz-card>

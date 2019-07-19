@@ -12,7 +12,7 @@
         <nz-card [nzBordered]="false" nzTitle="类别编辑">
           <form nz-form>
             <nz-form-item>
-              <nz-form-label [nzSpan]="4" nzFor="email">枚举类别</nz-form-label>
+              <nz-form-label [nzSpan]="4" nzFor="email">上级类别</nz-form-label>
               <nz-form-control [nzSpan]="8">
                 <nz-tree-select name="pid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
                   [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.pid"
@@ -35,7 +35,16 @@
             <nz-form-item>
               <nz-form-label [nzSpan]="4" nzFor="typeIcon">图标</nz-form-label>
               <nz-form-control [nzSpan]="8">
-                <input nz-input name="typeIcon" type="text" id="typeIcon" [(ngModel)]="model.typeIcon">
+                  <div class="uploadImg col-sm-10">
+                      <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control"
+                        style="display:none;">
+                      <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+                      <div class="imgBox" *ngIf="!ShowUpload">
+                        <span class="closeBut" (click)="closeImg()">&times;</span>
+                        <img [src]="ImageSrc" width="100%" height="auto" />
+                      </div>
+                    </div>
+                <!-- <input nz-input name="typeIcon" type="text" id="typeIcon" [(ngModel)]="model.typeIcon"> -->
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>

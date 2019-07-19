@@ -12,6 +12,7 @@ import { comservices} from '../../../../../shared/services';
 import { TProductEditComponent} from '../tproduct-edit/tproduct-edit.component'
 import { TproductImagesComponent} from '../tproduct-images/tproduct-images.component'
 import { TproductContentComponent} from '../tproduct-content/tproduct-content.component'
+import { Enums } from './../../../../../shared/utils/enums';
 
 @Component({
   selector: 'app-tproduct-list',
@@ -27,7 +28,7 @@ export class TProductListComponent implements OnInit {
   expandForm:any = false;
   loading = false;
   EnterPriseCode:any;
-  StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
+  StateArray: any =[{name:'全部',value:null}].concat(Enums.prostateArray);
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -42,15 +43,19 @@ export class TProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    console.log(this.StateArray)
   }
 
   loadData(){
     var self = this;
-    var postData = {
+    var postData:any = {
       pagesize:this.PageSize,
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
       enterpriseid: this.EnterPriseCode
+    }
+    if(this.searchObject.productvalid || this.searchObject.productvalid===0){
+      postData.productvalid = this.searchObject.productvalid
     }
     this.dataServices.tproductList(postData).subscribe(result => {
       if (result != null) {
@@ -65,15 +70,17 @@ export class TProductListComponent implements OnInit {
   }
 
   changeState(e,item){
+    _.each(this.StateArray,it=>{
+      it.active = false;
+    })
+    item.active = true;
+    this.searchObject.productvalid = item.value
     this.loadData();
   }
 
   addClick(record: any = {}){
     var data = {HeadText:'添加商品'}
     this.router.navigate(['/prodmanager/tproductedit']);
-    const modal = this.modalHelper.create(TProductEditComponent,{ data: data},{size:800}).subscribe(res => {
-      this.loadData()
-    });
   }
 
   editItem(item){
@@ -120,5 +127,31 @@ export class TProductListComponent implements OnInit {
     const modal = this.modalHelper.create(TproductContentComponent,{ data: data},{size:800}).subscribe(res => {
       this.loadData()
     });
+  }
+
+  ChangeState(item,state){
+
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确认'+(state == 1?'上架':'下架')+'</b>',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        var postData = {
+          productvalid:state,
+          keycode:item.keycode,
+          enterpriseid:self.comservices.getEnterPrise
+        }
+        self.dataServices.tproductUp(postData).subscribe(result => {
+          if(result){
+            item.productvalid = state
+          }
+        })
+      }
+    })
+
+    
+    
   }
 }

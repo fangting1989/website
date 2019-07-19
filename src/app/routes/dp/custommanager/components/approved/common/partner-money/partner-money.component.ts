@@ -10,6 +10,7 @@ import { Utils} from './../../../../../../../shared/utils/utils';
 import * as moment from  'moment'
 import { ModalHelper } from '@delon/theme';
 import {EditBankcardComponent} from './edit-bankcard/edit-bankcard.component';
+import {EditBzjComponent} from './edit-bzj/edit-bzj.component';
 @Component({
   selector: 'app-component-partner-money',
   templateUrl: './partner-money.component.html',
@@ -117,6 +118,19 @@ export class PartnerMoneyComponent implements OnInit {
         this.BankCardObject.name = res.name
         this.BankCardObject.bankname = res.bankname
         this.BankCardObject.account = res.account
+      }
+    });
+  }
+
+  addBzj(){
+    var self = this;
+    var data = {HeadText:'保证金添加',itemdata:this.dataItem}
+    const modal = this.modalHelper.create(EditBzjComponent,{ data: data},{size:800}).subscribe(res => {
+      if(res){
+        self.dataItem.jbbzj = Utils.accAdd(self.dataItem.jbbzj,res.jcbzj)
+        self.dataItem.zlbzj =  Utils.accAdd(self.dataItem.zlbzj,res.zlbzj)
+        self.TotalMoney = Utils.accAdd(Utils.accAdd(self.dataItem.yxj , self.dataItem.jbbzj),self.dataItem.zlbzj);
+        self.loadMoney();
       }
     });
   }

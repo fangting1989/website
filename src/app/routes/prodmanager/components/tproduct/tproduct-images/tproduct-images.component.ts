@@ -20,6 +20,8 @@ export class TproductImagesComponent implements OnInit {
   model: any = {}
   submitting:any = false;
 
+  componentmode:any = 'edit';
+
   constructor(public msg: NzMessageService,
     private modal: NzModalRef,
     private modalHelper:ModalHelper,
@@ -34,6 +36,9 @@ export class TproductImagesComponent implements OnInit {
       }
       if (this.data.itemdata) {
         this.model = Object.assign({}, this.data.itemdata);
+        if(this.model.componentmode){
+          this.componentmode = this.model.componentmode
+        }
         this.loadData();
       }
     }else{

@@ -8,7 +8,7 @@ import { DelonABCModule } from '@delon/abc';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
 import { DelonChartModule } from '@delon/chart';
-
+import { DelonUtilModule } from '@delon/util';
 // #region third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
@@ -62,6 +62,7 @@ const PIPES = [
     DelonACLModule,
     DelonFormModule,
     DelonChartModule,
+    DelonUtilModule,
     // third libs
     ...THIRDMODULES
   ],

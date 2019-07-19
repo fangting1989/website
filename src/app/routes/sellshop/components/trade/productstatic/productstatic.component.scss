@@ -1,0 +1,28 @@
+.itemtip{
+  margin:10px;
+  line-height: 30px;
+  .f-right{
+      float:right;
+      .txt{
+          color: rgb(240, 72, 68);
+      }
+  }
+}
+
+.content-panel{
+  display: inline-block;
+  width: 100%;
+}
+
+.sales-extra {
+  display: inline-block;
+  margin-right: 24px;
+  a {
+      margin-left: 24px;
+      color: rgba(0,0,0,.65);
+  }
+}
+
+.tp-row{
+  padding-top:25px;
+}

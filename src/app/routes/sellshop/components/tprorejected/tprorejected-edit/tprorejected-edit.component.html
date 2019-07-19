@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="退货申请时间">
+    <input type="text" name="createdate" nz-input [(ngModel)]="model.createdate" name="createdate" />
+  </se>
+  <se label="退货人">
+    <input type="text" name="rejectedname" nz-input [(ngModel)]="model.rejectedname" name="rejectedname" />
+  </se>
+  <se label="退货总金额">
+    <input type="text" name="rejectedamount" nz-input [(ngModel)]="model.rejectedamount" name="rejectedamount" />
+  </se>
+  <se label="退货商品数">
+    <input type="text" name="rejectedprocount" nz-input [(ngModel)]="model.rejectedprocount" name="rejectedprocount" />
+  </se>
+  <se label="退货备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" name="enterpriseid" />
+  </se>
+  <se label="orderdetailid">
+    <input type="text" name="orderdetailid" nz-input [(ngModel)]="model.orderdetailid" name="orderdetailid" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

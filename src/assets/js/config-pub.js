@@ -24,7 +24,6 @@ WebConfig =
                 RequestUrl: {
                         baseservice:"baseservice/",
                         fileuploadpath:"baseservice/",
-                        // sellsiteservice:"sellsite-service/",
                         sellsiteservice:'sellsite-service/',
                         dpworkservice:'dpworkservice/',
                 },

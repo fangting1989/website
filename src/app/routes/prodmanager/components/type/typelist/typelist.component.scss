@@ -1,0 +1,26 @@
+.uploadBtn {
+    width: 100px;
+    height: 100px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    text-align: center;
+    line-height: 100px;
+    color: #ddd; 
+    cursor: pointer;
+  }
+  .imgBox {
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    position: relative;
+    .closeBut {
+      position: absolute;
+      right: 1px;
+      top: -4px;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+  

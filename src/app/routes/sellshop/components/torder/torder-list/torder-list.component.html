@@ -1,0 +1,92 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <!-- <a class="icon-more" (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a> -->
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="订单状态" line>
+            <nz-tag *ngFor="let i of stateList; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+              (nzCheckedChange)="StateListItem($event, i)">
+               <span>{{i.name}}</span> <span *ngIf="i.count >=0"><span>(</span><span class="color-red">{{i.count}}</span><span>)</span></span> 
+            </nz-tag>
+        </se>
+
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <th>订单编号</th>
+            <th>订单时间</th>
+            <th>用户名称</th>
+            <th>订单金额</th>
+            <th>订单状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.ordernum}}</td>
+            <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.membername}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.orderisvalid|mkenumformatpipe:'orderisvalid'}}</td>
+            <td *ngIf="data.orderisvalid == 1">
+              <a (click)="editItem(data)">查看订单</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem(data)">关闭订单</a>
+            </td>
+
+            <td *ngIf="data.orderisvalid == 10">
+              <a (click)="editItem(data)">查看订单</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="SendOrder(data)">订单发货</a>
+            </td>
+
+            <td *ngIf="data.orderisvalid == 20">
+              <a (click)="editItem(data)">查看订单</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="OrderExpress(data)">订单跟踪</a>
+            </td>
+
+            <td *ngIf="data.orderisvalid == 90">
+              <a (click)="editItem(data)">查看订单</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="OrderExpress(data)">订单跟踪</a>
+            </td>
+
+            <td *ngIf="data.orderisvalid == 99">
+              <a (click)="editItem(data)">查看订单</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

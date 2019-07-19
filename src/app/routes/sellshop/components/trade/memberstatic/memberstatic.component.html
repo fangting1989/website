@@ -1,0 +1,36 @@
+<div class="pages">
+  <nz-card class="content-panel mt-sm" nzType="inner" [nzTitle]="'会员增长统计'" [nzExtra]="extraTemplate">
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+          <g2-custom #g2custom (render)="render($event)"></g2-custom>
+      </div>
+    </div>
+    <ng-template #extraTemplate>
+        <div class="sales-extra-wrap">
+          <div class="sales-extra">
+            <a (click)="setDate('week')">本周</a>
+            <a (click)="setDate('month')">本月</a> 
+          </div>
+          <nz-range-picker [(ngModel)]="date_range" (ngModelChange)="DateChange($event)" style="display:inline-block; width: 256px;"></nz-range-picker>
+        </div>
+      </ng-template>
+  </nz-card>
+
+
+  <nz-card class="content-panel mt-sm" nzType="inner" [nzTitle]="'消费金额情况'" [nzExtra]="extraTemplate_cost">
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+          <g2-custom #g2custom_cost (render)="render_cost($event)"></g2-custom>
+      </div>
+    </div>
+    <ng-template #extraTemplate_cost>
+        <div class="sales-extra-wrap">
+          <div class="sales-extra">
+            <a (click)="setDate_cost('week')">本周</a>
+            <a (click)="setDate_cost('month')">本月</a>
+          </div>
+          <nz-range-picker [(ngModel)]="date_range_cost" (ngModelChange)="DateChange_cost($event)" style="display:inline-block; width: 256px;"></nz-range-picker>
+        </div>
+      </ng-template>
+  </nz-card>
+</div>

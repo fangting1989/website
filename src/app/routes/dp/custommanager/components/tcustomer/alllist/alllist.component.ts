@@ -18,10 +18,10 @@ export class AlllistComponent implements OnInit {
       key: 'customerlist',
       tab: '全部客户',
     },
-    // {
-    //   key: 'fxcustomerlist',
-    //   tab: '分销客户',
-    // },
+    {
+      key: 'fxcustomerlist',
+      tab: '分销客户',
+    },
   ];
 
   pos = 0;

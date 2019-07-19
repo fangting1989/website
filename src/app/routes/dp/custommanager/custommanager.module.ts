@@ -101,6 +101,8 @@ import { PartnerMoneyComponent } from './components/approved/common/partner-mone
 import { HrrgkComponent } from './components/hhrmanager/hrrgk/hrrgk.component';
 import { DpComponentImageComponent } from './components/common/dp-component-image/dp-component-image.component';
 import { EditBankcardComponent } from './components/approved/common/partner-money/edit-bankcard/edit-bankcard.component';
+import { ShareCustomlistComponent } from './components/tcustomer/share-customlist/share-customlist.component';
+import { EditBzjComponent } from './components/approved/common/partner-money/edit-bzj/edit-bzj.component';
 
 
 @NgModule({
@@ -203,6 +205,8 @@ TActionListComponent,
     ApprovedPsyspreComponent,
     PsyspreapprovedlogComponent,
     PsyspreprocessingComponent,
+    ShareCustomlistComponent,
+    EditBzjComponent,
   ],
   providers: [
     dataServices
@@ -235,7 +239,8 @@ TActionListComponent,
     DpComponentImageComponent,
     EditBankcardComponent,
     ApprovedZcshComponent,
-    ApprovedPsyspreComponent
+    ApprovedPsyspreComponent,
+    EditBzjComponent
   ]
 })
 export class CustommanagerModule {

@@ -9,7 +9,7 @@
         </nz-radio-group>
       </se>-->
 <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
-  <se label="类别名称">
+  <se label="品牌名称">
     <input type="text" name="brandname" nz-input [(ngModel)]="model.brandname" name="brandname" />
   </se>
   <se label="联系人">
@@ -21,8 +21,23 @@
   <se label="联系地址">
     <input type="text" name="linkaddress" nz-input [(ngModel)]="model.linkaddress" name="linkaddress" />
   </se>
-  <se label="类别顺序">
+  <se label="品牌图片" [col]="1" extra="最好采用 正方形图片">
+    <div class="uploadImg col-sm-10" >
+        <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control" style="display:none;">
+        <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+        <div class="imgBox" *ngIf="!ShowUpload">
+          <span class="closeBut" (click)="closeImg()">&times;</span>
+          <img [src]="ImageSrc" width="100%" height="auto" />
+        </div>
+      </div>
+  </se>
+  <se label="品牌顺序">
     <input type="text" name="brandindex" nz-input [(ngModel)]="model.brandindex" name="brandindex" />
+  </se>
+  <se label="是否推荐"> 
+    <nz-radio-group [(ngModel)]="model.istop" name="istop">
+      <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+    </nz-radio-group>
   </se>
   <se label="备注">
     <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />

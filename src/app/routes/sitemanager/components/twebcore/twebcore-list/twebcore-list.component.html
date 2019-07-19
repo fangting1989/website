@@ -1,46 +1,193 @@
-<page-header [title]="'配置信息'">
+<page-header [title]="title" [autoTitle]="false" [autoBreadcrumb]="false" class="head-page-panel">
+    <ng-template #title><span class="title">配置信息</span></ng-template>
 </page-header>
-
 <div class="main">
   <div class="content">
-    <nz-card class="content-panel" nzType="inner" [nzTitle]="'首页图片'"
-      [nzExtra]="extraTemplate">
+    <nz-card class="content-panel" nzType="inner" [nzTitle]="'首页图片'" [nzExtra]="extraTemplate">
       <div nz-row>
         <div nz-col class="process-item" [nzSpan]="6">
-          <nz-card 
-            style=" height: 117px; display: flex; align-items: center;justify-content: center;">
+          <nz-card style=" height: 193px; display: flex; align-items: center;justify-content: center;">
             <div class="mmg">
               <i nz-icon type="plus"></i> 增加图片
             </div>
-            <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+            <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event,Mainpictype)"
+              multiple>
           </nz-card>
         </div>
         <div nz-col class="process-item" [nzSpan]="6" *ngFor="let dataitem of MainpicList">
           <nz-card [nzActions]="[op1, op2]">
             <ng-template #op1>
-              <a (click)="editComponentItem(dataitem)">编辑</a>
+              <a (click)="editIndex(dataitem)">编辑<span>(顺序:{{dataitem.remark}})</span><i nz-icon type="edit"></i></a>
             </ng-template>
             <ng-template #op2>
-              <a (click)="delComponentItem(dataitem)">删除</a>
+              <a (click)="delItem(dataitem,Mainpictype)">删除</a>
             </ng-template>
-            <nz-card-meta  [nzDescription]="nzDescription">
+            <nz-card-meta [nzDescription]="nzDescription">
               <ng-template #nzDescription>
-                <img class="img" src="{{dataitem.content || dataitem.filepath}}" width="" height="" alt="">
+                <div class="imgcontent">
+                  <img class="img" src="{{dataitem.content || dataitem.filepath}}" width="" height="" alt="">
+                </div>
               </ng-template>
             </nz-card-meta>
           </nz-card>
         </div>
       </div>
       <ng-template #extraTemplate>
-        <nz-dropdown>
+        <!-- <nz-dropdown>
           <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
           <ul nz-menu>
             <li nz-menu-item (click)="EditContentItem(data)">编辑</li>
             <li nz-menu-item (click)="DelContentItem(data)">删除</li>
           </ul>
-        </nz-dropdown>
+        </nz-dropdown> -->
       </ng-template>
     </nz-card>
 
+    <nz-card class="content-panel" nzType="inner" [nzTitle]="'分类首图'" [nzExtra]="extraTemplate">
+      <div nz-row>
+        <div nz-col class="process-item" [nzSpan]="6" *ngIf="FLpictList.length ==0">
+          <nz-card style=" height: 193px; display: flex; align-items: center;justify-content: center;">
+            <div class="mmg">
+              <i nz-icon type="plus"></i> 增加图片
+            </div>
+            <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event,FLpictype)"
+              multiple>
+          </nz-card>
+        </div>
+        <div nz-col class="process-item" [nzSpan]="6" *ngFor="let dataitem of FLpictList">
+          <nz-card [nzActions]="[op1_1, op2_1]">
+            <ng-template #op1_1>
+              <a (click)="editFLPic(dataitem)">编辑</a>
+            </ng-template>
+            <ng-template #op2_1>
+              <a (click)="delItem(dataitem,FLpictype)">删除</a>
+            </ng-template>
+            <nz-card-meta [nzDescription]="nzDescription">
+              <ng-template #nzDescription>
+                <div class="imgcontent">
+                  <img class="img" src="{{dataitem.content || dataitem.filepath}}" width="" height="" alt="">
+                </div>
+              </ng-template>
+            </nz-card-meta>
+          </nz-card>
+        </div>
+      </div>
+      <ng-template #extraTemplate>
+        <!-- <nz-dropdown>
+          <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+          <ul nz-menu>
+            <li nz-menu-item (click)="EditContentItem(data)">编辑</li>
+            <li nz-menu-item (click)="DelContentItem(data)">删除</li>
+          </ul>
+        </nz-dropdown> -->
+      </ng-template>
+    </nz-card>
+
+    <nz-card class="content-panel tjpro" nzType="inner" [nzTitle]="'推荐商品'" [nzExtra]="extraTemplate_TJ">
+      <!--推荐商品-->
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList_TJ" [(nzPageIndex)]="PageNum"
+        [nzFrontPagination]="false" [(nzPageSize)]="PageSize" [nzTotal]="TotalCount_TJ" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <!--<th>序号</th>-->
+            <th>推荐类型</th>
+            <th>推荐名称</th>
+            <th>推荐副标题</th>
+            <th>推荐图片</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.webcorewords_enum}}</td>
+            <td>{{data.webcorecontent}}</td>
+            <td>{{data.webcoredesc}}</td>
+            <td>
+              <img src="{{data.imgpath}}" alt="">
+            </td>
+            <td>{{data.productname}}</td>
+            <td>
+              <a (click)="editItem_TJ(data)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem_TJ(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #extraTemplate_TJ>
+        <button nz-button (click)="addTJClick()" *ngIf="DataList_TJ.length < 3" [nzType]="'primary'" class="btn-add">
+          <i nz-icon type="plus"></i>
+          <span>新建</span>
+        </button>
+      </ng-template>
+    </nz-card>
+
+    <nz-card class="content-panel tjpro" nzType="inner" [nzTitle]="'首页广告位'" [nzExtra]="extraTemplate_ad">
+      <!--推荐商品-->
+      <nz-table #ajaxTable_ad nzShowSizeChanger [nzData]="DataList_ad" [nzFrontPagination]="false"
+        [nzTotal]="TotalCount_ad" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>推荐图片</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable_ad.data; let i = index">
+            <td>
+              <img src="{{data.imgpath}}" alt="">
+            </td>
+            <td>{{data.productname}}</td>
+            <td>
+              <a (click)="editItem_ad(data)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem_ad(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #extraTemplate_ad>
+        <button nz-button *ngIf="DataList_ad.length == 0" (click)="addClick_ad()" [nzType]="'primary'" class="btn-add">
+          <i nz-icon type="plus"></i>
+          <span>新建</span>
+        </button>
+      </ng-template>
+    </nz-card>
+
+    <nz-card class="content-panel tjpro" nzType="inner" [nzTitle]="'类别设定'">
+      <div nz-card-grid [ngStyle]="gridStyle" (click)="editType(item)" *ngFor="let item of TypeDataList">
+        {{item.typename || item.name}}</div>
+    </nz-card>
+
   </div>
-</div>
+
+  <nz-modal [(nzVisible)]="EditMainIndexVisible" nzTitle="编辑" (nzOnCancel)="EditMain_handleCancel()"
+    (nzOnOk)="EditMain_handleOk()">
+    <form nz-form class="mform" se-container="1" gutter="32">
+      <se label="顺序">
+        <input nz-input placeholder="" name="remark" [(ngModel)]="EditMainPic.remark" />
+      </se>
+      <se label="商品">
+        <nz-select style="width: 200px;" name="fileurl" nzShowSearch nzAllowClear nzPlaceHolder="选择一个商品"
+          [(ngModel)]="EditMainPic.fileurl">
+          <nz-option *ngFor="let option of ProductList" [nzValue]="option.keycode" [nzLabel]="option.productname">
+          </nz-option>
+        </nz-select>
+      </se>
+    </form>
+  </nz-modal>
+
+  <nz-modal [(nzVisible)]="EditFLVisible" nzTitle="编辑" (nzOnCancel)="EditFL_handleCancel()"
+    (nzOnOk)="EditFL_handleOk()">
+    <form nz-form class="mform2" se-container="1" gutter="32">
+      <se label="商品">
+        <nz-select style="width: 200px;" name="fileurl" nzShowSearch nzAllowClear nzPlaceHolder="选择一个商品"
+          [(ngModel)]="EditFLPic.fileurl">
+          <nz-option *ngFor="let option of ProductList" [nzValue]="option.keycode" [nzLabel]="option.productname">
+          </nz-option>
+        </nz-select>
+      </se>
+    </form>
+  </nz-modal>

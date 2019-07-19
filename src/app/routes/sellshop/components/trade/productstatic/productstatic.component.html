@@ -1,0 +1,39 @@
+<div class="pages">
+  <nz-card class="content-panel mt-sm" nzType="inner" [nzTitle]="'订单金额分布'" [nzExtra]="extraTemplate">
+    <nz-table #ajaxTable_order 
+    nzShowSizeChanger
+          [nzData]="ProductList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadOrder()"
+          (nzPageSizeChange)="loadOrder()">
+        <thead>
+          <tr>
+            <th>商品名称</th>
+            <th>订单数量</th>
+            <th>销售数量</th>
+            <th>销售金额</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable_order.data; let i = index">
+            <td>{{data.productname}}</td>
+            <td>{{data.count}}</td>
+            <td>{{data.salecount}}</td>
+            <td>{{data.payment}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    <ng-template #extraTemplate>
+        <div class="sales-extra-wrap">
+          <div class="sales-extra">
+            <a (click)="setDate('week')">本周</a>
+            <a (click)="setDate('month')">本月</a>
+          </div>
+          <nz-range-picker [(ngModel)]="date_range" (ngModelChange)="DateChange($event)" style="display:inline-block; width: 256px;"></nz-range-picker>
+        </div>
+      </ng-template>
+  </nz-card>
+</div>

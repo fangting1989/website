@@ -1,0 +1,81 @@
+<page-header [title]="'会员详情'" [autoTitle]="false" [autoBreadcrumb]="false"></page-header>
+<nz-card nzType="inner" nzTitle="基本信息">
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <sv-container size="small">
+        <sv label="会员名称">{{model.memName}}</sv>
+        <sv label="注册时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+        <sv label="手机号码">{{model.memMobile}}</sv>
+        <sv label="会员邮箱">{{model.memMail}}</sv>
+        <sv label="会员邮箱">{{model.memtype|mkenumformatpipe:'membertypeArray'}}</sv>
+      </sv-container>
+    </div>
+  </div>
+</nz-card>
+
+
+<nz-card nzType="inner" nzTitle="统计信息">
+    <div nz-row>
+        <div nz-col nzSpan="24">
+          <sv-container size="small">
+            <sv label="总消费数">{{model.costNum}}元</sv>
+            <sv label="总消费金额">{{model.costAmount}}元</sv>
+          </sv-container>
+        </div>
+      </div>
+</nz-card>
+
+
+<nz-card nzType="inner" nzTitle="收货地址">
+    <nz-table #ajaxTable_link nzShowSizeChanger [nzData]="AddressList" [nzShowPagination]="false" (nzPageIndexChange)="loadData()" (nzPageSizeChange)="loadData()">
+        <thead>
+          <tr>
+            <th>联系人</th>
+            <th>电话</th>
+            <th>行政区</th>
+            <th>详细地址</th>
+            <th>是否默认</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable_link.data; let i = index">
+            <td>{{data.linkman}}</td>
+            <td>{{data.linktel}}</td>
+            <td>{{data.province}}</td>
+            <td>{{data.address}}</td>
+            <td><nz-switch [(ngModel)]="data.isdefault"></nz-switch></td>
+          </tr>
+        </tbody>
+      </nz-table>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="订单内容">
+    <nz-table #ajaxTable_order 
+    nzShowSizeChanger
+          [nzData]="OrderList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadOrder()"
+          (nzPageSizeChange)="loadOrder()">
+        <thead>
+          <tr>
+            <th>订单编号</th>
+            <th>提交时间</th>
+            <th>订单金额</th>
+            <th>订单状态</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable_order.data; let i = index">
+            <td>{{data.ordernum}}</td>
+            <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.orderisvalid|mkenumformatpipe:'orderisvalid'}}</td>
+            <td><a (click)="goOrderDetail(data)">查看订单</a></td>
+          </tr>
+        </tbody>
+      </nz-table>
+</nz-card>

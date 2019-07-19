@@ -1,1 +1,1 @@
-docker build -t mkweb/dpweb:1.0.4-10 .
+docker build -t mkweb/dpweb-gwt:1.0.4-16 .

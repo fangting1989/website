@@ -1,6 +1,7 @@
 .itemtip{
     margin:10px;
     line-height: 30px;
+    cursor: pointer;
     .f-right{
         float:right;
         .txt{
@@ -16,4 +17,8 @@
         margin-left: 24px;
         color: rgba(0,0,0,.65);
     }
+}
+
+.tp-row{
+    padding-top:25px;
 }

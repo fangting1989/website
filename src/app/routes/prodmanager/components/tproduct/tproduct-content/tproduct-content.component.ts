@@ -11,6 +11,8 @@ import { comservices } from '../../../../../shared/services';
 })
 export class TproductContentComponent implements OnInit{
 
+  componentmode:any = 'edit';
+
   ContentData:any = {}
   submitting:any = false;
   data:any = {}
@@ -30,6 +32,9 @@ export class TproductContentComponent implements OnInit{
       }
       if (this.data.itemdata) {
         this.model = Object.assign({}, this.data.itemdata);
+        if(this.model.componentmode){
+          this.componentmode = this.model.componentmode
+        }
       }
     }else{
       this.msg.error("对不起,参数错误！");

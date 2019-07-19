@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+<nz-card nzType="inner" nzTitle="订单基本信息">
+  <sv-container size="small">
+    <sv label="订单编号">{{model.ordernum}}</sv>
+    <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+    <sv label="订单金额">{{model.amount}}</sv>
+    <sv label="用户名称">{{model.membername}}</sv>
+  </sv-container>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="邮寄信息">
+  <sv-container size="small">
+    <sv label="收货人员">{{model.orderperson}}</sv>
+    <sv label="手机号码">{{model.ordertel}}</sv>
+    <sv label="邮寄地址">{{model.orderaddress}}</sv>
+  </sv-container>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="寄件信息">
+  <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+    <se label="快递单位">
+      <nz-select style="width: 200px;" name="zipunit" nzShowSearch nzAllowClear nzPlaceHolder="选择一个商品"
+        [(ngModel)]="model.zipunit">
+        <nz-option *ngFor="let option of ExpressDataList" [nzValue]="option.expressname" [nzLabel]="option.expressname">
+        </nz-option>
+      </nz-select>
+    </se>
+    <se label="快递单号">
+      <input type="text" name="zipnum" nz-input [(ngModel)]="model.zipnum" name="zipnum" />
+    </se>
+  </form>
+</nz-card>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">确定发货</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

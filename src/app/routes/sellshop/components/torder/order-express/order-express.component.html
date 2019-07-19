@@ -1,0 +1,9 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+  <div *ngIf="ExpressMsgList.length == 0">
+    暂无订单消息
+  </div>
+<nz-timeline *ngIf="ExpressMsgList.length > 0">
+    <nz-timeline-item *ngFor="let item of ExpressMsgList">{{item.AcceptTime}}{{item.AcceptStation}}</nz-timeline-item>
+  </nz-timeline>

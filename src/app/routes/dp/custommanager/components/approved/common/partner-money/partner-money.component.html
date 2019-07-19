@@ -14,7 +14,7 @@
 </div>
 <div nz-row nzGutter="16" class="mt-sm mb-sm">
   <div nz-col nzSpan="22" class="label-t f16">
-    总应缴纳金额:{{TotalMoney}}万元,已缴纳金额{{TotalDS}}万元
+    总应缴纳金额:{{TotalMoney}}万元<span *ngIf="TotalDS > 0">,剩余未缴纳金额{{TotalDS}}万元</span><span *ngIf="dataItem.isvalid == 1090"> <button nz-button [nzSize]="'small'"  [nzType]="'primary'" class="ml-sm" (click)="addBzj()">增加保证金</button></span> 
   </div>
 </div>
 <div nz-row nzGutter="4" class="mt-sm mb-sm" *ngIf="false"> 

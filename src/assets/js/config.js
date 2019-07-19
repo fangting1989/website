@@ -21,7 +21,7 @@ WebConfig =
                         expire:2400
                 },
                 Token: false, 
-                RequestUrl: {
+                RequestUrl: { 
                         baseservice:'http://127.0.0.1:8020/',
                         fileuploadpath:"http://127.0.0.1:8020/", 
                         // baseservice:'http://111.231.206.166:8800/' + "baseservice/",

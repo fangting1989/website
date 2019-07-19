@@ -12,7 +12,8 @@ import {
   TProductListComponent,
   TproductImagesComponent,
   TproductContentComponent,
-  TproductunitComponent
+  TproductunitComponent,
+  TproductListDelComponent
   
 } from './components';
 
@@ -25,7 +26,7 @@ import { prodServices } from './services';
     routing,
     AngularSplitModule,
     SharedModule,
-    FileUploadModule
+    FileUploadModule,
   ],
   declarations: [
     ProdManagerMain,
@@ -35,6 +36,8 @@ import { prodServices } from './services';
     TproductImagesComponent,
     TproductContentComponent,
     TproductunitComponent,
+    TproductListDelComponent,
+    TproductListDelComponent,
   ],
   providers: [
     prodServices

@@ -1,8 +1,10 @@
-import { Component, OnInit,ChangeDetectionStrategy,TemplateRef, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy,TemplateRef, ViewChild,ChangeDetectorRef,ElementRef } from '@angular/core';
 import {GlobalState} from './../../../../../core/common';
 import { prodServices } from '../../../services';
 import { _ } from 'underscore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DomSanitizer,SafeUrl} from "@angular/platform-browser";
+
 import {
   NzDropdownService,
   NzMessageService,
@@ -31,16 +33,25 @@ export class TypelistComponent implements OnInit {
   EnterPriseCode:any;
   stateArray:any = Object.assign([],Enums.stateArray);
   
+  FileObject: any;
+  ShowUpload:any = true;
+  ImageSrc:any = '#';
+  imgUrl: SafeUrl;
+  dd:any = "5"
+  @ViewChild('file')
+  file: ElementRef;
+
   constructor(
     private _state: GlobalState,
     private nzDropdownService: NzDropdownService,
-    private prodServices: prodServices,
+    private dataServices: prodServices,
     private fb: FormBuilder, 
     private msg: NzMessageService,
     private cdr: ChangeDetectorRef,
     private modalService:NzModalService,
     private modalHelper:ModalHelper,
-    private comservices:comservices
+    private comservices:comservices,
+    private sanitizer:DomSanitizer
   ) {
     this._state.notifyDataChanged('app.nav', { level: 1, NavName: "类别管理", routerLink: "./sysmanager/enumeration" });
     this.changeHeight = window.innerHeight - 110;
@@ -59,7 +70,9 @@ export class TypelistComponent implements OnInit {
 
   LoadTreeData(){
     this.model = {}
+    this.ImageSrc = "#"
     this.SelTreeData = []
+    this.ShowUpload = true
     //初始化选择
     this.SelTypeTreeData = [{key:"-1",title:"默认类别",isLeaf:true}]
     //加载默认数据
@@ -86,11 +99,10 @@ export class TypelistComponent implements OnInit {
       keycode:pId,
       enterpriseid: self.EnterPriseCode
     }
-    this.prodServices.objecttype_findbyparent(postData).subscribe(result => {
+    this.dataServices.objecttype_findbyparent(postData).subscribe(result => {
       if(result){
         var mmmdata:any = [];
         _.each(result.data,item =>{
-          console.log(item)
           item.key =  item.objectTypeID
           item.title = item.typeName
           item.type = "nodetype"
@@ -114,6 +126,8 @@ export class TypelistComponent implements OnInit {
 
   addClick(){
     this.model = {}
+    this.ImageSrc = "#"
+    this.ShowUpload = true;
   }
 
   TreeItemClick(event){
@@ -124,6 +138,13 @@ export class TypelistComponent implements OnInit {
         this.typeItemBox = 2;
       }
       this.model = event.node.origin
+      this.ImageSrc = "#"
+      this.ShowUpload = true
+      if(this.model.typeIcon && this.model.typeIcon != ''){
+        this.ShowUpload = false;
+        this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.typeIcon;
+        this.file.nativeElement.value = null;
+      }
     }
   }
   okClick(){
@@ -135,19 +156,17 @@ export class TypelistComponent implements OnInit {
       this.model.enterpriseid = this.EnterPriseCode
       //类别保存
       if(this.model.keycode){
-        this.prodServices.objecttypeUp(this.model).subscribe(result => {
+        this.dataServices.objecttypeUp(this.model).subscribe(result => {
           this.submitting = false
           if(result){
-            this.msg.success("操作成功!");
-            self.LoadTreeData();
+            this.uploadImg(result.data.keycode)
           }
         })
       }else{
-        this.prodServices.objecttypeIn(this.model).subscribe(result => {
+        this.dataServices.objecttypeIn(this.model).subscribe(result => {
           this.submitting = false
           if(result){
-            this.msg.success("操作成功!");
-            self.LoadTreeData();
+            this.uploadImg(result.data.keycode)
           }
         })
       }
@@ -168,7 +187,7 @@ export class TypelistComponent implements OnInit {
           var postData = {
             keycode:self.model.keycode
           }
-          self.prodServices.objecttypeDel(postData).subscribe(result => {
+          self.dataServices.objecttypeDel(postData).subscribe(result => {
             if (result != null) {
               self.msg.success("删除成功!");
               self.LoadTreeData();
@@ -181,5 +200,68 @@ export class TypelistComponent implements OnInit {
         }
       });
     }
+  }
+
+  //---图片---
+  getUpload(e) {
+    let path = e.target.value,
+      extStart = path.lastIndexOf('.'),
+      ext = path.substring(extStart, path.length).toUpperCase();
+    if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG' && ext !== '.GIF') {
+      this.msg.error("请上传正确的图片格式")
+      return;
+    }
+    if (e.target.files[0]) {
+      this.FileObject = e.target.files[0];
+      this.ImageSrc = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(e.target.files[0]));
+      this.ShowUpload = false;
+    }
+  }
+  upimg() {
+    this.file.nativeElement.click();
+  }
+  closeImg() {
+   this.ShowUpload = true;
+   this.file.nativeElement.value = null;
+  }
+
+  uploadImg(keycode) {
+    var self = this;
+    let formData = new FormData();
+    formData.append("file", this.FileObject);
+    formData.append("keycode", keycode);
+    formData.append("tablename", "action");
+    formData.append("filepath","action")
+    //上传图片
+    if (this.FileObject) {
+      this.dataServices.uploadImgonly(formData).subscribe(result => {
+        if(result){
+          var postData = {
+            keycode:keycode,
+            typeIcon:result,
+            enterpriseid:self.EnterPriseCode
+          }
+          this.dataServices.objecttypeUp(postData).subscribe(result => {
+            if(result){
+              this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ postData.typeIcon;
+              this.model.typeIcon = postData.typeIcon
+
+              self.LoadTreeData();
+            }
+          })
+          self.msg.success("操作成功!")
+        }
+      })
+    } else{
+      self.msg.success("操作成功!")
+    }
+  }
+
+  onChange_Start(e){
+    console.log('onChange: ', e);
+  }
+
+  onChange_End(e){
+    console.log('onChange: ', e);
   }
 }

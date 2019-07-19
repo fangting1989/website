@@ -1,0 +1,75 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null">
+          <se label="会员类型" line>
+              <nz-tag *ngFor="let i of membertypeArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+                (nzCheckedChange)="changeState($event, i)">
+                {{i.name}}
+              </nz-tag>
+          </se>
+
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button> -->
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <th>会员名称</th>
+            <th>手机</th>
+            <th>年龄</th>
+            <th>总消费</th>
+            <th>总消费笔数</th>
+            <th>会员等级</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.memName}}
+              <nz-tag [nzColor]="'orange'" *ngIf="data.memtype == 10">普通会员</nz-tag>
+              <nz-tag [nzColor]="'green'" *ngIf="data.memtype == 20">实名会员</nz-tag>
+              <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 30">认证会员</nz-tag></td>
+            <td>{{data.memMobile}}</td>
+            <td>{{data.memOld}}</td>
+            <td>{{data.costAmount}}</td>
+            <td>{{data.costNum}}</td>
+            <td>{{data.memlevel}}</td>
+            <td>
+              <a (click)="editItem(data)">查看详情</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

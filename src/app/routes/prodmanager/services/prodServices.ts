@@ -61,6 +61,10 @@ export class prodServices {
     public tproductList(data): any {
         return this.baseServices.getData("TProductApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
     }
+
+    public tproductListDel(data): any {
+        return this.baseServices.getData("TProductApiService/finddel", data,WebConfig.RequestUrl.sellsiteservice)
+    }
     
     public tproductIn(data): any {
         return this.baseServices.postData("TProductApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
@@ -70,8 +74,12 @@ export class prodServices {
         return this.baseServices.postData("TProductApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
     }
     
+    
     public tproductDel(data): any {
         return this.baseServices.getData("TProductApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tproductDelData(data): any {
+        return this.baseServices.getData("TProductApiService/delete_data", data,WebConfig.RequestUrl.sellsiteservice)
     }
     // 商品类别
     public getprodtypetree(data): any {
@@ -86,4 +94,9 @@ export class prodServices {
     public tproductunitDel(data): any {
         return this.baseServices.getData("TProductunitApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
     }
+    
+    public tproductbrandList(data): any {
+        return this.baseServices.getData("TProductbrandApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    
 }

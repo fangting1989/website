@@ -62,6 +62,13 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="systemname">系统名称</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="systemname" type="text" id="systemname" [(ngModel)]="model.systemname">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="remark">备注</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <textarea nz-input placeholder="" name="remark" id="remark" nzAutosize [(ngModel)]="model.remark"></textarea>

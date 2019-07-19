@@ -12,8 +12,8 @@ import {dataServices} from './services'
 
 export class DashboardComponent implements OnInit {
   model:any = {}
-  dashboard:any = "DashboardDefaultComponent";
-
+  dashboard:any = "";
+  defaultdashboard:any = 'app-dashboard-default';
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
   compRef: ComponentRef<any>; //  加载的组件实例
   @Input() ComponentItem: any
@@ -41,25 +41,33 @@ export class DashboardComponent implements OnInit {
       if(result && result.data.length > 0){
         this.model = result.data[0]
         this.dashboard  = this.model.systemconfigwords
-        this.loadComponent(this);
       }else{
-        this.dashboard = "DashboardDefaultComponent"
-        this.loadComponent(this);
+        this.dashboard = this.defaultdashboard;
       }
+      this.loadComponent(this);
     }) 
   }
 
   loadComponent(self) {
+    var findComponent = false;
     var selfComp = this;
     let fact = self.resolver._factories;
-    console.log(fact)
     // 根据名称，摸查出组件名称
     fact.forEach((value: any, key: any) => {
-      if (key.name ===  this.dashboard) {
-        this.CurrComponet = key;
+      if(value.selector == this.dashboard){
+        this.CurrComponet = key
+        findComponent = true;
       }
     });
-
+    if(!findComponent){
+      console.log("找不到配置的桌面组件"+this.dashboard)
+      fact.forEach((value: any, key: any) => {
+        if(value.selector == this.defaultdashboard){
+          this.CurrComponet = key
+          findComponent = true;
+        }
+      });
+    }
     let factory = this.resolver.resolveComponentFactory(this.CurrComponet);
     if (this.compRef) {
       this.compRef.destroy();

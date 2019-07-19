@@ -13,4 +13,8 @@ export class defaultServices {
     public changePwd(data): any {
         return this.baseServices.postData("TAdminuserApiService/enterprise_changepwd", data,WebConfig.RequestUrl.baseservice)
     }
+    //加载系统信息
+    public enterprise(data): any {
+        return this.baseServices.getData("TEnterpriseApiService/findbycode", data,WebConfig.RequestUrl.baseservice)
+    }
 }

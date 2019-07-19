@@ -9,15 +9,21 @@
         </nz-radio-group>
       </se>-->
 <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
-  <se label="规格名称">
+  <se label="规格名称" required>
     <input type="text" name="unitname" nz-input [(ngModel)]="model.unitname" name="unitname" required />
   </se>
-  <se label="规格单位">
+  <se label="规格单位" required>
     <input type="text" name="unit" nz-input [(ngModel)]="model.unit" name="unit"  required />
   </se>
-  <se label="当前价格">
+  <se label="销售价格" required>
+      <input type="text" name="price" nz-input [(ngModel)]="model.price" name="price" required />
+    </se>
+  <se label="售卖价格" required>
     <input type="text" name="currpice" nz-input [(ngModel)]="model.currpice" name="currpice" required />
   </se>
+  <se label="公务员价" required>
+      <input type="text" name="offprice" nz-input [(ngModel)]="model.offprice" name="offprice" required />
+    </se>
 </form>
 <div class="modal-footer">
   <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>

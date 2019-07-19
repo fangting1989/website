@@ -8,33 +8,44 @@
           <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
         </nz-radio-group>
       </se>-->
+      <nz-alert nzType="info" nzMessage="说明:左边推荐一条，右边推荐两条"></nz-alert>
 <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
-  <se label="类别">
-    <input type="text" name="webcoretype" nz-input [(ngModel)]="model.webcoretype" name="webcoretype" />
+  <se label="类型">
+    <nz-radio-group [(ngModel)]="model.webcorewords" name="webcorewords">
+      <label nz-radio-button *ngFor="let item of typeArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+    </nz-radio-group>
   </se>
-  <se label="关键字">
-    <input type="text" name="webcorewords" nz-input [(ngModel)]="model.webcorewords" name="webcorewords" />
-  </se>
-  <se label="内容">
+  <se label="推荐名称">
     <input type="text" name="webcorecontent" nz-input [(ngModel)]="model.webcorecontent" name="webcorecontent" />
   </se>
-  <se label="是否有效">
-    <input type="text" name="webcorevalid" nz-input [(ngModel)]="model.webcorevalid" name="webcorevalid" />
-  </se>
-  <se label="图片">
-    <input type="text" name="webcoreimage" nz-input [(ngModel)]="model.webcoreimage" name="webcoreimage" />
-  </se>
-  <se label="地址">
-    <input type="text" name="webcoreurl" nz-input [(ngModel)]="model.webcoreurl" name="webcoreurl" />
-  </se>
-  <se label="说明">
+  <se label="推荐副标题">
     <input type="text" name="webcoredesc" nz-input [(ngModel)]="model.webcoredesc" name="webcoredesc" />
   </se>
-  <se label="企业内码">
-    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" name="enterpriseid" />
+  <se label="推荐图片" [col]="1" extra="推荐图片">
+    <div class="uploadImg col-sm-10">
+      <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control"
+        style="display:none;">
+      <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+      <div class="imgBox" *ngIf="!ShowUpload">
+        <span class="closeBut" (click)="closeImg()">&times;</span>
+        <img [src]="ImageSrc" width="100%" height="auto" />
+      </div>
+    </div>
+  </se>
+  <se label="关联商品" [col]="1">
+      <nz-select
+      style="width: 200px;"
+      name = "webcoreimage"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="选择一个商品"
+      [(ngModel)]="model.webcoreimage"
+    >
+      <nz-option *ngFor="let option of ProductList" [nzValue]="option.keycode" [nzLabel]="option.productname"></nz-option>
+    </nz-select>
   </se>
 </form>
 <div class="modal-footer">
-  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" >保存</button>
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid">保存</button>
   <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
 </div>

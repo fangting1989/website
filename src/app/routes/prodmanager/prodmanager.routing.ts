@@ -4,6 +4,7 @@ import {
   TypelistComponent,
   TProductListComponent,
   TProductEditComponent,
+  TproductListDelComponent,
 } from './components';
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [ 
       { path: 'type', component: TypelistComponent },
       { path: 'tproductlist', component: TProductListComponent },
+      { path: 'tproductlistdel', component: TproductListDelComponent },
       { path: 'tproductedit', component: TProductEditComponent },
       { path: '**', redirectTo: 'prodlist' },
     ]

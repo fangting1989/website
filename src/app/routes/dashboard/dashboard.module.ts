@@ -9,6 +9,12 @@ import { Dashboard_2Component } from './components/dashboard.2/dashboard.2.compo
 
 import {dataServices} from './services';
 import { DashboardDefaultComponent } from './components/dashboard-default/dashboard-default.component';
+
+const COMPONENTS = [
+  Dashboard_1Component,
+  Dashboard_2Component,
+  DashboardDefaultComponent
+]
 @NgModule({
   imports: [
     CommonModule,
@@ -18,15 +24,13 @@ import { DashboardDefaultComponent } from './components/dashboard-default/dashbo
   ],
   declarations: [
     DashboardComponent,
-    Dashboard_1Component, Dashboard_2Component, DashboardDefaultComponent
+    ...COMPONENTS,
   ],
   providers: [
     dataServices
   ],
   entryComponents:[
-    Dashboard_1Component, 
-    Dashboard_2Component,
-    DashboardDefaultComponent, 
+    ...COMPONENTS,
   ]
 })
 export class DashboardModule {}

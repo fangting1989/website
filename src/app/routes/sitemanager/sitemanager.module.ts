@@ -6,6 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { AngularSplitModule } from 'angular-split';
 import { FileUploadModule } from 'ng2-file-upload';
+
 import {
   TWebcoreEditComponent,
   TWebcoreListComponent,
@@ -13,6 +14,8 @@ import {
 
 //services
 import { dataServices } from './services';
+import { MainpageAdComponent } from './components/twebcore/mainpage-ad/mainpage-ad.component';
+import { MainpageTypeComponent } from './components/twebcore/mainpage-type/mainpage-type.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,18 +23,22 @@ import { dataServices } from './services';
     routing,
     AngularSplitModule,
     FileUploadModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     SitemanagerMain,
     TWebcoreEditComponent,
     TWebcoreListComponent,
+    MainpageAdComponent,
+    MainpageTypeComponent,
   ],
   providers: [
     dataServices
   ],
   entryComponents: [
-    TWebcoreEditComponent
+    TWebcoreEditComponent,
+    MainpageAdComponent,
+    MainpageTypeComponent
   ]
 })
 export class SitemanagerModule {

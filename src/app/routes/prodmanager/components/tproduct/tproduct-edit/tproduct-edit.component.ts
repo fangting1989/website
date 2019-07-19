@@ -20,6 +20,8 @@ export class TProductEditComponent implements OnInit {
   EnterPriseCode: any;
   stateArray: any = Object.assign([], Enums.stateArray);
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
+  sendfeeArray:any  = [{name:'包邮',value:0},{name:'不包邮',value:1}];
+  turnbackdayArray:any  = [{name:'不支持',value:0},{name:'7天无理由退货',value:1}]
   FileObject: any;
   ShowUpload:any = true;
   ImageSrc:any = '#';
@@ -30,8 +32,8 @@ export class TProductEditComponent implements OnInit {
   SelTypeTreeData:any;
   expandKeys:any = []
   UnitDataList:any =[];
-
-  constructor(private msg: NzMessageService,
+  BrandList:any = [];
+   constructor(private msg: NzMessageService,
     private dataServices: prodServices,
     private comservices: comservices,
     private sanitizer:DomSanitizer,
@@ -44,7 +46,8 @@ export class TProductEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData();
+    this.loadData(); 
+    this.loadBrand();
   }
 
   loadData(){
@@ -56,6 +59,11 @@ export class TProductEditComponent implements OnInit {
       this.dataServices.tproductList(this.model).subscribe(result => {
         if (result != null && result.data.length > 0) {
           self.model = result.data[0];
+          if(!self.model.sendfee){
+            self.model.sendfee_sel = 0
+          }else{
+            self.model.sendfee_sel = 1
+          }
           if(this.model.productimage && this.model.productimage != ''){
             this.ShowUpload = false;
             this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.productimage;
@@ -70,6 +78,26 @@ export class TProductEditComponent implements OnInit {
       this.loadTreeData();
     }
     
+  }
+
+  loadBrand(){
+    var self = this;
+    var postData = {
+      enterpriseid:this.EnterPriseCode,
+      pagesize:1000,
+      pagenum:1 
+    }
+    this.dataServices.tproductbrandList(postData).subscribe(result => {
+      if(result){
+        this.BrandList = result.data;
+      }
+    })
+  }
+
+  SendFeeChanged(e){
+    if(e == 0){
+      this.model.sendfee = 0
+    }
   }
 
   loadTreeData(){
@@ -196,8 +224,13 @@ export class TProductEditComponent implements OnInit {
     //增加规格
     var data = {HeadText:'编辑规格',itemdata:item}
     const modal = this.modalHelper.create(TproductunitComponent,{ data: data},{size:800}).subscribe(res => {
+      console.log(res)
       if(res.keycode){
+
         self.UnitDataList.push(res)
+        self.UnitDataList = Object.assign([],self.UnitDataList)
+        console.log("==================")
+        console.log(self.UnitDataList)
       }
     });
     

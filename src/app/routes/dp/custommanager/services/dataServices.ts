@@ -275,7 +275,21 @@ export class dataServices {
     public advice_ys(data): any {
         return this.baseServices.getData("TApprovedApiService/advice_ys", data,WebConfig.RequestUrl.dpworkservice)
     }
+    public tbzjList(data): any {
+        return this.baseServices.getData("TBzjApiService/find", data,WebConfig.RequestUrl.dpworkservice)
+    }
     
+    public tbzjIn(data): any {
+        return this.baseServices.postData("TBzjApiService/insert", data,WebConfig.RequestUrl.dpworkservice)
+    }
+    
+    public tbzjUp(data): any {
+        return this.baseServices.postData("TBzjApiService/update", data,WebConfig.RequestUrl.dpworkservice)
+    }
+    
+    public tbzjDel(data): any {
+        return this.baseServices.getData("TBzjApiService/delete", data,WebConfig.RequestUrl.dpworkservice)
+    }
     
     
     

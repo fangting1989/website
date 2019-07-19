@@ -1,0 +1,50 @@
+<page-header [title]="'订单详情'" [autoTitle]="false" [autoBreadcrumb]="false"></page-header>
+<nz-card nzType="inner" nzTitle="订单基本信息">
+  <sv-container size="small">
+    <sv label="订单编号">{{model.ordernum}}</sv>
+    <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+    <sv label="订单金额">{{model.amount}}</sv>
+    <sv label="用户名称">{{model.membername}}</sv>
+    <sv label="订单状态">{{model.orderisvalid|mkenumformatpipe:'orderisvalid'}}</sv>
+  </sv-container>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="邮寄信息">
+  <sv-container size="small">
+    <sv label="收货人员">{{model.orderperson}}</sv>
+    <sv label="手机号码">{{model.ordertel}}</sv>
+    <sv label="邮寄地址">{{model.orderaddress}}</sv>
+  </sv-container>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="快递信息">
+  <sv-container size="small">
+    <sv label="快递公司">{{model.zipunit}}</sv>
+    <sv label="邮寄单号">{{model.zipcode}}</sv>
+  </sv-container>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="商品信息">
+  <nz-table #ajaxTable nzShowSizeChanger [nzData]="model.list" [nzShowPagination]="false" (nzPageIndexChange)="loadData()" (nzPageSizeChange)="loadData()">
+    <thead>
+      <tr>
+          <th></th>
+        <th>名称</th>
+        <th>规格</th>
+        <th>价格</th>
+        <th>数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of ajaxTable.data; let i = index">
+        <td>
+          <img src="{{data.imgpath}}" style="width:60px;height:60px;" alt="">
+        </td>
+        <td>{{data.costname}}</td>
+        <td>{{data.unitname}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.costnum}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

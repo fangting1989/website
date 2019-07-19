@@ -49,6 +49,9 @@ body,.ant-table {
 .ant-form-item{
     margin-bottom: 3px;
 }
+.color-red{
+    color:red;
+}
 //修正se，没有label
 .se-no-label{
     .se__label{
@@ -99,6 +102,19 @@ body,.ant-table {
     }
     .btn-add{ 
         margin-bottom: 12px;
+    }
+    .ant-table{
+        .ant-tag{
+            border-radius: 5px !important;
+        }
+    }
+}
+.head-page-panel{
+    .bk{
+        font-size: 14px;
+    }
+    .title{
+        margin-left:10px;
     }
 }
 
@@ -152,5 +168,11 @@ body,.ant-table {
         border-color: #e8e8e8;
         color: #fff;
         padding-bottom: 1px;
+    }
+}
+/*首页*/
+.s-p-t-nav {
+    .ant-card-body{
+        padding:0px !important;
     }
 }
