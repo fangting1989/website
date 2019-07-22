@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="24">
+    <nz-divider nzText="基本信息" nzOrientation="left" class="label-t"></nz-divider>
+  </div>
+</div>
+
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="12">
+    <div>姓名: <span>{{model.idcard}}</span></div>
+  </div>
+  <div nz-col nzSpan="12">
+    <div>身份证号: <span>{{model.idcardname}}</span></div>
+  </div>
+</div>
+
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="24">
+    <nz-divider nzText="照片附件" nzOrientation="left" class="label-t"></nz-divider>
+  </div>
+</div>
+
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="6">
+    <div class="images"> <img [src]="model.idcardfront" alt="" /></div>
+  </div>
+  <div nz-col nzSpan="6">
+    <div class="images"> <img [src]="model.idcardback" alt="" /></div>
+  </div>
+  <div nz-col nzSpan="6">
+    <div class="images"> <img [src]="model.rzt" alt="" /></div>
+  </div>
+</div>
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="24">
+    <nz-divider nzText="认证证件" nzOrientation="left" class="label-t"></nz-divider>
+  </div>
+</div>
+
+<div nz-row nzType="flex">
+  <div nz-col nzSpan="6">
+    <div class="images"> <img [src]="model.sfrzt" alt="" /></div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [nzLoading]="submitting">审核通过</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

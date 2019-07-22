@@ -23,6 +23,14 @@ ProductstaticComponent,
 MemberstaticComponent,
 TExpressEditComponent,
 TExpressListComponent,
+TOrderdetailEditComponent,
+TmemberAddpointsComponent,
+TOrderdetailCommentEditComponent,
+TOrderdetailCommentListComponent,
+OrderBillComponent,
+TmemberApprovedComponent,
+TmemberApprovedEditComponent,
+OrderBillDetailComponent
 } from './components';
 
 const COMPONENT = [
@@ -42,12 +50,19 @@ ProductstaticComponent,
 MemberstaticComponent,
 TExpressEditComponent,
 TExpressListComponent,
+TOrderdetailEditComponent,
+TmemberAddpointsComponent,
+TOrderdetailCommentEditComponent,
+TOrderdetailCommentListComponent,
+OrderBillComponent,
+TmemberApprovedComponent,
+TmemberApprovedEditComponent,
+OrderBillDetailComponent,
 ]
 
 //services
 import { dataServices } from './services';
 import { OrderSendComponent } from './components/torder/order-send/order-send.component';
-
 
 @NgModule({
   imports: [
@@ -66,6 +81,9 @@ import { OrderSendComponent } from './components/torder/order-send/order-send.co
     TradestaticComponent,
     ProductstaticComponent,
     MemberstaticComponent,
+    TmemberAddpointsComponent,
+    TmemberApprovedComponent,
+    OrderBillDetailComponent,
   ],
   providers: [
     dataServices

@@ -1,0 +1,73 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+        <form nz-form [nzLayout]="'inline'"  class="search__form">
+            <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+              <nz-col nzMd="8" nzSm="24">
+                <nz-form-item>
+                  <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="开票人/税号" id="txtsearch">
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+              <nz-col>
+                <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+                <!-- <a class="icon-more" (click)="expandForm=!expandForm">
+                  {{expandForm ? '收起' : '展开'}}
+                  <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+                </a> -->
+              </nz-col>
+            </nz-row>
+          </form>
+          <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+            <se label="订单状态" line>
+              <nz-tag *ngFor="let i of sellshopticketArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+                (nzCheckedChange)="StateListItem($event, i)">
+                 <span>{{i.name}}</span>
+              </nz-tag>
+          </se>
+  
+          <se label="按时间" line>
+              <nz-range-picker name="searchdataRange" [nzFormat]="yyyy-MM-dd" class="searchdataRange" [nzShowTime]="false" [(ngModel)]="searchObject.dateRange" (ngModelChange)="onDateChange($event)" nzShowTime>
+              </nz-range-picker>
+            </se>
+  
+          </form>
+    </nz-card>
+    <nz-card [nzBordered]="false">
+      <ng-container>
+        <nz-table #ajaxTable
+            nzShowSizeChanger
+            [nzData]="DataList"
+            [(nzPageIndex)]="PageNum"
+            [nzFrontPagination]="false"
+            [(nzPageSize)]="PageSize"
+            [nzTotal]="TotalCount"
+            (nzPageIndexChange)="loadData()"
+            (nzPageSizeChange)="loadData()" >
+          <thead>
+            <tr>
+              <th>申请时间</th>
+              <th>申请人</th>
+              <th>发票金额</th>
+              <th>发票内容</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+              <td>{{data.membername}}</td>
+              <td>{{data.amount}}</td>
+              <td>{{data.ticketname}} <span *ngIf="data.ticketno">/</span>{{data.ticketno}}</td>
+              <td>{{data.isvalid|mkenumformatpipe:'sellshopticketArray'}}</td>
+              <td >
+                <a (click)="Detail(data)">查看详情</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </div>

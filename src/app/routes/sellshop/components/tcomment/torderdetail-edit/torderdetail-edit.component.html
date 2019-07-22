@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="消费条目">
+    <input type="text" name="costname" nz-input [(ngModel)]="model.costname" name="costname" disabled />
+  </se>
+  <se label="会员名">
+    <input type="text" name="membername" nz-input [(ngModel)]="model.membername" name="membername" />
+  </se>
+  <se label="评分">
+    <input type="text" name="commentstar" nz-input [(ngModel)]="model.commentstar" name="commentstar" />
+  </se>
+  <se label="评分内容">
+    <input type="text" name="commentcontent" nz-input [(ngModel)]="model.commentcontent" name="commentcontent" />
+  </se>
+  <se label="评分详情">
+    <input type="text" name="commentdetail" nz-input [(ngModel)]="model.commentdetail" name="commentdetail" />
+  </se>
+  <se label="是否显示">
+      <nz-radio-group [(ngModel)]="model.commentisvalid" name="commentisvalid">
+        <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.commentisvalid"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+  </se>
+  
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

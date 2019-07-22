@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<nz-card [nzBordered]="false">
+  <ng-container>
+    <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+      [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()" [nzShowPagination]="false" (nzPageSizeChange)="loadData()">
+      <thead>
+        <tr>
+          <th>商品名称</th>
+          <th>商品价格</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data; let i = index">
+          <td>{{data.costname}}</td>
+          <td>{{data.paymoney}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-card>

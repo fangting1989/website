@@ -40,6 +40,7 @@ export class TProductEditComponent implements OnInit {
     private modalHelper:ModalHelper,
     private modalService:NzModalService,
     private route:ActivatedRoute,
+    private router:Router,
     
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
@@ -264,5 +265,9 @@ export class TProductEditComponent implements OnInit {
 
       }
     });
+  }
+
+  goProductPage(){
+    this.router.navigate(['/prodmanager/tproductlist']);
   }
 }

@@ -6,18 +6,22 @@
               <nz-form-item>
                 <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
                 <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="商品名称/用户名" id="txtsearch">
                 </nz-form-control>
               </nz-form-item>
             </nz-col>
             <nz-col>
               <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
             </nz-col>
           </nz-row>
         </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null">
-          <se label="会员类型" line>
-              <nz-tag *ngFor="let i of membertypeArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="是否有效:" line>
+              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
                 (nzCheckedChange)="changeState($event, i)">
                 {{i.name}}
               </nz-tag>
@@ -26,10 +30,10 @@
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
               <i nz-icon type="plus"></i>
               <span>新建</span>
-            </button> -->
+            </button>
     <ng-container>
       <nz-table #ajaxTable
           nzShowSizeChanger
@@ -42,30 +46,28 @@
           (nzPageSizeChange)="loadData()" >
         <thead>
           <tr>
-            <th>会员名称</th>
-            <th>手机</th>
-            <th>年龄</th>
-            <th>总消费</th>
-            <th>总消费笔数</th>
-            <th>会员等级</th>
+            <!--<th>序号</th>-->
+            <th>用户名称</th>
+            <th>评论时间</th>
+            <th>评论商品</th>
+            <th>评分</th>
+            <th>评论内容</th>
+            <th>是否显示</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
-            <td>{{data.memName}}
-              <nz-tag [nzColor]="'orange'" *ngIf="data.memtype == 10">普通会员</nz-tag>
-              <nz-tag [nzColor]="'green'" *ngIf="data.memtype >= 20 && data.memtype <30 ">实名会员</nz-tag>
-              <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 30">认证会员</nz-tag></td>
-            <td>{{data.memMobile}}</td>
-            <td>{{data.memOld}}</td>
-            <td>{{data.costAmount}}</td>
-            <td>{{data.costNum}}</td>
-            <td>{{data.memlevel}}</td>
+            <!--<td>{{i +1}}</td>-->
+            <td>{{data.membername}}</td>
+            <td>{{data.commentdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.costname}}</td>
+            <td>{{data.commentstar}}</td>
+            <td>{{data.commentcontent}}</td>
+            <!-- <td>{{data.commentdetail}}</td> -->
+            <td>{{data.commentisvalid}}</td>
             <td>
-              <a (click)="editItem(data)">查看详情</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteItem(data)">删除</a>
+              <a (click)="editItem(data)">编辑</a>
             </td>
           </tr>
         </tbody>

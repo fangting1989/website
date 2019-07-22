@@ -25,10 +25,13 @@ export class TProductListComponent implements OnInit {
   PageNum:any = 1;
   PageSize:any = 10;
   TotalCount:any = 0;
-  expandForm:any = false;
+  expandForm:any = true;
   loading = false;
   EnterPriseCode:any;
   StateArray: any =[{name:'全部',value:null}].concat(Enums.prostateArray);
+
+  SelTypeTreeData:any;
+  BrandList:any;
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -43,7 +46,8 @@ export class TProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    console.log(this.StateArray)
+    this.loadTreeData();
+    this.loadBrand();
   }
 
   loadData(){
@@ -57,10 +61,62 @@ export class TProductListComponent implements OnInit {
     if(this.searchObject.productvalid || this.searchObject.productvalid===0){
       postData.productvalid = this.searchObject.productvalid
     }
+    if(this.searchObject.producttype ){
+      postData.producttype = this.searchObject.producttype
+    }
+    if(this.searchObject.productbrand ){
+      postData.productbrand = this.searchObject.productbrand
+    }
     this.dataServices.tproductList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount =result.recordcount
+      }
+    })
+  }
+
+  loadTreeData(){
+    var self = this;
+    var postData = {
+      enterpriseid:this.EnterPriseCode
+    }
+    this.dataServices.getprodtypetree(postData).subscribe(result => {
+      if(result){
+        var treeDataArray  = [];
+        _.each(result.data,item =>{
+          item.key = item.objectTypeID
+          item.parent_id = item.pid
+          item.title = item.typeName,
+          treeDataArray.push(item)
+        })
+        var treeData  = [];
+        self.GetTreeData(-1,treeData,treeDataArray);
+        self.SelTypeTreeData = treeData;
+        
+      }
+    })
+  }
+
+  GetTreeData(pid,CurrArray,AllArray){
+    _.each(AllArray,item=>{
+      if(item.parent_id == pid){
+        CurrArray.push(item)
+        item.children = []
+        this.GetTreeData(item.id,item.children,AllArray)
+      }
+    })
+  }
+
+  loadBrand(){
+    var self = this;
+    var postData = {
+      enterpriseid:this.EnterPriseCode,
+      pagesize:1000,
+      pagenum:1 
+    }
+    this.dataServices.tproductbrandList(postData).subscribe(result => {
+      if(result){
+        this.BrandList = result.data;
       }
     })
   }

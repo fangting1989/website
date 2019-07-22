@@ -1,15 +1,17 @@
-<page-header [title]="'订单详情'" [autoTitle]="false" [autoBreadcrumb]="false"></page-header>
+<page-header [title]="'订单详情'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goOrderPage()">返回订单列表</button></div></ng-template>
+</page-header>
 <nz-card nzType="inner" nzTitle="订单基本信息">
   <sv-container size="small">
     <sv label="订单编号">{{model.ordernum}}</sv>
     <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
-    <sv label="订单金额">{{model.amount}}</sv>
+    <sv label="订单金额">{{model.paymoney}}</sv>
     <sv label="用户名称">{{model.membername}}</sv>
     <sv label="订单状态">{{model.orderisvalid|mkenumformatpipe:'orderisvalid'}}</sv>
   </sv-container>
 </nz-card>
 
-<nz-card nzType="inner" nzTitle="邮寄信息">
+<nz-card nzType="inner" nzTitle="收货人信息">
   <sv-container size="small">
     <sv label="收货人员">{{model.orderperson}}</sv>
     <sv label="手机号码">{{model.ordertel}}</sv>
@@ -17,7 +19,7 @@
   </sv-container>
 </nz-card>
 
-<nz-card nzType="inner" nzTitle="快递信息">
+<nz-card nzType="inner" nzTitle="发货快递信息">
   <sv-container size="small">
     <sv label="快递公司">{{model.zipunit}}</sv>
     <sv label="邮寄单号">{{model.zipcode}}</sv>
@@ -31,8 +33,10 @@
           <th></th>
         <th>名称</th>
         <th>规格</th>
-        <th>价格</th>
+        <th>单价</th>
         <th>数量</th>
+        <th>金额</th>
+        <th *ngIf="model.orderisvalid == 1">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +48,8 @@
         <td>{{data.unitname}}</td>
         <td>{{data.price}}</td>
         <td>{{data.costnum}}</td>
+        <td>{{data.paymoney}}</td>
+        <td *ngIf="model.orderisvalid == 1"><a (click)="fixPrice(data)">修改价格</a></td>
       </tr>
     </tbody>
   </nz-table>

@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import {
+  NzMessageService,
+  NzModalService
+} from 'ng-zorro-antd';
+import { ModalHelper } from '@delon/theme';
 import { dataServices } from '../../../services';
 import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
 import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
+import {TmemberAddpointsComponent} from './../tmember-addpoints/tmember-addpoints.component';
 @Component({
   selector: 'app-tmember-edit',
   templateUrl: './tmember-edit.component.html',
@@ -27,6 +32,8 @@ export class TMemberEditComponent implements OnInit {
     private comservices: comservices,
     private route:ActivatedRoute,
     private router:Router,
+    private modalService:NzModalService,
+    private modalHelper:ModalHelper,
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -69,7 +76,6 @@ export class TMemberEditComponent implements OnInit {
     }
     this.dataServices.torderList(postData).subscribe(result => {
       if(result){
-        console.log(result)
         this.OrderList = result.data;
       }
     })
@@ -103,6 +109,17 @@ export class TMemberEditComponent implements OnInit {
 
   goOrderDetail(item){
     this.router.navigate(['/sellshop/torderedit'],{ queryParams: { keycode: item.keycode } });
+  }
+
+  goMemberPage(){
+    this.router.navigate(['/sellshop/tmemberlist']);
+  }
+
+  PointDetail(){
+    var data = {HeadText:'会员积分',itemdata:this.model }
+    const modal = this.modalHelper.create(TmemberAddpointsComponent,{ data: data},{size:800}).subscribe(res => {
+      this.loadData()
+    });
   }
 
 }

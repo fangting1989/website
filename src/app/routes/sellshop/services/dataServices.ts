@@ -45,6 +45,25 @@ export class dataServices {
     public torderDel(data): any {
         return this.baseServices.getData("TOrderApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
     }
+    public findcommentlist(data): any {
+        return this.baseServices.getData("TOrderApiService/findcommentlist", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    /*service*/
+    public torderdetailList(data): any {
+        return this.baseServices.getData("TOrderdetailApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public torderdetailIn(data): any {
+        return this.baseServices.postData("TOrderdetailApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public torderdetailUp(data): any {
+        return this.baseServices.postData("TOrderdetailApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public torderdetailDel(data): any {
+        return this.baseServices.getData("TOrderdetailApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public fixprise(data): any {
+        return this.baseServices.getData("TOrderdetailApiService/fixprise", data,WebConfig.RequestUrl.sellsiteservice)
+    }
     public tmemberList(data): any {
         return this.baseServices.getData("TMemberApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
     }
@@ -56,6 +75,9 @@ export class dataServices {
     }
     public tmemberDel(data): any {
         return this.baseServices.getData("TMemberApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public find_member_sh(data): any {
+        return this.baseServices.getData("TMemberApiService/find_sh", data,WebConfig.RequestUrl.sellsiteservice)
     }
     public tprorejectedList(data): any {
         return this.baseServices.getData("TProrejectedApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
@@ -88,6 +110,12 @@ export class dataServices {
     public productordersale(data): any {
         return this.baseServices.getData("StatisticsApiService/productordersale", data,WebConfig.RequestUrl.sellsiteservice)
     }
+    public tpointdetailList(data): any {
+        return this.baseServices.getData("TPointdetailApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tpointdetailIn(data): any {
+        return this.baseServices.postData("TPointdetailApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
     /**会员统计 */
     public timespan_membercount(data): any {
         return this.baseServices.getData("StatisticsApiService/timespan_membercount", data,WebConfig.RequestUrl.sellsiteservice)
@@ -115,7 +143,18 @@ export class dataServices {
     public texpressDel(data): any {
         return this.baseServices.getData("TExpressApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
     }
-    
+    public tmemticketList(data): any {
+        return this.baseServices.getData("TMemticketApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tmemticketIn(data): any {
+        return this.baseServices.postData("TMemticketApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tmemticketUp(data): any {
+        return this.baseServices.postData("TMemticketApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tmemticketDel(data): any {
+        return this.baseServices.getData("TMemticketApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
 
 
     

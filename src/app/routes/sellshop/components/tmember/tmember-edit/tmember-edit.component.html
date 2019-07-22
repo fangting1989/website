@@ -1,5 +1,7 @@
-<page-header [title]="'会员详情'" [autoTitle]="false" [autoBreadcrumb]="false"></page-header>
-<nz-card nzType="inner" nzTitle="基本信息">
+<page-header [title]="'会员详情'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goMemberPage()">返回用户列表</button></div></ng-template>
+</page-header>
+<nz-card nzType="inner" nzTitle="基本信息" [nzExtra]="extraTemplate">
   <div nz-row>
     <div nz-col nzSpan="24">
       <sv-container size="small">
@@ -8,9 +10,13 @@
         <sv label="手机号码">{{model.memMobile}}</sv>
         <sv label="会员邮箱">{{model.memMail}}</sv>
         <sv label="会员邮箱">{{model.memtype|mkenumformatpipe:'membertypeArray'}}</sv>
+        <sv label="用户积分">{{model.points}}</sv>
       </sv-container>
     </div>
   </div>
+  <ng-template #extraTemplate>
+      <button nz-button [nzSize]="small" nzType="primary" (click)="PointDetail()">积分情况</button>
+    </ng-template>
 </nz-card>
 
 

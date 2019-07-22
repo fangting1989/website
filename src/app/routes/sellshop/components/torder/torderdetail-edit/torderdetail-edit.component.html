@@ -1,0 +1,88 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <!--<se label="订单内码">
+    <input type="text" name="orderid" nz-input [(ngModel)]="model.orderid" name="orderid" />
+  </se>
+   <se label="productid">
+    <input type="text" name="productid" nz-input [(ngModel)]="model.productid" name="productid" />
+  </se>-->
+  <se label="消费条目">
+    <input type="text" name="costname" nz-input [(ngModel)]="model.costname" name="costname" />
+  </se>
+  <!--<se label="消费金额">
+    <input type="text" name="costamount" nz-input [(ngModel)]="model.costamount" name="costamount" />
+  </se>
+  <se label="消费折扣">
+    <input type="text" name="discount" nz-input [(ngModel)]="model.discount" name="discount" />
+  </se>
+  <se label="优惠金额">
+    <input type="text" name="offamount" nz-input [(ngModel)]="model.offamount" name="offamount" />
+  </se>
+  <se label="消费数量">
+    <input type="text" name="costnum" nz-input [(ngModel)]="model.costnum" name="costnum" />
+  </se>
+  <se label="规格名称">
+    <input type="text" name="unitname" nz-input [(ngModel)]="model.unitname" name="unitname" />
+  </se>
+  <se label="规格内码">
+    <input type="text" name="unitid" nz-input [(ngModel)]="model.unitid" name="unitid" />
+  </se>
+  <se label="单价">
+    <input type="text" name="price" nz-input [(ngModel)]="model.price" name="price" />
+  </se> -->
+  <se label="金额">
+    <input type="text" name="paymoney" nz-input [(ngModel)]="model.paymoney" name="paymoney" />
+  </se>
+  <!-- <se label="备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />
+  </se>
+  <se label="图片地址">
+    <input type="text" name="imgpath" nz-input [(ngModel)]="model.imgpath" name="imgpath" />
+  </se>
+  <se label="消费日期">
+    <input type="text" name="costdate" nz-input [(ngModel)]="model.costdate" name="costdate" />
+  </se>
+  <se label="可提现金额">
+    <input type="text" name="canoutmoney" nz-input [(ngModel)]="model.canoutmoney" name="canoutmoney" />
+  </se>
+  <se label="状态">
+    <input type="text" name="isvalid" nz-input [(ngModel)]="model.isvalid" name="isvalid" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" name="enterpriseid" />
+  </se>
+  <se label="订单内容">
+    <input type="text" name="ordercontent" nz-input [(ngModel)]="model.ordercontent" name="ordercontent" />
+  </se>
+  <se label="commentstar">
+    <input type="text" name="commentstar" nz-input [(ngModel)]="model.commentstar" name="commentstar" />
+  </se>
+  <se label="commentcontent">
+    <input type="text" name="commentcontent" nz-input [(ngModel)]="model.commentcontent" name="commentcontent" />
+  </se>
+  <se label="commentdetail">
+    <input type="text" name="commentdetail" nz-input [(ngModel)]="model.commentdetail" name="commentdetail" />
+  </se>
+  <se label="commentdate">
+    <input type="text" name="commentdate" nz-input [(ngModel)]="model.commentdate" name="commentdate" />
+  </se>
+  <se label="memberid">
+    <input type="text" name="memberid" nz-input [(ngModel)]="model.memberid" name="memberid" />
+  </se>
+  <se label="membername">
+    <input type="text" name="membername" nz-input [(ngModel)]="model.membername" name="membername" />
+  </se> -->
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">修改价格</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

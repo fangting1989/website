@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+  
+  <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+      <se label="积分" required>
+        <input type="text" name="points" required nz-input [(ngModel)]="model.points" name="points" />
+      </se>
+      <se>
+        <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+      </se>
+    </form>
+    <div *ngIf="PointsList.length == 0">
+      暂无积分消息
+    </div> 
+<nz-timeline *ngIf="PointsList.length > 0">
+    <nz-timeline-item *ngFor="let item of PointsList">{{item.createdate|mkdateformatpipe:'YYYY-MM-DD'}}<span>积分:{{item.points}}</span>详情:{{item.pointdesc}}</nz-timeline-item>
+  </nz-timeline>

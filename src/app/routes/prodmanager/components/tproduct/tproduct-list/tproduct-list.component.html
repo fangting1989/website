@@ -1,50 +1,58 @@
-
 <div class="page-container">
   <nz-card [nzBordered]="false">
-      <form nz-form [nzLayout]="'inline'"  class="search__form">
-          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
-              <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
-                <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
-                </nz-form-control>
-              </nz-form-item>
-            </nz-col>
-            <nz-col>
-              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <a class="icon-more" (click)="expandForm=!expandForm">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a>
-            </nz-col>
-          </nz-row>
-        </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
-          <se label="是否有效" line>
-              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
-                (nzCheckedChange)="changeState($event, i)">
-                {{i.name}}
-              </nz-tag>
-          </se>
+    <form nz-form [nzLayout]="'inline'" class="search__form">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..."
+                id="txtsearch">
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col>
+          <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+            [nzLoading]="loading">查询</button>
+          <a class="icon-more" (click)="expandForm=!expandForm">
+            {{expandForm ? '收起' : '展开'}}
+            <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+          </a>
+        </nz-col>
+      </nz-row>
+    </form>
+    <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+      <se label="是否有效" line>
+        <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+          (nzCheckedChange)="changeState($event, i)">
+          {{i.name}}
+        </nz-tag>
+      </se>
+      <se label="商品类别" line>
+        <nz-tree-select  style="width: 200px;" [nzNodes]="SelTypeTreeData" [nzDefaultExpandedKeys]="expandKeys"
+          [nzDropdownMatchSelectWidth]="true" name="producttype" [nzDropdownStyle]="{ 'max-height': '300px' }"
+          nzPlaceHolder="请选择.." [(ngModel)]="searchObject.producttype">
+        </nz-tree-select>
+      </se>
+      <se label="商品品牌" line>
+          <nz-select style="width: 200px;" name="productbrand" nzShowSearch nzAllowClear nzPlaceHolder="选择一个品牌"
+          [(ngModel)]="searchObject.productbrand">
+          <nz-option *ngFor="let option of BrandList" [nzValue]="option.productbrandid" [nzLabel]="option.brandname">
+          </nz-option>
+        </nz-select>
+      </se>
 
-        </form>
+    </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
-              <i nz-icon type="plus"></i>
-              <span>新建</span>
-            </button>
+    <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+      <i nz-icon type="plus"></i>
+      <span>新建</span>
+    </button>
     <ng-container>
-      <nz-table #ajaxTable
-      nzShowSizeChanger 
-      [nzData]="DataList" 
-      [(nzPageIndex)]="PageNum"
-      [nzFrontPagination]="false"
-      [(nzPageSize)]="PageSize" 
-      [nzTotal]="TotalCount" 
-      (nzPageIndexChange)="loadData()"
-      (nzPageSizeChange)="loadData()" >
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+        [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+        (nzPageSizeChange)="loadData()">
         <thead>
           <tr>
             <th>序号</th>
@@ -52,7 +60,7 @@
             <th>商品名称</th>
             <th>上下架情况</th>
             <th>是否置顶</th>
-            <th>数量</th>
+            <th>实际销量</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -63,10 +71,12 @@
             <td>{{data.productname}}</td>
             <td>{{data.productvalid |mkenumformatpipe:'prostateArray'}}</td>
             <td>{{data.istop| mkstatearray}}</td>
-            <td>{{data.amount}}</td>
+            <td>{{data.factsalecount}}</td>
             <td>
-                <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0" (click)="ChangeState(data,1)"></i>
-                <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid == 1" (click)="ChangeState(data,0)"></i>
+              <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"
+                (click)="ChangeState(data,1)"></i>
+              <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid == 1"
+                (click)="ChangeState(data,0)"></i>
               <nz-divider nzType="vertical"></nz-divider>
               <i nz-icon nz-tooltip type="edit" nzTheme="outline" nzTitle="编辑" (click)="editItem(data)"></i>
               <nz-divider nzType="vertical"></nz-divider>

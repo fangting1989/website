@@ -12,6 +12,10 @@ import {
 ProductstaticComponent,
 MemberstaticComponent,
 TExpressListComponent,
+TOrderdetailCommentListComponent,
+OrderBillComponent,
+TmemberApprovedComponent,
+
 } from './components';
 
 const routes: Routes = [
@@ -30,6 +34,9 @@ const routes: Routes = [
       { path: 'productstatic', component: ProductstaticComponent },
       { path: 'memberstatic', component: MemberstaticComponent },
       { path: 'texpresslist', component: TExpressListComponent },
+      { path: 'tcomment', component: TOrderdetailCommentListComponent },
+      { path: 'torderbill', component: OrderBillComponent },
+      { path: 'tmemberapproved', component: TmemberApprovedComponent },
       { path: '**', redirectTo: 'tproductbrandlist' },
     ]
   }

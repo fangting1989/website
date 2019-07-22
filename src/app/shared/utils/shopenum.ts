@@ -10,4 +10,5 @@ export const shopEnums:any = {
     {name:'待退货',value:95},
     {name:'已完成',value:99},
     {name:'已关闭',value:-1}],
+    sellshopticketArray: [{name:'申请中',value:5},{name:'申请完成',value:10}],
 }

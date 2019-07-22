@@ -1,7 +1,8 @@
 
-<page-header [title]="'商品编辑'" [autoTitle]="false" [autoBreadcrumb]="false">
-
+<page-header [title]="'商品编辑'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goProductPage()">返回商品列表</button></div></ng-template>
 </page-header>
+
 <nz-card [nzBordered]="false">
   <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
     <nz-form-item>
@@ -119,11 +120,18 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzFor="name">数量</nz-form-label>
+      <nz-form-label [nzSpan]="4" nzFor="name">排序销量</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input type="text" name="amount" nz-input [(ngModel)]="model.amount" name="amount" />
+        <input type="text" name="salecount" nz-input [(ngModel)]="model.salecount" name="salecount" />
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">实际销量</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <input type="text" name="factsalecount" nz-input [(ngModel)]="model.factsalecount" name="factsalecount" disabled />
+        </nz-form-control>
+      </nz-form-item>
+  
 
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">备注</nz-form-label>

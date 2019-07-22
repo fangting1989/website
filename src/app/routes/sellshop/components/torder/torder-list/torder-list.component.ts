@@ -13,6 +13,7 @@ import { comservices} from '../../../../../shared/services';
 import { TOrderEditComponent} from '../torder-edit/torder-edit.component'
 import {OrderSendComponent} from '../order-send/order-send.component';
 import {OrderExpressComponent} from '../order-express/order-express.component';
+import * as moment from  'moment'
 @Component({
   selector: 'app-torder-list',
   templateUrl: './torder-list.component.html',
@@ -74,6 +75,12 @@ export class TOrderListComponent implements OnInit {
     if(this.orderisvalid){
       postData.orderisvalid = this.orderisvalid;
     }
+    if(this.searchObject.startdate){
+      postData.startdate = this.searchObject.startdate;
+    }
+    if(this.searchObject.enddate){
+      postData.enddate = this.searchObject.enddate;
+    }
     this.dataServices.torderList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
@@ -120,6 +127,17 @@ export class TOrderListComponent implements OnInit {
     item.active = true;
     //this.stateList = Object.assign([],this.stateList)
     this.orderisvalid = item.value;
+    this.loadData();
+  }
+
+  onDateChange(event){
+    if(event.length == 2){
+      this.searchObject.startdate = moment(event[0]).format("YYYYMMDD")
+      this.searchObject.enddate = moment(event[1]).format("YYYYMMDD")
+    }else{
+      delete this.searchObject.startdate
+      delete this.searchObject.enddate
+    }
     this.loadData();
   }
 

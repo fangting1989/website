@@ -6,7 +6,7 @@
               <nz-form-item>
                 <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
                 <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="订单编号/购买人/收货人/收货人手机号" id="txtsearch">
                 </nz-form-control>
               </nz-form-item>
             </nz-col>
@@ -26,6 +26,11 @@
                <span>{{i.name}}</span> <span *ngIf="i.count >=0"><span>(</span><span class="color-red">{{i.count}}</span><span>)</span></span> 
             </nz-tag>
         </se>
+
+        <se label="按时间" line>
+            <nz-range-picker name="searchdataRange" [nzFormat]="yyyy-MM-dd" class="searchdataRange" [nzShowTime]="false" [(ngModel)]="searchObject.dateRange" (ngModelChange)="onDateChange($event)" nzShowTime>
+            </nz-range-picker>
+          </se>
 
         </form>
   </nz-card>
