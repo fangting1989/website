@@ -4,6 +4,7 @@ import { dataServices } from '../../../services';
 import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
 import {_} from 'underscore';
+import { Utils } from '@shared/utils';
 @Component({
   selector: 'app-order-send',
   templateUrl: './order-send.component.html',
@@ -67,6 +68,17 @@ export class OrderSendComponent implements OnInit {
   }
   
   saveClick() {
+
+    if(Utils.IsStringNullOrEmpty(this.model.zipunit)){
+      this.msg.error("请选择快递公司")
+      return;
+    }
+
+    if(Utils.IsStringNullOrEmpty(this.model.zipnum)){
+      this.msg.error("请填写快递单号")
+      return;
+    }
+
     if(this.submitting){
         return
     }
@@ -79,6 +91,7 @@ export class OrderSendComponent implements OnInit {
       keycode:this.model.keycode,
       zipunit:this.model.zipunit,
       zipcode:this.model.zipcode,
+      zipnum:this.model.zipnum,
       orderisvalid:20, 
       enterpriseid:this.EnterPriseCode
     }

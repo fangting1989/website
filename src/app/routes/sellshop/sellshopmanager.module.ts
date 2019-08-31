@@ -30,7 +30,9 @@ TOrderdetailCommentListComponent,
 OrderBillComponent,
 TmemberApprovedComponent,
 TmemberApprovedEditComponent,
-OrderBillDetailComponent
+OrderBillDetailComponent,
+GwsorderListComponent,
+RelategwsComponent,
 } from './components';
 
 const COMPONENT = [
@@ -58,6 +60,8 @@ OrderBillComponent,
 TmemberApprovedComponent,
 TmemberApprovedEditComponent,
 OrderBillDetailComponent,
+GwsorderListComponent,
+RelategwsComponent,
 ]
 
 //services
@@ -84,6 +88,8 @@ import { OrderSendComponent } from './components/torder/order-send/order-send.co
     TmemberAddpointsComponent,
     TmemberApprovedComponent,
     OrderBillDetailComponent,
+    GwsorderListComponent,
+    RelategwsComponent,
   ],
   providers: [
     dataServices

@@ -61,13 +61,12 @@ export class TradestaticComponent implements OnInit {
   }
 
   setDate(type){
+    console.log(moment().format("YYYYMMDD"))
     this.date_range = getTimeDistance(type);
     if(type == 'week'){
       var newData = [];
-      _.each(this.date_range,it=>{
-        it = moment(it).add(1, 'd').format();
-        newData.push(it);
-      })
+      newData.push(moment().add(-6, 'd').format("YYYY-MM-DD"));
+      newData.push(moment().format("YYYY-MM-DD"));
       this.date_range = newData;
     }
     setTimeout(() => this.cdr.detectChanges());

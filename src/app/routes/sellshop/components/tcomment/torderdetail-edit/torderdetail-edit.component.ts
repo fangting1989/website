@@ -13,14 +13,14 @@ export class TOrderdetailCommentEditComponent implements OnInit {
   data: any;
   model: any = {}
   EnterPriseCode: any;
-  submitting:any = false;
+  submitting: any = false;
   stateArray: any = Object.assign([], Enums.stateArray);
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
   constructor(private msg: NzMessageService,
     private dataServices: dataServices,
     private modal: NzModalRef,
     private comservices: comservices,
-    private route:ActivatedRoute
+    private route: ActivatedRoute
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -32,9 +32,14 @@ export class TOrderdetailCommentEditComponent implements OnInit {
       }
       if (this.data.itemdata) {
         this.model = Object.assign({}, this.data.itemdata);
+        try {
+          this.model.commentdetail = JSON.parse(this.model.commentdetail)
+        } catch (e) {
+
+        }
       }
+      console.log(this.model)
     }
-    this.model.selected = false;
   }
 
   /*loadData(){
@@ -48,32 +53,26 @@ export class TOrderdetailCommentEditComponent implements OnInit {
      })
   }*/
 
-  saveClick() {
-    if(this.submitting){
-        return
+  DataChanged(event) {
+    if (this.submitting) {
+      return
     }
     this.submitting = true;
     var self = this;
-    this.model.enterpriseid = this.EnterPriseCode
-    if (this.model.keycode) {
-      this.dataServices.torderdetailUp(this.model).subscribe(result => {
-        this.submitting = false
-        if (result != null) {
-          self.model = result.data;
-          self.msg.success("操作成功!");
-          self.closeModal();
-        }
-      })
-    } else {
-      this.dataServices.torderdetailIn(this.model).subscribe(result => {
-        this.submitting = false
-        if (result != null) {
-          self.model = result.data;
-          self.msg.success("操作成功!");
-          self.closeModal();
-        }
-      })
+    var postData = {
+      keycode: this.model.keycode,
+      enterpriseid: this.comservices.getEnterPrise,
+      commentisvalid: event
     }
+    this.dataServices.torderdetailUp(postData).subscribe(result => {
+      this.submitting = false
+      if (result != null) {
+        self.model = result.data;
+        self.msg.success("操作成功!");
+        self.closeModal();
+      }
+    })
+
   }
 
   cancelClick() {

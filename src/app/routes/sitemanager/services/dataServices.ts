@@ -27,8 +27,8 @@ export class dataServices {
     public loadImg(data): any {
         return this.baseServices.getData("TFileApiService/find", data,WebConfig.RequestUrl.fileuploadpath)
     }
-    public updatefileremark(data): any {
-        return this.baseServices.getData("TFileApiService/updateremark", data,WebConfig.RequestUrl.fileuploadpath)
+    public updatefileindex(data): any {
+        return this.baseServices.getData("TFileApiService/updateindex", data,WebConfig.RequestUrl.fileuploadpath)
     }
     public ImgDel(data): any {
         return this.baseServices.getData("TFileApiService/delete", data,WebConfig.RequestUrl.fileuploadpath)

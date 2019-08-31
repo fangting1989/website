@@ -8,7 +8,8 @@ import { DomSanitizer,SafeUrl} from "@angular/platform-browser";
 import {
   NzDropdownService,
   NzMessageService,
-  NzModalService
+  NzModalService,
+  NzTreeSelectComponent
 } from 'ng-zorro-antd';
 import { ModalHelper } from '@delon/theme';
 import { Enums } from './../../../../../shared/utils/enums';
@@ -25,6 +26,7 @@ export class TypelistComponent implements OnInit {
   TreeData:any= [];
   typeItemBox: number = 1;
   okType: string;
+  abc:NzTreeSelectComponent
   SelTypeTreeData:any;
   submitting:any = false;
   SelTreeData:any;
@@ -76,21 +78,21 @@ export class TypelistComponent implements OnInit {
     //初始化选择
     this.SelTypeTreeData = [{key:"-1",title:"默认类别",isLeaf:true}]
     //加载默认数据
-    this.loadChildTreeData(-1,null)
+    this.loadChildTreeData(-1,null,null)
   }
 
-  TreeChild(e){
+  TreeChild(e,type){
     if(e.eventName == 'expand'){
       if(e.node.origin.type == "node"){
         e.node.isLoading = false
         return
       }
       //清空当前节点子节点
-      this.loadChildTreeData(e.node.key,e)
+      this.loadChildTreeData(e.node.key,e,type)
     }
   }
 
-  loadChildTreeData(pId,event){
+  loadChildTreeData(pId,event,type){
     if(event){
       event.node.clearChildren();
     }
@@ -118,6 +120,11 @@ export class TypelistComponent implements OnInit {
           })
           self.SelTypeTreeData = obdata
         }else{
+          if(type == 'select'){
+            _.each(mmmdata,item=>{
+              item.disabled = event.node.origin.disabled
+            })
+          }
           event.node.addChildren(mmmdata)
         }
       }
@@ -125,12 +132,16 @@ export class TypelistComponent implements OnInit {
   }
 
   addClick(){
-    this.model = {}
+    this.model = {
+      pid: "-1"
+    }
     this.ImageSrc = "#"
     this.ShowUpload = true;
   }
 
   TreeItemClick(event){
+    var self = this;
+    //选中
     if(event.node){
       if(event.node.origin.type == "nodetype"){
         this.typeItemBox = 1;
@@ -138,6 +149,11 @@ export class TypelistComponent implements OnInit {
         this.typeItemBox = 2;
       }
       this.model = event.node.origin
+      
+      this.resetTreeData(this.SelTypeTreeData,this.model.objectTypeID,false)
+
+      self.SelTypeTreeData = Object.assign([],self.SelTypeTreeData)
+
       this.ImageSrc = "#"
       this.ShowUpload = true
       if(this.model.typeIcon && this.model.typeIcon != ''){
@@ -148,6 +164,14 @@ export class TypelistComponent implements OnInit {
     }
   }
   okClick(){
+    if(!this.model.pid){
+      this.msg.error("请选择上级类别");
+      return
+    }
+    if(!this.model.typeName){
+      this.msg.error("请输入名称");
+      return
+    }
     if(this.submitting){
       return
     }
@@ -253,8 +277,24 @@ export class TypelistComponent implements OnInit {
         }
       })
     } else{
+      this.LoadTreeData();
       self.msg.success("操作成功!")
     }
+  }
+
+  resetTreeData(treeData,disableCode,parentState){
+    var self =this;
+    //重置数据
+    _.each(treeData,it=>{
+      if(it.objectTypeID ==disableCode){
+        it.disabled = true
+      }else{
+        it.disabled = parentState;
+      }
+      self.resetTreeData(it.children,disableCode, it.disabled)
+    })
+
+    _.each()
   }
 
   onChange_Start(e){

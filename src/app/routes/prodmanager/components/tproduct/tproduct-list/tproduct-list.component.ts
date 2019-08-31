@@ -102,7 +102,7 @@ export class TProductListComponent implements OnInit {
       if(item.parent_id == pid){
         CurrArray.push(item)
         item.children = []
-        this.GetTreeData(item.id,item.children,AllArray)
+        this.GetTreeData(item.key,item.children,AllArray)
       }
     })
   }

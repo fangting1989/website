@@ -1,0 +1,35 @@
+.search__form{
+  .ant-form-item{
+      margin-bottom: 0px;
+  }
+  .icon-more{
+      margin-left:10px;
+  }
+}
+.page-container{
+  .more-form{
+      margin-top:14px;
+  }
+  .more-form{
+    .ant-form-item-control{
+      padding:10px;
+    }
+  }
+  .btn-add{
+      margin-bottom: 12px;
+  }
+  .s-item{
+    display:inline-block;
+    background: #2d9dff;
+    padding:0px 15px;
+    margin:0px 5px;
+    color:#fff;
+    position: relative;
+    img{
+      position: absolute;
+      top:-5px;
+      right:-5px;
+      width:20px;
+    } 
+  }
+}

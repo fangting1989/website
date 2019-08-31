@@ -114,4 +114,20 @@ export class MainpageTypeComponent implements OnInit {
     this.modal.close(true);
     this.modal.destroy();
   }
+
+  deleteClick(){
+    var postData = {
+      keycode:this.model.keycode
+    }
+    this.dataServices.twebcoreDel(postData).subscribe(result => {
+      if(result){
+        this.msg.success("删除成功!");
+        this.closeModal();
+        this.data.itemdata = {
+          name:'设定',value:this.data.itemdata.webcorevalid
+        }
+        //.{name:'设定',value:5}
+      }
+    })
+  }
 }

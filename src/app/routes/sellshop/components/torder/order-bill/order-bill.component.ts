@@ -115,7 +115,7 @@ export class OrderBillComponent implements OnInit {
   }
 
   Detail(item){
-    var data = {HeadText:'订单详情',itemdata:item}
+    var data = {HeadText:'发票详情',itemdata:item}
     const modal = this.modalHelper.create(OrderBillDetailComponent,{ data: data},{size:800}).subscribe(res => {
       this.loadData()
     });

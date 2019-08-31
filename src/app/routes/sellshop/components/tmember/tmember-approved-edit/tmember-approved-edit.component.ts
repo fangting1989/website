@@ -34,6 +34,11 @@ export class TmemberApprovedEditComponent implements OnInit {
       }
       if (this.data.itemdata) {
         this.model = Object.assign({}, this.data.itemdata);
+        //
+        this.model.idcardfront = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.idcardfront;
+        this.model.idcardback = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.idcardback;
+        this.model.rzt = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.rzt;
+        this.model.sfrzt = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ this.model.sfrzt;
       }
       console.log(this.model) 
     }

@@ -15,11 +15,11 @@ import {OrderSendComponent} from '../order-send/order-send.component';
 import {OrderExpressComponent} from '../order-express/order-express.component';
 import * as moment from  'moment'
 @Component({
-  selector: 'app-torder-list',
-  templateUrl: './torder-list.component.html',
-  styleUrls: ['./torder-list.component.scss']
+  selector: 'app-gwsorder-list',
+  templateUrl: './gwsorder-list.component.html',
+  styleUrls: ['./gwsorder-list.component.scss']
 })
-export class TOrderListComponent implements OnInit {
+export class GwsorderListComponent implements OnInit {
   DataList:any = []
   searchObject:any = {};
   PageNum:any = 1;
@@ -31,6 +31,7 @@ export class TOrderListComponent implements OnInit {
   StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
   stateList:any = Object.assign([],Enums.orderisvalid) 
   orderisvalid:any;
+  gwsList:any;
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -50,7 +51,6 @@ export class TOrderListComponent implements OnInit {
   }
 
   InitData(){
-
     var state = this.route.snapshot.queryParams["state"];
     if(state){
       this.orderisvalid = state
@@ -60,11 +60,31 @@ export class TOrderListComponent implements OnInit {
         }
       })
     }
-    this.loadData();
-    // this.getOrderState();
+    this.loadbrand();
+  }
+
+  loadbrand(){
+    var self = this;
+    var postData = {
+      pagesize:1000,
+      searchtext:this.searchObject.searchText,
+      enterpriseid: this.EnterPriseCode,
+      memberid:this.comservices.getUserCode
+    }
+    this.dataServices.trtgwsList(postData).subscribe(result => {
+      if (result != null) {
+        self.gwsList = result.data;
+        this.loadData();
+      }
+    })
   }
 
   loadData(){
+    var self = this;
+    if(self.gwsList.length == 0){
+      this.msg.error("请先配置品牌")
+      return
+    }
     var self = this;
     var postData:any = {
       pagesize:this.PageSize,
@@ -81,6 +101,12 @@ export class TOrderListComponent implements OnInit {
     if(this.searchObject.enddate){
       postData.enddate = this.searchObject.enddate;
     }
+    var brandids = ""
+    _.each(this.gwsList,it=>{
+      brandids += (brandids == ""?"":",") + it.productbrandid;
+    })
+    postData.brandids = brandids;
+    console.log(postData)
     this.dataServices.torderList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
@@ -88,30 +114,7 @@ export class TOrderListComponent implements OnInit {
       }
     })
 
-    this.getOrderState();
-  }
-
-  getOrderState(){
-    //sp_getorderstate
-    var state_arr = _.filter(this.stateList,it=>{
-      return it.value != null;
-    }) 
-    var postData = {
-      enterpriseid:this.comservices.getEnterPrise,
-      list:state_arr
-    }
-    this.dataServices.sp_getorderstate(postData).subscribe(result => {
-      if(result){
-        _.each(this.stateList,it=>{
-          //导航地址
-          _.each(result.data,iit =>{
-            if(it.value == iit.value){
-              it.count = iit.count;
-            }
-          })
-        })
-      }
-    })
+    
   }
 
   SearchClick(e){
@@ -127,7 +130,7 @@ export class TOrderListComponent implements OnInit {
       it.active = false;
     })
     item.active = true;
-    //this.stateList = Object.assign([],this.stateList)
+    console.log(item)
     this.orderisvalid = item.value;
     this.loadData();
   }
@@ -176,7 +179,6 @@ export class TOrderListComponent implements OnInit {
     var data = {HeadText:'订单详情',itemdata:item}
     const modal = this.modalHelper.create(OrderSendComponent,{ data: data},{size:800}).subscribe(res => {
       this.loadData()
-      this.getOrderState();
     });
   }
 
@@ -184,7 +186,6 @@ export class TOrderListComponent implements OnInit {
     var data = {HeadText:'订单详情',itemdata:item}
     const modal = this.modalHelper.create(OrderExpressComponent,{ data: data},{size:800}).subscribe(res => {
       this.loadData()
-      this.getOrderState();
     });
   }
 }

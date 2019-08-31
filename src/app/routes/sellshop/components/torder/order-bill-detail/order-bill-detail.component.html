@@ -1,22 +1,75 @@
 <div class="modal-header">
   <div class="modal-title">{{data.HeadText}}</div>
 </div>
-<nz-card [nzBordered]="false">
+
+<nz-card nzTitle="基本信息">
   <ng-container>
-    <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
-      [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()" [nzShowPagination]="false" (nzPageSizeChange)="loadData()">
-      <thead>
-        <tr>
-          <th>商品名称</th>
-          <th>商品价格</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of ajaxTable.data; let i = index">
-          <td>{{data.costname}}</td>
-          <td>{{data.paymoney}}</td>
-        </tr>
-      </tbody>
-    </nz-table>
+      <div nz-row>
+          <div nz-col nzSpan="6">申请时间</div>
+          <div nz-col nzSpan="8">{{datamodel.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</div>
+        </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">发票抬头</div>
+      <div nz-col nzSpan="12">{{datamodel.ticketname}}</div>
+    </div> 
+    <div nz-row>
+      <div nz-col nzSpan="6">税号</div>
+      <div nz-col nzSpan="8">{{datamodel.ticketno}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">开票金额</div>
+      <div nz-col nzSpan="8">{{datamodel.amount}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6"></div>
+      <div nz-col nzSpan="8"></div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">收票地址</div>
+      <div nz-col nzSpan="8">{{AddressModel.province}}{{AddressModel.address}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">联系人</div>
+      <div nz-col nzSpan="8">{{AddressModel.linkman}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">联系方式</div>
+      <div nz-col nzSpan="8">{{AddressModel.linktel}}</div>
+    </div>
   </ng-container>
 </nz-card>
+
+
+<nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+  [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()" [nzShowPagination]="false"
+  (nzPageSizeChange)="loadData()">
+  <thead>
+    <tr>
+      <th>商品名称</th>
+      <th>规格名称</th>
+      <th>商品价格</th>
+      <th>完成日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data; let i = index">
+      <td>{{data.costname}}</td>
+      <td>{{data.unitname}}</td>
+      <td>{{data.paymoney}}</td>
+      <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div class="modal-footer" *ngIf="datamodel.isvalid == 5">
+    <button nz-button nzType="primary" (click)="saveClick()" type="button"
+      [nzLoading]="submitting">确定开票</button>
+    <button nz-button class="ml-sm" (click)="cancelClick()">拒绝</button>
+</div>
+ 
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="拒绝理由" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <div>
+        <textarea rows="4" nz-input [(ngModel)]="model.rejectreason"></textarea>
+    </div>
+  </nz-modal>

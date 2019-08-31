@@ -15,6 +15,8 @@ TExpressListComponent,
 TOrderdetailCommentListComponent,
 OrderBillComponent,
 TmemberApprovedComponent,
+RelategwsComponent,
+GwsorderListComponent,
 
 } from './components';
 
@@ -37,6 +39,8 @@ const routes: Routes = [
       { path: 'tcomment', component: TOrderdetailCommentListComponent },
       { path: 'torderbill', component: OrderBillComponent },
       { path: 'tmemberapproved', component: TmemberApprovedComponent },
+      {path: 'gwsoderlist', component: GwsorderListComponent  },
+      {path: 'rtgws', component: RelategwsComponent  },
       { path: '**', redirectTo: 'tproductbrandlist' },
     ]
   }

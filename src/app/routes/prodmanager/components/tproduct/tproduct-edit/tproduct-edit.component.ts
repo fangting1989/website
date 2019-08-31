@@ -132,20 +132,24 @@ export class TProductEditComponent implements OnInit {
     if (this.model.keycode) {
       this.dataServices.tproductUp(this.model).subscribe(result => {
         if (result != null) {
-          self.model = result.data;
           self.uploadImg(self.model.keycode);
         }
       })
     } else {
       this.dataServices.tproductIn(this.model).subscribe(result => {
         if (result != null) {
-          self.model = result.data;
+          self.model.keycode = result.data.keycode;
           self.uploadImg(self.model.keycode);
         }
       })
     }
   }
 
+  addNewClick(){
+    this.model = {}
+    this.closeImg();
+    this.UnitDataList = []
+  }
   cancelClick() {
     this.closeModal();
   }
@@ -208,11 +212,12 @@ export class TProductEditComponent implements OnInit {
   }
 
   GetTreeData(pid,CurrArray,AllArray){
+    var self = this;
     _.each(AllArray,item=>{
       if(item.parent_id == pid){
         CurrArray.push(item)
         item.children = []
-        this.GetTreeData(item.id,item.children,AllArray)
+        self.GetTreeData(item.key,item.children,AllArray)
       }
     })
   }
@@ -225,13 +230,9 @@ export class TProductEditComponent implements OnInit {
     //增加规格
     var data = {HeadText:'编辑规格',itemdata:item}
     const modal = this.modalHelper.create(TproductunitComponent,{ data: data},{size:800}).subscribe(res => {
-      console.log(res)
       if(res.keycode){
-
         self.UnitDataList.push(res)
         self.UnitDataList = Object.assign([],self.UnitDataList)
-        console.log("==================")
-        console.log(self.UnitDataList)
       }
     });
     

@@ -8,7 +8,7 @@
     <ng-template #extraTemplate>
         <div class="sales-extra-wrap">
           <div class="sales-extra">
-            <a (click)="setDate('week')">本周</a>
+            <a (click)="setDate('week')">近7天</a>
             <a (click)="setDate('month')">本月</a>
           </div>
           <nz-range-picker [(ngModel)]="date_range" (ngModelChange)="DateChange($event)" style="display:inline-block; width: 256px;"></nz-range-picker>

@@ -9,6 +9,7 @@ import {
 } from 'ng-zorro-antd';
 import { ModalHelper } from '@delon/theme';
 import { comservices} from '../../../../../shared/services';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-order-bill-detail',
@@ -31,6 +32,9 @@ export class OrderBillDetailComponent implements OnInit {
   CustomType:any = [{name:'潜力客户',value:1},{name:'意向客户',value:2}]
   ShowMore:any = false
   allChecked:any = false
+  AddressModel:any = {};
+  isVisible:any = false;
+  model:any = {}
 
   constructor(
     public msg: NzMessageService,
@@ -53,7 +57,9 @@ export class OrderBillDetailComponent implements OnInit {
         this.datamodel = Object.assign({}, this.data.itemdata);
       }
     }
+    console.log(this.datamodel)
     this.loadData();
+    this.loadaddress();
   }
 
   loadData(){
@@ -65,33 +71,74 @@ export class OrderBillDetailComponent implements OnInit {
     }
     this.dataServices.torderdetailList(postData).subscribe(result => {
       if(result){
-        console.log(result)
         this.DataList = result.data
       }
     })
-    
   }
 
-  SearchClick(e){
-    this.loadData();
-  }
-
-  changeState(e,item){
-    this.loadData();
-  }
-
-
-  refreshStatus(item){
-    _.each(this.DataList,it=>{
-      it.active = false;
+  loadaddress(){
+    var postData = {
+      enterpriseid:this.comservices.getEnterPrise,
+      isdefault:1,
+      memberid:this.datamodel.memberid
+    }
+    this.dataServices.taddressList(postData).subscribe(result => {
+      if(result && result.data.length > 0){
+        this.AddressModel = result.data[0];
+      }
     })
-    item.active = true;
-    this.CurrItem = item
   }
+
 
   closeModal() {
     this.modal.close(true);
     this.modal.destroy();
+  }
+
+  saveClick(){
+    var postData = {
+      enterpriseid:this.comservices.getEnterPrise,
+      operateperson:this.comservices.getUserName,
+      isvalid:10,
+      keycode:this.datamodel.keycode
+    }
+    this.dataServices.tmemticketUp(postData).subscribe(result => {
+      if(result){
+        this.msg.success("操作成功!")
+        this.isVisible = false;
+        this.closeModal();
+      }
+    })
+  }
+
+  cancelClick(){
+    this.isVisible = true
+  }
+  handleCancel(){
+    this.isVisible = false
+  }
+
+  handleOk(){
+    console.log("1-2-3-4-")
+    if(this.submitting){
+      return
+    }
+    this.submitting = true;
+    var postData = {
+      enterpriseid:this.comservices.getEnterPrise,
+      operateperson:this.comservices.getUserName,
+      advice:this.model.rejectreason,
+      isvalid:8,
+      keycode:this.datamodel.keycode
+    }
+    this.dataServices.tmemticketUp(postData).subscribe(result => {
+      this.submitting = false;
+      if(result){
+        this.msg.success("操作成功!")
+        this.isVisible = false;
+        this.closeModal();
+      }
+    })
   }
 }
 

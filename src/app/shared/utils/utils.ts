@@ -10,6 +10,9 @@ export const Utils:any = {
     return `&yen ${value}`;
   },
   IsStringNullOrEmpty:function(a:any){
+    if(a!=null && typeof(a)!=='undefined'){
+      a = a + "";
+    }
     if( a!=null && typeof(a)!=='undefined' && typeof(a)==='string' &&a.trim()!=='' ) {
       return false
     }else{
@@ -33,10 +36,12 @@ export const Utils:any = {
       var re=/^1[3456789]\d{9}$/
       return re.test(v)
   },
-  checkFloat:function(v,bit){//bit 几位小数
-      var st='^[0-9]+[0-9]*\\.+[0-9]{0,'+bit+'}$'
-      var re=new RegExp(st)
-      return re.test(v)
+  checkFloat: function (v, bit) {//bit 几位小数
+    //var st = '^[0-9]+[0-9]*\\.+[0-9]{0,' + bit + '}$'
+    //var st = '^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$'
+    var st = '^(([0-9]+\\.+[0-9]{1,' + bit + '})|([0-9]*[1-9][0-9]*\\.+[0-9]{1,' + bit + '})|([0-9]*[1-9][0-9]*))$'
+    var re = new RegExp(st)
+    return re.test(v)
   },
   /**
 	** 加法函数，用来得到精确的加法结果

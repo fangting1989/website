@@ -30,10 +30,10 @@
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+          <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
               <i nz-icon type="plus"></i>
               <span>新建</span>
-            </button>
+            </button> -->
     <ng-container>
       <nz-table #ajaxTable
           nzShowSizeChanger
@@ -65,9 +65,9 @@
             <td>{{data.commentstar}}</td>
             <td>{{data.commentcontent}}</td>
             <!-- <td>{{data.commentdetail}}</td> -->
-            <td>{{data.commentisvalid}}</td>
+            <td>{{data.commentisvalid|mkenumformatpipe:'stateArray'}}</td>
             <td>
-              <a (click)="editItem(data)">编辑</a>
+              <a (click)="editItem(data)">查看详情</a>
             </td>
           </tr>
         </tbody>

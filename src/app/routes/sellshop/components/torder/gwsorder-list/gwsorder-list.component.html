@@ -4,7 +4,7 @@
           <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
             <nz-col nzMd="8" nzSm="24">
               <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-label nzFor="txtsearch">　搜索&nbsp;</nz-form-label>
                 <nz-form-control>
                   <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="订单编号/购买人/收货人/收货人手机号" id="txtsearch">
                 </nz-form-control>
@@ -12,26 +12,20 @@
             </nz-col>
             <nz-col>
               <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <!-- <a class="icon-more" (click)="expandForm=!expandForm">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a> -->
             </nz-col>
           </nz-row>
         </form>
         <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+        <se label="按时间" line>
+            <nz-range-picker name="searchdataRange" [nzFormat]="yyyy-MM-dd" class="searchdataRange" [nzShowTime]="false" [(ngModel)]="searchObject.dateRange" (ngModelChange)="onDateChange($event)" nzShowTime>
+            </nz-range-picker>
+          </se>
           <se label="订单状态" line>
             <nz-tag *ngFor="let i of stateList; let idx = index" nzMode="checkable" [nzChecked]="i.active"
               (nzCheckedChange)="StateListItem($event, i)">
                <span>{{i.name}}</span> <span *ngIf="i.count >=0"><span>(</span><span class="color-red">{{i.count}}</span><span>)</span></span> 
             </nz-tag>
         </se>
-
-        <se label="按时间" line>
-            <nz-range-picker name="searchdataRange" [nzFormat]="yyyy-MM-dd" class="searchdataRange" [nzShowTime]="false" [(ngModel)]="searchObject.dateRange" (ngModelChange)="onDateChange($event)" nzShowTime>
-            </nz-range-picker>
-          </se>
-
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
@@ -60,15 +54,10 @@
             <td>{{data.ordernum}}</td>
             <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
             <td>{{data.membername}}</td>
-            <td>{{data.paymoney}}</td>
+            <td>{{data.amount}}</td>
             <td>{{data.orderisvalid|mkenumformatpipe:'orderisvalid'}}</td>
-            <td *ngIf="data.orderisvalid == -1">
-              <a (click)="editItem(data)">查看订单</a>
-            </td>
             <td *ngIf="data.orderisvalid == 1">
               <a (click)="editItem(data)">查看订单</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteItem(data)">关闭订单</a>
             </td>
 
             <td *ngIf="data.orderisvalid == 10">
@@ -89,7 +78,7 @@
               <a (click)="OrderExpress(data)">订单跟踪</a>
             </td>
 
-            <td *ngIf="data.orderisvalid == 99 || data.orderisvalid == 95">
+            <td *ngIf="data.orderisvalid == 99 ||data.orderisvalid >= 95 ">
               <a (click)="editItem(data)">查看订单</a>
             </td>
           </tr>

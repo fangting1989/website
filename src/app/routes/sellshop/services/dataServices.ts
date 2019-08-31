@@ -155,7 +155,28 @@ export class dataServices {
     public tmemticketDel(data): any {
         return this.baseServices.getData("TMemticketApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
     }
+    public orderexpress(data): any {
+        return this.baseServices.getData("TOrderApiService/orderexpress", data,WebConfig.RequestUrl.sellsiteservice)
+    }
 
-
+    public trtgwsList(data): any {
+        return this.baseServices.getData("TRtgwsApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public trtgwsIn(data): any {
+        return this.baseServices.postData("TRtgwsApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public trtgwsUp(data): any {
+        return this.baseServices.postData("TRtgwsApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public trtgwsDel(data): any {
+        return this.baseServices.getData("TRtgwsApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public enterpriseuserlist(data): any {
+        return this.baseServices.getData("TAdminuserApiService/enterpriseuserlist", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tproductList(data): any {
+        return this.baseServices.getData("TProductApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    
     
 }

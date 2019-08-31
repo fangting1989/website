@@ -29,5 +29,6 @@
 </form>
 <div class="modal-footer">
   <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid">保存</button>
+  <button nz-button class="ml-sm" *ngIf="model.keycode" (click)="deleteClick()">删除</button>
   <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
 </div>

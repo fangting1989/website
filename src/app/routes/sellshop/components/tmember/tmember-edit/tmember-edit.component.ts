@@ -44,6 +44,10 @@ export class TMemberEditComponent implements OnInit {
     this.loadOrder();
   }
 
+  reload(){
+    this.ngOnInit();
+  }
+
   loadData(){
     var self = this;
     this.model = {}

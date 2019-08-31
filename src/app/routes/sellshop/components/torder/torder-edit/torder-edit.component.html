@@ -5,8 +5,10 @@
   <sv-container size="small">
     <sv label="订单编号">{{model.ordernum}}</sv>
     <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
-    <sv label="订单金额">{{model.paymoney}}</sv>
     <sv label="用户名称">{{model.membername}}</sv>
+    <sv label="商品金额">{{model.amount}}元</sv>
+    <sv label="运费">{{model.zipamount}}元</sv>
+    <sv label="订单金额">{{model.paymoney}}元</sv>
     <sv label="订单状态">{{model.orderisvalid|mkenumformatpipe:'orderisvalid'}}</sv>
   </sv-container>
 </nz-card>
@@ -22,7 +24,7 @@
 <nz-card nzType="inner" nzTitle="发货快递信息">
   <sv-container size="small">
     <sv label="快递公司">{{model.zipunit}}</sv>
-    <sv label="邮寄单号">{{model.zipcode}}</sv>
+    <sv label="邮寄单号">{{model.zipnum}}</sv>
   </sv-container>
 </nz-card>
 
@@ -35,7 +37,9 @@
         <th>规格</th>
         <th>单价</th>
         <th>数量</th>
-        <th>金额</th>
+        <th>商品金额</th>
+        <th>运费</th>
+        <th>支付金额</th>
         <th *ngIf="model.orderisvalid == 1">操作</th>
       </tr>
     </thead>
@@ -48,6 +52,8 @@
         <td>{{data.unitname}}</td>
         <td>{{data.price}}</td>
         <td>{{data.costnum}}</td>
+        <td>{{data.costamount}}</td>
+        <td>{{data.zipamount}}</td>
         <td>{{data.paymoney}}</td>
         <td *ngIf="model.orderisvalid == 1"><a (click)="fixPrice(data)">修改价格</a></td>
       </tr>

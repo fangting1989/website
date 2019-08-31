@@ -22,3 +22,5 @@ export * from './tcomment/torderdetail-list/torderdetail-list.component';
 export * from './tcomment/torderdetail-edit/torderdetail-edit.component';
 export * from './torder/order-bill/order-bill.component';
 export * from './torder/order-bill-detail/order-bill-detail.component';
+export * from './torder/gwsorder-list/gwsorder-list.component';
+export * from './rtgws/relategws/relategws.component';

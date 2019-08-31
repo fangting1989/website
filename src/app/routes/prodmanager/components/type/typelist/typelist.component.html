@@ -5,7 +5,7 @@
         <div class="addtype-but">
           <button nz-button nzType="primary" (click)="addClick()">添加类别</button>
         </div>
-        <nz-tree [nzData]="TreeData" nzShowIcon="true" nzAsyncData="true" nzExpandAll="false"  (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event)">
+        <nz-tree [nzData]="TreeData" nzShowIcon="true" nzAsyncData="true" nzExpandAll="false"  (nzClick)="TreeItemClick($event)" (nzExpandChange)="TreeChild($event,null)">
         </nz-tree>
       </as-split-area>
       <as-split-area size="80">
@@ -16,7 +16,7 @@
               <nz-form-control [nzSpan]="8">
                 <nz-tree-select name="pid" nzPlaceHolder="请选择.." [nzDefaultExpandedKeys]="expandKeys"
                   [nzDropdownMatchSelectWidth]="true" [nzDropdownStyle]="{ 'max-height': '300px' }" [(ngModel)]="model.pid"
-                  [nzNodes]="SelTypeTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event)">
+                  [nzNodes]="SelTypeTreeData" [nzAsyncData]="true" (nzExpandChange)="TreeChild($event,'select')">
                 </nz-tree-select>
               </nz-form-control>
             </nz-form-item>

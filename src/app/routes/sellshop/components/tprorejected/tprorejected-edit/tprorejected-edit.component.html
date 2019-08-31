@@ -1,37 +1,151 @@
 <div class="modal-header">
   <div class="modal-title">{{data.HeadText}}</div>
 </div>
-<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
-<!-- error="请填写" required -->
-<!--<se label="是否有效" error="请填写">
-        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
-          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
-        </nz-radio-group>
-      </se>-->
-<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
-  <se label="退货申请时间">
-    <input type="text" name="createdate" nz-input [(ngModel)]="model.createdate" name="createdate" />
-  </se>
-  <se label="退货人">
-    <input type="text" name="rejectedname" nz-input [(ngModel)]="model.rejectedname" name="rejectedname" />
-  </se>
-  <se label="退货总金额">
-    <input type="text" name="rejectedamount" nz-input [(ngModel)]="model.rejectedamount" name="rejectedamount" />
-  </se>
-  <se label="退货商品数">
-    <input type="text" name="rejectedprocount" nz-input [(ngModel)]="model.rejectedprocount" name="rejectedprocount" />
-  </se>
-  <se label="退货备注">
-    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" name="remark" />
-  </se>
-  <se label="企业内码">
-    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" name="enterpriseid" />
-  </se>
-  <se label="orderdetailid">
-    <input type="text" name="orderdetailid" nz-input [(ngModel)]="model.orderdetailid" name="orderdetailid" />
-  </se>
-</form>
-<div class="modal-footer">
-  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
-  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
-</div>
+
+<nz-card>
+  <ng-container>
+    <div nz-row>
+      <div nz-col nzSpan="4">申请时间:</div>
+      <div nz-col nzSpan="8">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</div>
+      <div nz-col nzSpan="4">申请状态:</div>
+      <div nz-col nzSpan="8">{{model.isvalid_enum}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">订单编号:</div>
+      <div nz-col nzSpan="8">{{model.ordernum}}</div>
+      <div nz-col nzSpan="4">商品名称:</div>
+      <div nz-col nzSpan="8">{{model.productname}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">商品规格:</div>
+      <div nz-col nzSpan="8">{{model.unitname}}</div>
+      <div nz-col nzSpan="4">支付情况:</div>
+      <div nz-col nzSpan="8">
+        支付金额:￥{{model.orderdetail.costamount}}元,运费:￥{{model.orderdetail.zipamount?model.orderdetail.zipamount:'0'}}元,实际支付{{model.orderdetail.paymoney}}元
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">联系人:</div>
+      <div nz-col nzSpan="8">{{model.rejectedname}}</div>
+      <div nz-col nzSpan="4">联系电话:</div>
+      <div nz-col nzSpan="8">{{model.memMobile}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">退货原因:</div>
+      <div nz-col nzSpan="8">{{model.refusename}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">问题描述:</div>
+      <div nz-col nzSpan="8">{{model.reason}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4">问题图片:</div>
+      <div nz-col nzSpan="18">
+        <div nz-row>
+          <div nz-col nzSpan="6" *ngFor="let item of prorejectedcontent.imagelist"><img [src]="item.imgpath" alt=""
+              style="width:100%;"></div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</nz-card>
+
+<nz-card *ngIf="model.isvalid ==10 || model.isvalid ==6">
+  <ng-container>
+    <div nz-row>
+      <div nz-col nzSpan="6">退款金额</div>
+      <div nz-col nzSpan="8">￥{{model.rejectamount}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">退款运费</div>
+      <div nz-col nzSpan="8">￥{{model.rejectpostmoney}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">收货地址</div>
+      <div nz-col nzSpan="8">{{model.rejectaddress}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">联系人</div>
+      <div nz-col nzSpan="12">{{model.rejectlinkman}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">联系电话</div>
+      <div nz-col nzSpan="8">{{model.rejectphone}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">备注说明</div>
+      <div nz-col nzSpan="8">{{model.rejectdesc}}</div>
+    </div>
+  </ng-container>
+</nz-card>
+<nz-card *ngIf="model.isvalid ==5">
+  <ng-container>
+    <div nz-row>
+      <div nz-col nzSpan="6">拒绝理由</div>
+      <div nz-col nzSpan="8">{{model.dealadvice}}</div>
+    </div>
+  </ng-container>
+</nz-card>
+<nz-card *ngIf="model.isvalid >=5">
+  <ng-container>
+    <div nz-row>
+      <div nz-col nzSpan="6">处理人</div>
+      <div nz-col nzSpan="8">{{model.dealperson}}</div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="6">处理时间</div>
+      <div nz-col nzSpan="8">{{model.dealdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</div>
+    </div>
+  </ng-container>
+</nz-card>
+<nz-card *ngIf="model.isvalid ==1">
+  <ng-container>
+    <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+      <se label="订单支付情况" [col]="1">
+        商品金额：￥{{model.orderdetail.costamount}}元,运费:￥{{model.orderdetail.zipamount?model.orderdetail.zipamount:'0'}}元,实际支付金额:￥{{model.orderdetail.paymoney}}元
+      </se>
+      <se label="退运费">
+        <nz-input-group nzAddOnBefore="￥">
+          <input type="text" name="rejectpostmoney" nz-input [(ngModel)]="model.rejectpostmoney"
+            name="rejectpostmoney" />
+        </nz-input-group>
+      </se>
+      <se label="退款金额">
+        <nz-input-group nzAddOnBefore="￥">
+          <input type="text" name="rejectamount" nz-input [(ngModel)]="model.rejectamount" name="rejectamount" />
+        </nz-input-group>
+      </se>
+      <se label="联系人">
+        <input type="text" name="rejectlinkman" nz-input [(ngModel)]="model.rejectlinkman" name="rejectlinkman" />
+      </se>
+      <se label="联系电话">
+        <input type="text" name="rejectphone" nz-input [(ngModel)]="model.rejectphone" name="rejectphone" />
+      </se>
+      <se label="收货地址" [col]="1">
+        <textarea rows="3" nz-input [(ngModel)]="model.rejectaddress" name="rejectaddress"></textarea>
+      </se>
+
+      <se label="备注说明" [col]="1">
+        <textarea rows="3" nz-input [(ngModel)]="model.rejectdesc" name="rejectdesc"></textarea>
+      </se>
+    </form>
+    <div class="modal-footer" *ngIf="model.isvalid == 1">
+      <button nz-button nzType="primary" (click)="saveSureClick()" type="button" [nzLoading]="submitting">确定处理</button>
+      <button nz-button class="ml-sm" (click)="cancelClick()">拒绝退货</button>
+    </div>
+
+
+  </ng-container>
+</nz-card>
+
+<nz-card *ngIf="model.isvalid ==6">
+  <ng-container>
+      <button nz-button nzType="primary" (click)="SureBackClick()" type="button"
+        [nzLoading]="submitting">收货确认退款</button>
+  </ng-container>
+</nz-card>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="拒绝理由" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <div>
+    <textarea rows="4" nz-input [(ngModel)]="model.advice"></textarea>
+  </div>
+</nz-modal>

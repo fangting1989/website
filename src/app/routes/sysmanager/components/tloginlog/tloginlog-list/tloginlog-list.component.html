@@ -39,7 +39,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
-            <td>{{data.logindate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.logindate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
             <td>{{data.username}}</td>
             <td>{{data.ipaddress}}</td>
             <td>{{data.cityaddress}}</td>

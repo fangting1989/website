@@ -17,7 +17,7 @@
         <div nz-col class="process-item" [nzSpan]="6" *ngFor="let dataitem of MainpicList">
           <nz-card [nzActions]="[op1, op2]">
             <ng-template #op1>
-              <a (click)="editIndex(dataitem)">编辑<span>(顺序:{{dataitem.remark}})</span><i nz-icon type="edit"></i></a>
+              <a (click)="editIndex(dataitem)">编辑<span>(顺序:{{dataitem.fileindex}})</span><i nz-icon type="edit"></i></a>
             </ng-template>
             <ng-template #op2>
               <a (click)="delItem(dataitem,Mainpictype)">删除</a>
@@ -167,7 +167,7 @@
     (nzOnOk)="EditMain_handleOk()">
     <form nz-form class="mform" se-container="1" gutter="32">
       <se label="顺序">
-        <input nz-input placeholder="" name="remark" [(ngModel)]="EditMainPic.remark" />
+        <input nz-input placeholder="" name="fileindex" [(ngModel)]="EditMainPic.fileindex" />
       </se>
       <se label="商品">
         <nz-select style="width: 200px;" name="fileurl" nzShowSearch nzAllowClear nzPlaceHolder="选择一个商品"

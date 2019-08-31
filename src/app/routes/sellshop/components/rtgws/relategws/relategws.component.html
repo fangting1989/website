@@ -1,0 +1,81 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+    <form nz-form [nzLayout]="'inline'" class="search__form">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }" >
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">选择用户</nz-form-label>
+            <nz-form-control>
+              <nz-select style="width: 200px;" (ngModelChange)="userChanged($event)" name="memberid" nzShowSearch
+                nzAllowClear nzPlaceHolder="选择一个用户" [(ngModel)]="searchObject.memberid">
+                <nz-option *ngFor="let option of UserList" [nzValue]="option.keycode"
+                  [nzLabel]="option.adminusernickname">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+
+    </form>
+    <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+      <se label="关联品牌" line>
+        <div class="s-item" *ngFor="let i of gwsList; let idx = index"> {{i.brandname}}<img
+            src="./assets/imgs/delete.png" alt="" (click)="DeleteItem(i)"></div>
+      </se>
+    </form>
+    <form nz-form [nzLayout]="'inline'" class="search__form" style="margin-top:10px">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..."
+                id="txtsearch">
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col>
+          <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+            [nzLoading]="loading">查询</button>
+          <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
+            {{expandForm ? '收起' : '展开'}}
+            <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+          </a>
+        </nz-col>
+      </nz-row>
+    </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+        [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+        (nzPageSizeChange)="loadData()">
+        <thead>
+          <tr>
+            <th>品牌名称</th>
+            <th>联系人</th>
+            <th>联系电话</th>
+            <th>联系地址</th>
+            <th>类别顺序</th>
+            <th>是否推荐</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.brandname}}</td>
+            <td>{{data.linkman}}</td>
+            <td>{{data.linktel}}</td>
+            <td>{{data.linkaddress}}</td>
+            <td>{{data.brandindex}}</td>
+            <td>{{data.istop|mkenumformatpipe:'stateArray'}}</td>
+            <td>
+              <a (click)="editItem(data)">关联</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

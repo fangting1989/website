@@ -5,6 +5,7 @@ WebConfig =
                 headTitle: '瑞懿科技',  
                 CompanyName:'瑞懿科技', //版权公司
                 BaseUrl: '',
+                // BaseUrl: 'http://hhr.zjdiepu.com/apiservice/',
                 UserObjectCookie:{
                         name:'__mkweb-website-user-cookies',
                         type:'s',
@@ -24,13 +25,18 @@ WebConfig =
                 RequestUrl: { 
                         baseservice:'http://127.0.0.1:8020/',
                         fileuploadpath:"http://127.0.0.1:8020/", 
+                        sellsiteservice:'http://127.0.0.1:8220/',
+                        dpworkservice:'http://127.0.0.1:8700/',
                         // baseservice:'http://111.231.206.166:8800/' + "baseservice/",
                         // fileuploadpath:"http://111.231.206.166:8800/baseservice/",
                         // sellsiteservice:"sellsite-service/",
-                        sellsiteservice:'http://127.0.0.1:8220/',
-                        dpworkservice:'http://127.0.0.1:8700/',
                         flowableworkflow:'http://127.0.0.1:8400/',
                         dpcarworkservice:'http://127.0.0.1:8750/',
+                        // baseservice:"baseservice/",
+                        // fileuploadpath:"baseservice/",
+                        // sellsiteservice:'sellsite-service/',
+                        // dpworkservice:'dpworkservice/',
+
                 },
                 hhr:{
                         100:{

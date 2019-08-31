@@ -20,9 +20,9 @@ import { MainpageTypeComponent} from '../mainpage-type/mainpage-type.component';
 })
 export class TWebcoreListComponent implements OnInit {
   MainpicList: any = [];
-  Mainpictype: any = { tablename: 'sell-shop-mainpic', tableid:-1, remark: '10' };
+  Mainpictype: any = { tablename: 'sell-shop-mainpic', tableid:-1, fileindex: 10 };
   FLpictList: any = []
-  FLpictype: any = { tablename: 'sell-shop-FLpic', tableid:-1, };
+  FLpictype: any = { tablename: 'sell-shop-FLpic', tableid:-1 };
   Images: any = []
   renderObject: any = null;
   EnterPriseCode: any;
@@ -46,8 +46,8 @@ export class TWebcoreListComponent implements OnInit {
   ProductList:any = []
 
   DataList_ad:any = []
-
-  TypeDataList:any = [{name:'设定',value:1},{name:'设定',value:2},{name:'设定',value:3},{name:'设定',value:4},{name:'设定',value:5}]
+  TypeDataList_default:any = [{name:'设定',value:1},{name:'设定',value:2},{name:'设定',value:3},{name:'设定',value:4},{name:'设定',value:5}]
+  TypeDataList:any = [];
   gridStyle = {
     width: '20%',
     textAlign: 'center'
@@ -131,6 +131,9 @@ export class TWebcoreListComponent implements OnInit {
     })
   }
   loadProduct(it){
+    if(!it.webcoreimage){
+      return
+    }
     var postData = {
       pagesize:1,
       pagenum:1,
@@ -247,6 +250,8 @@ export class TWebcoreListComponent implements OnInit {
 
   /** 类别设定 */
   loadData_type(){
+    this.TypeDataList =[]
+    this.TypeDataList = Object.assign([],this.TypeDataList_default)
     var self = this;
     var postData = {
       pagesize:100,
@@ -256,15 +261,24 @@ export class TWebcoreListComponent implements OnInit {
     }
     this.dataServices.twebcoreList(postData).subscribe(result => {
       if (result != null) {
+        
         _.each(self.TypeDataList,iit=>{
+          var find_d = false;
           _.each(result.data,it=>{
             if(iit.value == it.webcorevalid){
               iit.typename = it.webcorecontent
               iit.typecode = it.webcoreimage
               iit.obj = it
+              find_d = true;
             }
           })
+          if(!find_d){
+            delete iit.typename
+            delete iit.typecode
+            delete iit.obj
+          }
         })
+        console.log(self.TypeDataList)
       }
     })
 
@@ -276,9 +290,12 @@ export class TWebcoreListComponent implements OnInit {
         webcorevalid:item.value
       }
     }
+    var self = this;
     var data = {HeadText:'编辑',itemdata:item.obj}
     const modal = this.modalHelper.create(MainpageTypeComponent,{ data: data},{size:800}).subscribe(res => {
-      this.loadData_type()
+      setTimeout(function(){
+        self.loadData_type()
+      },1000)
     });
   }
 
@@ -296,20 +313,20 @@ export class TWebcoreListComponent implements OnInit {
     var self = this;
     var postData = {
       keycode: this.EditMainPic.keycode,
-      remark: this.EditMainPic.remark,
+      fileindex: this.EditMainPic.fileindex,
       fileurl:this.EditMainPic.fileurl,
     }
-    self.dataServices.updatefileremark(postData).subscribe(result => {
+    self.dataServices.updatefileindex(postData).subscribe(result => {
       this.EditMainIndexVisible = false;
       if (result) {
         this.msg.success("操作成功");
         _.each(this.MainpicList, it => {
           if (it.keycode == this.EditMainPic.keycode) {
-            it.remark = this.EditMainPic.remark;
+            it.fileindex = this.EditMainPic.fileindex;
             it.fileurl = this.EditMainPic.fileurl;
           }
         })
-        this.MainpicList = _.sortBy(this.MainpicList, function (it) { return parseInt(it.remark); });
+        this.MainpicList = _.sortBy(this.MainpicList, function (it) { return it.fileindex; });
       }
     })
   }
@@ -328,16 +345,16 @@ export class TWebcoreListComponent implements OnInit {
     var self = this;
     var postData = {
       keycode: this.EditFLPic.keycode,
-      remark: this.EditFLPic.fileurl,
+      fileindex: 10,
       fileurl:this.EditFLPic.fileurl,
     }
-    self.dataServices.updatefileremark(postData).subscribe(result => {
+    self.dataServices.updatefileindex(postData).subscribe(result => {
       this.EditFLVisible = false;
       if (result) {
         this.msg.success("操作成功");
         _.each(this.FLpictList, it => {
           if (it.keycode == this.EditFLPic.keycode) {
-            it.remark = this.EditFLPic.remark;
+            it.remark = this.EditFLPic.fileurl;
             it.fileurl = this.EditFLPic.fileurl;
           }
         })
@@ -375,9 +392,7 @@ export class TWebcoreListComponent implements OnInit {
             var index = _.indexOf(Images, oobj)
             if (index > -1) {
               Images.splice(index, 1);
-              //Images = Images.slice();
             }
-            console.log(Images)
           }
         })
       }
@@ -386,7 +401,6 @@ export class TWebcoreListComponent implements OnInit {
 
   savePic(obj, type) {
     var images = this.getImages(type)
-    console.log(images)
     if (this.submitting) {
       return
     }
@@ -404,23 +418,37 @@ export class TWebcoreListComponent implements OnInit {
       formData.append("tablename", type.tablename);
       formData.append("filepath", type.tablename)
       formData.append("remark", type.remark)
+      formData.append("fileindex", type.fileindex || 10)
       formData.append("enterpriseid", this.comservices.getEnterPrise)
       self.dataServices.uploadImg(formData).subscribe(oobj => {
-        this.submitting = false;
-        var bFlag = false;
+        // this.submitting = false;
+        // var bFlag = false;
         self.msg.remove(load.messageId)
-        //清除原先未上传的数据
-        var indexarray = [];
-        // images = _.filter(images, function (itm) {
-        //   return itm.content == null
+        // //清除原先未上传的数据
+        // var indexarray = [];
+        // //添加上传成功的数据
+        // if (oobj == null) {
+        //   bFlag = true;
+        // } else {
+        //   oobj.filepath = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath + oobj.filepath;
+        //   images.push(oobj);
+        //   setTimeout(function(){
+        //     images = _.sortBy(images,iit=>{return iit.fileindex})
+        //   },1000)
+        // }
+
+        // var filearray = document.querySelectorAll(".file")
+        // _.each(filearray,it=>{
+        //   if (it.outerHTML) {
+        //     it.outerHTML = it.outerHTML;
+        //   } else { // FF(包括3.5)
+        //     it.value = "";
+        //     }
         // })
-        //添加上传成功的数据
-        if (oobj == null) {
-          bFlag = true;
-        } else {
-          oobj.filepath = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath + oobj.filepath;
-          images.push(oobj);
-        }
+        this.MainpicList = []
+        this.loadPicData(this.Mainpictype, this.MainpicList);
+        this.FLpictList=[]
+        this.loadPicData(this.FLpictype, this.FLpictList);
         this.msg.success("上传完成")
       });
     }
@@ -453,6 +481,16 @@ export class TWebcoreListComponent implements OnInit {
             ImageList.push(dataitem)
           }
         })
+        try{
+          setTimeout(function(){
+            var dd = _.sortBy(ImageList,function(it){
+              return Math.floor(it.remark) 
+            })
+            ImageList = dd
+          },800)
+        }catch(e){
+
+        }
       }
     })
   }

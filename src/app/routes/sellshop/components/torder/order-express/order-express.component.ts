@@ -36,10 +36,10 @@ export class OrderExpressComponent implements OnInit {
 
   loadData(){
     var postData = {
-      zipcode:'ZTO',
-      zipnum:'75157027540757'
+      enterpriseid:this.comservices.getEnterPrise,
+      keycode:this.model.keycode
     }
-    this.dataServices.expressmsg(postData).subscribe(result => {
+    this.dataServices.orderexpress(postData).subscribe(result => {
       if(result){
         try{
           var ExpressInfo =  JSON.parse(result.data);

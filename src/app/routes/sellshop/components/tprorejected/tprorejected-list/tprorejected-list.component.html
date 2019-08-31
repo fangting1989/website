@@ -1,78 +1,63 @@
 <div class="page-container">
   <nz-card [nzBordered]="false">
-      <form nz-form [nzLayout]="'inline'"  class="search__form">
-          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
-              <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
-                <nz-form-control>
-                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
-                </nz-form-control>
-              </nz-form-item>
-            </nz-col>
-            <nz-col>
-              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <a class="icon-more" (click)="expandForm=!expandForm">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a>
-            </nz-col>
-          </nz-row>
-        </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
-          <se label="是否有效:" line>
-              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.value"
-                (nzCheckedChange)="changeState($event, i)">
-                {{i.name}}
-              </nz-tag>
-          </se>
+    <form nz-form [nzLayout]="'inline'" class="search__form">
+      <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+        <nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="会员名"
+                id="txtsearch">
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col>
+          <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+            [nzLoading]="loading">查询</button>
+        </nz-col>
+      </nz-row>
+    </form>
+    <form class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null">
+      <se label="是否有效:" line>
+        <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+          (nzCheckedChange)="changeState($event, i)">
+          {{i.name}}
+        </nz-tag>
+      </se>
 
-        </form>
+    </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
-              <i nz-icon type="plus"></i>
-              <span>新建</span>
-            </button>
     <ng-container>
-      <nz-table #ajaxTable
-          nzShowSizeChanger
-          [nzData]="DataList"
-          [(nzPageIndex)]="PageNum"
-          [nzFrontPagination]="false"
-          [(nzPageSize)]="PageSize"
-          [nzTotal]="TotalCount"
-          (nzPageIndexChange)="loadData()"
-          (nzPageSizeChange)="loadData()" >
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+        [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+        (nzPageSizeChange)="loadData()">
         <thead>
           <tr>
-            <!--<th>序号</th>-->
-            <th>标识码</th>
             <th>退货申请时间</th>
             <th>退货人</th>
-            <th>退货总金额</th>
-            <th>退货商品数</th>
-            <th>退货备注</th>
-            <th>企业内码</th>
-            <th>orderdetailid</th>
+            <th>商品名称</th>
+            <th>规格</th>
+            <th>退货类型</th>
+            <th>退货原因</th>
+            <th>状态</th>
+            <th>退货理由</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
-            <!--<td>{{i +1}}</td>-->
-            <td>{{data.keycode}}</td>
-            <td>{{data.createdate}}</td>
+            <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
             <td>{{data.rejectedname}}</td>
-            <td>{{data.rejectedamount}}</td>
-            <td>{{data.rejectedprocount}}</td>
-            <td>{{data.remark}}</td>
-            <td>{{data.enterpriseid}}</td>
-            <td>{{data.orderdetailid}}</td>
+            <td>{{data.productname}}</td>
+            <td>{{data.unitname}}</td>
+            <td>{{data.rejectedtype_enum}}</td>
+            <td>{{data.refusename}}</td>
+            <td>{{data.isvalid_enum}}</td>
+            <td>{{data.reason}}</td>
             <td>
-              <a (click)="editItem(data)">编辑</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteItem(data)">删除</a>
+              <a (click)="editItem(data)" *ngIf="data.isvalid==1">处理</a>
+              <a (click)="editItem(data)" *ngIf="data.isvalid > 1">查看详情</a>
             </td>
           </tr>
         </tbody>

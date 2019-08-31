@@ -22,7 +22,7 @@
 <nz-card nzType="inner" nzTitle="寄件信息">
   <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
     <se label="快递单位">
-      <nz-select style="width: 200px;" name="zipunit" nzShowSearch nzAllowClear nzPlaceHolder="选择一个商品"
+      <nz-select style="width: 200px;" name="zipunit" nzShowSearch nzAllowClear nzPlaceHolder="选择快递公司"
         [(ngModel)]="model.zipunit">
         <nz-option *ngFor="let option of ExpressDataList" [nzValue]="option.expressname" [nzLabel]="option.expressname">
         </nz-option>
