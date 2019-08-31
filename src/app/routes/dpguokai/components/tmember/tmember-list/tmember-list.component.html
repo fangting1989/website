@@ -1,0 +1,128 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="是否有效" line>
+              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+                (nzCheckedChange)="changeState($event, i)">
+                {{i.name}}
+              </nz-tag>
+          </se>
+
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <!--<th>序号</th>-->
+            <th>标识码</th>
+            <th>会员名称</th>
+            <th>会员密码</th>
+            <th>手机</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>微信标示</th>
+            <th>总消费</th>
+            <th>总消费笔数</th>
+            <th>微信头像</th>
+            <th>微信名称</th>
+            <th>会员等级</th>
+            <th>推荐会员</th>
+            <th>当前可用费用</th>
+            <th>企业内码</th>
+            <th>创建时间</th>
+            <th>短信码</th>
+            <th>短信码过期时间</th>
+            <th>是否有效</th>
+            <th>用户类型（1.普通会员  2.实名会员  3.认证会员）</th>
+            <th>积分</th>
+            <th>身份证号</th>
+            <th>实名</th>
+            <th>更新时间</th>
+            <th>现居住地</th>
+            <th>汽车行业从业时间</th>
+            <th>开户名</th>
+            <th>开户银行</th>
+            <th>银行账号</th>
+            <th>remark</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <!--<td>{{i +1}}</td>-->
+            <td>{{data.keycode}}</td>
+            <td>{{data.memName}}</td>
+            <td>{{data.memPwd}}</td>
+            <td>{{data.memMobile}}</td>
+            <td>{{data.memOld}}</td>
+            <td>{{data.memAge}}</td>
+            <td>{{data.memMail}}</td>
+            <td>{{data.weChatOpenID}}</td>
+            <td>{{data.costAmount}}</td>
+            <td>{{data.costNum}}</td>
+            <td>{{data.weChatImg}}</td>
+            <td>{{data.weChatName}}</td>
+            <td>{{data.memlevel}}</td>
+            <td>{{data.pid}}</td>
+            <td>{{data.money}}</td>
+            <td>{{data.enterpriseid}}</td>
+            <td>{{data.createdate}}</td>
+            <td>{{data.msgcode}}</td>
+            <td>{{data.msgvaliddate}}</td>
+            <td>{{data.isvalid}}</td>
+            <td>{{data.memtype}}</td>
+            <td>{{data.points}}</td>
+            <td>{{data.idcard}}</td>
+            <td>{{data.idcardname}}</td>
+            <td>{{data.updatedate}}</td>
+            <td>{{data.address}}</td>
+            <td>{{data.work}}</td>
+            <td>{{data.accountname}}</td>
+            <td>{{data.accountbank}}</td>
+            <td>{{data.accountnum}}</td>
+            <td>{{data.remark}}</td>
+            <td>
+              <a (click)="editItem(data)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

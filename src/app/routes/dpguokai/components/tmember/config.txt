@@ -1,0 +1,13 @@
+/**组件名称*/
+TMemberEditComponent,
+TMemberListComponent,
+
+/*service*/
+
+
+/**index.ts*/
+export * from './tmember/tmember-list/tmember-list.component';
+export * from './tmember/tmember-edit/tmember-edit.component';
+
+/**路由相关****/
+      { path: 'tmemberlist', component: TMemberListComponent },

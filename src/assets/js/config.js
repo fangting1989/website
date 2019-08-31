@@ -36,6 +36,8 @@ WebConfig =
                         // fileuploadpath:"baseservice/",
                         // sellsiteservice:'sellsite-service/',
                         // dpworkservice:'dpworkservice/',
+                        dpguokaiservices:'http://127.0.0.1:8230/',
+                        // dpguokaiservices:'dpguokai-services/',
 
                 },
                 hhr:{
