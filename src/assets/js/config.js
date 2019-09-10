@@ -32,11 +32,13 @@ WebConfig =
                         // sellsiteservice:"sellsite-service/",
                         flowableworkflow:'http://127.0.0.1:8400/',
                         dpcarworkservice:'http://127.0.0.1:8750/',
-                        // baseservice:"baseservice/",
+                        dpguokaiservices:'http://127.0.0.1:8230/',
+                        dppaimaiservices:'http://127.0.0.1:8240/',
+                        // baseservice:"baseservice/", 
                         // fileuploadpath:"baseservice/",
                         // sellsiteservice:'sellsite-service/',
                         // dpworkservice:'dpworkservice/',
-                        dpguokaiservices:'http://127.0.0.1:8230/',
+                        
                         // dpguokaiservices:'dpguokai-services/',
 
                 },

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd';
 import { dataServices } from '../../../services';
 import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
 import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
+import {_} from 'underscore';
 @Component({
   selector: 'guokaiservices-tmember-edit',
   templateUrl: './tmember-edit.component.html',
@@ -12,76 +13,117 @@ import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 export class TMemberEditComponent implements OnInit {
   data: any;
   model: any = {}
+  modelpic:any = {}
   EnterPriseCode: any;
   submitting:any = false;
-  stateArray: any = Object.assign([], Enums.stateArray);
-  paytypeArray: any = Object.assign([], Enums.paytypeArray);
+  StateArray:any = [{name:"已驳回",value:-1},{name:'填写状态',value:0},{name:'审核中',value:1},{name:'审核通过',value:2}]
+  checkArray:any=[{name:'1-3年',value:1,active:1},{name:'3-5年',value:2},{name:'5年以上(含5年)',value:3}]
+  sexArray:any = [{name:'男',value:1,active:1},{name:'女',value:2},]
+
+  isVisible:any = false;
   constructor(private msg: NzMessageService,
     private dataServices: dataServices,
-    private modal: NzModalRef,
     private comservices: comservices,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router:Router
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
 
   ngOnInit() {
-    if (this.data) {
-      if (!this.data.HeadText) {
-        this.data.HeadText = "内容编辑"
-      }
-      if (this.data.itemdata) {
-        this.model = Object.assign({}, this.data.itemdata);
-      }
-    }
-    this.model.selected = false;
+    this.loadData();
   }
 
-  /*loadData(){
+
+  loadData(){
     var self = this;
     this.model = {}
     this.model.keycode = this.route.snapshot.queryParams["keycode"];
     this.dataServices.tmemberList(this.model).subscribe(result => {
       if (result != null && result.data.length > 0) {
          self.model = result.data[0];
+         _.each(self.StateArray,it=>{
+           if(it.value+"" == self.model.memtype + ""){
+             self.model.memtype_enum = it.name
+           }
+         })
+         //性别
+         _.each(self.sexArray,it=>{
+          if(it.value+"" == self.model.memAge + ""){
+            self.model.memAge_enum = it.name
+          }
+        })
+        //工作年限
+        _.each(self.checkArray,it=>{
+          if(it.value+"" == self.model.work + ""){
+            self.model.work_enum = it.name
+          }
+        })
+         
+         self.loadmemberpic();
        }
      })
-  }*/
+  }
 
-  saveClick() {
-    if(this.submitting){
-        return
-    }
-    this.submitting = true;
+  loadmemberpic(){
     var self = this;
-    this.model.enterpriseid = this.EnterPriseCode
-    if (this.model.keycode) {
-      this.dataServices.tmemberUp(this.model).subscribe(result => {
-        this.submitting = false
-        if (result != null) {
-          self.model = result.data;
-          self.msg.success("操作成功!");
-          self.closeModal();
-        }
-      })
-    } else {
-      this.dataServices.tmemberIn(this.model).subscribe(result => {
-        this.submitting = false
-        if (result != null) {
-          self.model = result.data;
-          self.msg.success("操作成功!");
-          self.closeModal();
-        }
-      })
+    var postData = {
+      memberid:this.model.keycode
     }
+    this.dataServices.tmemberpicList(postData).subscribe(result => {
+      if(result){
+        if(result.data.length > 0){
+          self.modelpic = result.data[0]
+          self.modelpic.idcardfront = WebConfig.BaseUrl + WebConfig.dpguokaiservices +  self.modelpic.idcardfront 
+          self.modelpic.idcardback = WebConfig.BaseUrl + WebConfig.dpguokaiservices +  self.modelpic.idcardback 
+        }
+      }
+    })
   }
 
-  cancelClick() {
-    this.closeModal();
+  goMemberPage(){
+    this.router.navigate(['/dpguokai/tmemberlist']);
   }
 
-  closeModal() {
-    this.modal.close(true);
-    this.modal.destroy();
+
+  reload(){
+    this.loadData();
+  }
+
+  approved(){
+    this.isVisible = true;
+  }
+  handleCancel(){
+    var self = this;
+    //审核不通过
+    var postData ={
+      keycode:this.model.keycode,
+      memtype:-1,
+      remark:this.model.advice
+    }
+    this.dataServices.tmemberUp(postData).subscribe(result => {
+      if(result){
+        self.msg.success("操作成功!");
+      }
+      this.isVisible = false;
+    })
+  }
+
+  handleOk(){
+    //审核通过
+    var self = this;
+    //审核不通过
+    var postData ={
+      keycode:this.model.keycode,
+      memtype:2,
+      remark:this.model.advice
+    }
+    this.dataServices.tmemberUp(postData).subscribe(result => {
+      if(result){
+        self.msg.success("操作成功!");
+      }
+      this.isVisible = false;
+      this.loadData();
+    })
   }
 }

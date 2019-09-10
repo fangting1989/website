@@ -1,0 +1,144 @@
+
+<page-header [title]="'拍品编辑'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+  <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goProductPage()">返回商品列表</button></div></ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">拍卖类型</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <input type="text" name="productbrand" nz-input [(ngModel)]="model.productbrand" name="productbrand" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">商品名称</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <input type="text" name="productname" nz-input [(ngModel)]="model.productname" name="productname" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">商品简介</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <textarea nz-input placeholder="" name="productwords" id="productwords" nzAutosize
+        [(ngModel)]="model.productwords"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">是否有效</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-radio-group [(ngModel)]="model.productvalid" name="productvalid">
+        <label nz-radio-button *ngFor="let item of stateArray"
+          [nzValue]="item.value"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">商品图片</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <div class="uploadImg col-sm-10">
+        <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control"
+          style="display:none;">
+        <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传图片</div>
+        <div class="imgBox" *ngIf="!ShowUpload">
+          <span class="closeBut" (click)="closeImg()">&times;</span>
+          <img [src]="ImageSrc" width="100%" height="auto" />
+        </div>
+      </div>
+      <nz-form-explain>
+        最好采用 正方形图片
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">是否置顶</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-radio-group [(ngModel)]="model.istop" name="istop">
+        <label nz-radio-button *ngFor="let item of stateArray"
+          [nzValue]="item.value"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">资产价</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <input nz-input placeholder="" name="productprice" id="productprice"
+        [(ngModel)]="model.productprice" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">竞价周期</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <input nz-input placeholder="" name="jjzq" id="jjzq"
+        [(ngModel)]="model.jjzq" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">延时周期</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <input nz-input placeholder="" name="yszq" id="yszq"
+        [(ngModel)]="model.yszq" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">竞价规则</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <textarea nz-input placeholder="" name="productdesc" id="productdesc" nzAutosize
+        [(ngModel)]="model.productdesc"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">报名截止时间</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+        <nz-date-picker
+        name="pmjzsj"
+        [(ngModel)]="model.signenddate"
+        nzShowTime
+        nzFormat="yyyy-MM-dd HH:mm:ss"
+        nzPlaceHolder="选择时间"
+        (ngModelChange)="onbmChange($event)"
+      ></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name">开拍时间</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+    <nz-range-picker
+      name="kpsj"
+      [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [nzPlaceHolder]="['开始时间', '结束时间']"
+      [(ngModel)]="model.kpsj"
+      (ngModelChange)="onkpChange($event)"
+    ></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="name">报名人数</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input type="text" name="factsalecount" nz-input [(ngModel)]="model.factsalecount" name="factsalecount" disabled />
+      </nz-form-control>
+    </nz-form-item>
+</form>
+</nz-card>
+
+<nz-affix style="position: absolute; top: 10px;left:10px">
+<nz-card [nzBordered]="false">
+  <div nz-row>
+    <div nz-col nzSpan="12" nzOffset="4">
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit">保存</button>
+    </div>
+  </div>
+</nz-card>
+</nz-affix>

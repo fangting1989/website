@@ -30,4 +30,16 @@ export class dataServices {
     public tmemberDel(data): any {
         return this.baseServices.getData("TMemberApiService/delete", data,WebConfig.RequestUrl.dpguokaiservices)
     }
+    public tmemberpicList(data): any {
+        return this.baseServices.getData("TMemberpicApiService/find", data,WebConfig.RequestUrl.dpguokaiservices)
+    }
+    public tmemberpicIn(data): any {
+        return this.baseServices.postData("TMemberpicApiService/insert", data,WebConfig.RequestUrl.dpguokaiservices)
+    }
+    public tmemberpicUp(data): any {
+        return this.baseServices.postData("TMemberpicApiService/update", data,WebConfig.RequestUrl.dpguokaiservices)
+    }
+    public tmemberpicDel(data): any {
+        return this.baseServices.getData("TMemberpicApiService/delete", data,WebConfig.RequestUrl.dpguokaiservices)
+    }
 }

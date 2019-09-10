@@ -3,6 +3,7 @@ import { DpguokaimanagerMain } from './dpguokaimanager.main';
 import {
   TWebcoreListComponent,
   TMemberListComponent,
+  TMemberEditComponent,
   ZxpxEditComponent,
   GytxEditComponent,
   GyfxEditComponent,
@@ -19,6 +20,7 @@ export const routes: Routes = [
       // { path:'bzj',component:BzjPageComponent},
       { path: 'twebcorelist', component: TWebcoreListComponent },
       { path: 'tmemberlist', component: TMemberListComponent },
+      { path: 'tmemberedit', component: TMemberEditComponent },
       { path: 'zxpx', component: ZxpxEditComponent },
       { path: 'gytx', component: GytxEditComponent },
       { path: 'gyfx', component: GyfxEditComponent },

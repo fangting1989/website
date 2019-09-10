@@ -1,3 +1,7 @@
-<p>
-  gyfx-edit works!
-</p>
+<page-header [title]="title" [autoTitle]="false" [autoBreadcrumb]="false" class="head-page-panel">
+  <ng-template #title><span class="title">关于分享</span></ng-template>
+</page-header>
+<editor-tinymce [elementId]="'gyfx-tinymce-editor'" [initialContent]="model.webcorecontent"  (onEditorContentChange)="keyupHandler($event)"></editor-tinymce>
+<div class="modal-footer">
+    <button nz-button nzType="primary" (click)="saveClick()" type="submit" [nzLoading]="submitting">保存</button>
+</div>

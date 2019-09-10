@@ -9,7 +9,7 @@ import {
 import { ModalHelper } from '@delon/theme';
 import { comservices} from '../../../../../shared/services';
 import { TMemberEditComponent} from '../tmember-edit/tmember-edit.component'
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-tmember-list',
   templateUrl: './tmember-list.component.html',
@@ -24,14 +24,15 @@ export class TMemberListComponent implements OnInit {
   expandForm:any = false;
   loading = false;
   EnterPriseCode:any;
-  StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
+  StateArray:any = [{name:"已驳回",value:-1},{name:'填写状态',value:0},{name:'审核中',value:1},{name:'审核通过',value:2}]
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
     private modalHelper:ModalHelper,
     private dataServices:dataServices,
     private comservices:comservices,
-    private _state:GlobalState
+    private _state:GlobalState,
+    private router:Router,
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -46,12 +47,19 @@ export class TMemberListComponent implements OnInit {
       pagesize:this.PageSize,
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
-      enterpriseid: this.EnterPriseCode
     }
     this.dataServices.tmemberList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount = result.recordcount;
+        _.each(self.DataList,it=>{
+          _.each(self.StateArray,iit=>{
+            if(it.memtype == iit.value){
+              it.memtype_enum = iit.name
+            }
+          })
+         
+        })
       }
     })
   }
@@ -77,10 +85,12 @@ export class TMemberListComponent implements OnInit {
   }
 
   editItem(item){
-    var data = {HeadText:'编辑',itemdata:item}
-    const modal = this.modalHelper.create(TMemberEditComponent,{ data: data},{size:800}).subscribe(res => {
-      this.loadData()
-    });
+    // var data = {HeadText:'编辑',itemdata:item}
+    // const modal = this.modalHelper.create(TMemberEditComponent,{ data: data},{size:800}).subscribe(res => {
+    //   this.loadData()
+    // });
+
+    this.router.navigate(['/dpguokai/tmemberedit'],{ queryParams: { keycode: item.keycode } });
   }
 
   deleteItem(item){

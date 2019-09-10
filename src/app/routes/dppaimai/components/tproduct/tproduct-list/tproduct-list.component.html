@@ -1,0 +1,79 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+      <form nz-form [nzLayout]="'inline'"  class="search__form">
+          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+            <nz-col nzMd="8" nzSm="24">
+              <nz-form-item>
+                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+                <nz-form-control>
+                  <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+                </nz-form-control>
+              </nz-form-item>
+            </nz-col>
+            <nz-col>
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
+            </nz-col>
+          </nz-row>
+        </form>
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+          <se label="是否有效" line>
+              <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+                (nzCheckedChange)="changeState($event, i)">
+                {{i.name}}
+              </nz-tag>
+          </se>
+
+        </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    <ng-container>
+      <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+        [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+        (nzPageSizeChange)="loadData()">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>产品类别</th>
+            <th>商品名称</th>
+            <th>报名截止日期</th>
+            <th>开拍时间</th>
+            <th>报名数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{i +1}}</td>
+            <td>{{data.productbrand}}</td>
+            <td>{{data.productname}}</td>
+            <td>{{data.signenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{data.pmstartdate |mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}~{{data.pmenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{data.factsalecount}}</td>
+            <td style="min-width:178px;">
+              <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"
+                (click)="ChangeState(data,1)"></i>
+              <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid == 1"
+                (click)="ChangeState(data,0)"></i>
+              <nz-divider nzType="vertical"></nz-divider>
+              <i nz-icon nz-tooltip type="edit" nzTheme="outline" nzTitle="编辑" (click)="editItem(data)"></i>
+              <nz-divider nzType="vertical"></nz-divider>
+              <i nz-icon nz-tooltip type="file-image" nzTheme="outline" nzTitle="编辑图片" (click)="picItem(data)"></i>
+              <nz-divider nzType="vertical"></nz-divider>
+              <i nz-icon nz-tooltip type="file-word" nzTheme="outline" nzTitle="编辑内容" (click)="contentItem(data)"></i>
+              <nz-divider nzType="vertical"></nz-divider>
+              <i nz-icon nz-tooltip type="delete" nzTheme="outline" nzTitle="删除" (click)="deleteItem(data)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

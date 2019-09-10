@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="类型">
+    <input type="text" name="webcoretype" nz-input [(ngModel)]="model.webcoretype" />
+  </se>
+  <se label="核心文本内容">
+    <input type="text" name="webcorewords" nz-input [(ngModel)]="model.webcorewords" />
+  </se>
+  <se label="核心内容">
+    <input type="text" name="webcorecontent" nz-input [(ngModel)]="model.webcorecontent" />
+  </se>
+  <se label="核心有效">
+    <input type="text" name="webcorevalid" nz-input [(ngModel)]="model.webcorevalid" />
+  </se>
+  <se label="核心图标">
+    <input type="text" name="webcoreimage" nz-input [(ngModel)]="model.webcoreimage" />
+  </se>
+  <se label="核心地址">
+    <input type="text" name="webcoreurl" nz-input [(ngModel)]="model.webcoreurl" />
+  </se>
+  <se label="核心备注">
+    <input type="text" name="webcoredesc" nz-input [(ngModel)]="model.webcoredesc" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

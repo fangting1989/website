@@ -1,0 +1,1 @@
+docker build -t mkweb/dpweb-guokai:1.0.0 .

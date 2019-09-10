@@ -1,106 +1,51 @@
-<div class="modal-header">
-  <div class="modal-title">{{data.HeadText}}</div>
-</div>
-<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
-<!-- error="请填写" required -->
-<!--<se label="是否有效" error="请填写">
-        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
-          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
-        </nz-radio-group>
-      </se>-->
-<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
-  <se label="会员名称">
-    <input type="text" name="memName" nz-input [(ngModel)]="model.memName" />
-  </se>
-  <se label="会员密码">
-    <input type="text" name="memPwd" nz-input [(ngModel)]="model.memPwd" />
-  </se>
-  <se label="手机">
-    <input type="text" name="memMobile" nz-input [(ngModel)]="model.memMobile" />
-  </se>
-  <se label="年龄">
-    <input type="text" name="memOld" nz-input [(ngModel)]="model.memOld" />
-  </se>
-  <se label="性别">
-    <input type="text" name="memAge" nz-input [(ngModel)]="model.memAge" />
-  </se>
-  <se label="邮箱">
-    <input type="text" name="memMail" nz-input [(ngModel)]="model.memMail" />
-  </se>
-  <se label="微信标示">
-    <input type="text" name="weChatOpenID" nz-input [(ngModel)]="model.weChatOpenID" />
-  </se>
-  <se label="总消费">
-    <input type="text" name="costAmount" nz-input [(ngModel)]="model.costAmount" />
-  </se>
-  <se label="总消费笔数">
-    <input type="text" name="costNum" nz-input [(ngModel)]="model.costNum" />
-  </se>
-  <se label="微信头像">
-    <input type="text" name="weChatImg" nz-input [(ngModel)]="model.weChatImg" />
-  </se>
-  <se label="微信名称">
-    <input type="text" name="weChatName" nz-input [(ngModel)]="model.weChatName" />
-  </se>
-  <se label="会员等级">
-    <input type="text" name="memlevel" nz-input [(ngModel)]="model.memlevel" />
-  </se>
-  <se label="推荐会员">
-    <input type="text" name="pid" nz-input [(ngModel)]="model.pid" />
-  </se>
-  <se label="当前可用费用">
-    <input type="text" name="money" nz-input [(ngModel)]="model.money" />
-  </se>
-  <se label="企业内码">
-    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
-  </se>
-  <se label="创建时间">
-    <input type="text" name="createdate" nz-input [(ngModel)]="model.createdate" />
-  </se>
-  <se label="短信码">
-    <input type="text" name="msgcode" nz-input [(ngModel)]="model.msgcode" />
-  </se>
-  <se label="短信码过期时间">
-    <input type="text" name="msgvaliddate" nz-input [(ngModel)]="model.msgvaliddate" />
-  </se>
-  <se label="是否有效">
-    <input type="text" name="isvalid" nz-input [(ngModel)]="model.isvalid" />
-  </se>
-  <se label="用户类型（1.普通会员  2.实名会员  3.认证会员）">
-    <input type="text" name="memtype" nz-input [(ngModel)]="model.memtype" />
-  </se>
-  <se label="积分">
-    <input type="text" name="points" nz-input [(ngModel)]="model.points" />
-  </se>
-  <se label="身份证号">
-    <input type="text" name="idcard" nz-input [(ngModel)]="model.idcard" />
-  </se>
-  <se label="实名">
-    <input type="text" name="idcardname" nz-input [(ngModel)]="model.idcardname" />
-  </se>
-  <se label="更新时间">
-    <input type="text" name="updatedate" nz-input [(ngModel)]="model.updatedate" />
-  </se>
-  <se label="现居住地">
-    <input type="text" name="address" nz-input [(ngModel)]="model.address" />
-  </se>
-  <se label="汽车行业从业时间">
-    <input type="text" name="work" nz-input [(ngModel)]="model.work" />
-  </se>
-  <se label="开户名">
-    <input type="text" name="accountname" nz-input [(ngModel)]="model.accountname" />
-  </se>
-  <se label="开户银行">
-    <input type="text" name="accountbank" nz-input [(ngModel)]="model.accountbank" />
-  </se>
-  <se label="银行账号">
-    <input type="text" name="accountnum" nz-input [(ngModel)]="model.accountnum" />
-  </se>
-  <se label="remark">
-    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" />
-  </se>
-</form>
-<div class="modal-footer">
-  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
-  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
-</div>
+<page-header [title]="'会员详情'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="reload()">刷新信息</button><button nz-button nzType="primary" (click)="goMemberPage()">返回用户列表</button></div></ng-template>
+</page-header>
+<nz-card nzType="inner" nzTitle="基本信息" [nzExtra]="extraTemplate">
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <sv-container size="small">
+        <sv label="姓名">{{model.idcardname}}</sv>
+        <sv label="身份证号">{{model.idcard}}</sv>
+        <sv label="手机号码">{{model.memMobile}}</sv>
+        <sv label="注册时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+        <sv label="性别">{{model.memAge_enum || model.memAge}}</sv>
+        <sv label="现居住地">{{model.address}}</sv>
+        <sv label="在汽车行业从业时间">{{model.work_enum || model.work}}</sv>
+        <sv label="会员邮箱">{{model.memMail}}</sv>
+        <sv label="状态">{{model.memtype_enum || model.memtype}}</sv>
+      </sv-container> 
+    </div>
+  </div>
+  <ng-template #extraTemplate>
+    <button nz-button [nzSize]="small" *ngIf="model.memtype == 1" nzType="primary" (click)="approved()">审核</button>
+  </ng-template>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="银行信息">
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <sv-container size="small">
+          <sv label="开户名">{{model.accountname}}</sv>
+          <sv label="开户银行">{{model.accountbank}}</sv>
+          <sv label="卡片账号">{{model.accountnum}}</sv>
+        </sv-container>
+      </div>
+    </div>
+  </nz-card>
+
+<nz-card nzType="inner" nzTitle="身份证信息" >
+  <div nz-row class="sfzxx">
+    <div nz-col nzSpan="6" *ngIf="modelpic.idcardfront">
+      <img src="{{modelpic.idcardfront}}" alt="">
+      </div>
+      <div nz-col nzSpan="6" *ngIf="modelpic.idcardfront">
+        <img src="{{modelpic.idcardback}}" alt="">
+        </div>
+      </div>
+</nz-card>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="审批意见" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzCancelText]="'驳回'" [nzOkText]="'审核通过'">
+  <div>
+    <textarea rows="4" nz-input [(ngModel)]="model.advice"></textarea>
+  </div>
+</nz-modal>

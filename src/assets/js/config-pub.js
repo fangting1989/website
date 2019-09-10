@@ -1,10 +1,10 @@
 WebConfig =
         {
-                loginTitle:'稻普合伙招商管理平台',
-                pageTitle:'稻普合伙招商管理平台',
+                loginTitle:'稻普控股',
+                pageTitle:'稻普控股',
                 headTitle: '稻普控股',
                 CompanyName:'稻普控股',
-                BaseUrl: 'http://hhr.zjdiepu.com/apiservice/',
+                BaseUrl: 'http://guokai.zjdiepu.com/apiservice/',
                 UserObjectCookie:{
                         name:'__mkweb-website-user-cookies',
                         type:'s',
@@ -26,6 +26,8 @@ WebConfig =
                         fileuploadpath:"baseservice/",
                         sellsiteservice:'sellsite-service/',
                         dpworkservice:'dpworkservice/',
+                        dpguokaiservices:'dpguokai-services/',
+                        dppaimaiservices:'dppaimai-services/',
                 },
                 hhr:{
                         100:{

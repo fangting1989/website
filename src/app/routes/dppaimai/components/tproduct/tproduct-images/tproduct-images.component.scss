@@ -1,0 +1,31 @@
+.village-img{
+    width: 23%;
+    margin-right:2%;
+    margin-bottom:2%;
+    //border:1px solid gray;
+    height:180px;
+    overflow:hidden;
+    display: inline-block;
+    position: relative;
+}
+.village-img img{
+    width:100%;
+    height:100%;
+}
+
+.village-img .file{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+.village-img .delete{
+    position: absolute;
+    top:5px;
+    right:5px;
+    border-radius:50%;
+    cursor:pointer;
+}

@@ -1,0 +1,7 @@
+<page-header [title]="title" [autoTitle]="false" [autoBreadcrumb]="false" class="head-page-panel">
+  <ng-template #title><span class="title">合同模板</span></ng-template>
+</page-header>
+<editor-tinymce [elementId]="'gytx-tinymce-editor'" [initialContent]="model.webcorecontent"  (onEditorContentChange)="keyupHandler($event)"></editor-tinymce>
+<div class="modal-footer">
+    <button nz-button nzType="primary" (click)="saveClick()" type="submit" [nzLoading]="submitting">保存</button>
+</div>
