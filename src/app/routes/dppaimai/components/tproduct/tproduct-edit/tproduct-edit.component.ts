@@ -5,7 +5,7 @@ import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
 import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { DomSanitizer,SafeUrl} from "@angular/platform-browser";
-
+import {_} from 'underscore';
 @Component({
   selector: 'app-tproduct-edit',
   templateUrl: './tproduct-edit.component.html',
@@ -13,10 +13,13 @@ import { DomSanitizer,SafeUrl} from "@angular/platform-browser";
 })
 export class TProductEditComponent implements OnInit {
   data: any;
-  model: any = {}
+  model: any = {
+    productvalid:0
+  }
   EnterPriseCode: any;
   submitting:any = false;
-  stateArray: any = Object.assign([], Enums.stateArray);
+
+  stateArray: any = Object.assign([],Enums.pm_productArray)
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
 
   FileObject: any;
@@ -38,6 +41,9 @@ export class TProductEditComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    this.stateArray = _.sortBy(this.stateArray,it=>{
+      return it.value
+    })
   }
 
   loadData(){

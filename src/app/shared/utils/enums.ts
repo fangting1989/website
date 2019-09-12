@@ -1,4 +1,5 @@
 import {shopEnums} from './shopenum';
+import {paimaiEnums} from './paimaienum';
 export const Enums:any = {
     stateArray: [{name:"是",value:1,selected:false},{name:"否",value:0,selected:true}],
     paytypeArray:[{name:'微信',value:1},{name:'支付宝',value:2}],
@@ -34,4 +35,5 @@ export const Enums:any = {
     },
     ComponentMode:[{name:'只读',value:1},{name:'编辑',value:2}],
     ...shopEnums,
+    ...paimaiEnums,
 }

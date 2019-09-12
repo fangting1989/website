@@ -1,32 +1,23 @@
 <div class="page-container">
   <nz-card [nzBordered]="false">
-      <form nz-form [nzLayout]="'inline'"  class="search__form">
-          <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
-              <nz-form-item>
-                <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
-                <nz-form-control>
+      <form nz-form  gutter="32"  class="mform">
+          <nz-form-item>
+              <nz-form-label [nzSpan]="1" nzFor="name">搜索</nz-form-label>
+              <nz-form-control [nzSpan]="4">
                   <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
-                </nz-form-control>
-              </nz-form-item>
-            </nz-col>
-            <nz-col>
-              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-              <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
-                {{expandForm ? '收起' : '展开'}}
-                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-              </a>
-            </nz-col>
-          </nz-row>
+              </nz-form-control>
+              <nz-form-control [nzSpan]="4">
+                  <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              </nz-form-control>
+          </nz-form-item>
         </form>
-        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+        <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null">
           <se label="是否有效" line>
               <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
                 (nzCheckedChange)="changeState($event, i)">
                 {{i.name}}
               </nz-tag>
           </se>
-
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
@@ -46,6 +37,7 @@
             <th>报名截止日期</th>
             <th>开拍时间</th>
             <th>报名数量</th>
+            <th></th>
             <th>操作</th>
           </tr>
         </thead>
@@ -57,10 +49,11 @@
             <td>{{data.signenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
             <td>{{data.pmstartdate |mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}~{{data.pmenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
             <td>{{data.factsalecount}}</td>
+            <td style="min-width:75px;">{{data.productvalid_enum || data.productvalid}}</td>
             <td style="min-width:178px;">
-              <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"
-                (click)="ChangeState(data,1)"></i>
-              <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid == 1"
+              <!-- <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"
+                (click)="ChangeState(data,1)"></i> -->
+              <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid > 0"
                 (click)="ChangeState(data,0)"></i>
               <nz-divider nzType="vertical"></nz-divider>
               <i nz-icon nz-tooltip type="edit" nzTheme="outline" nzTitle="编辑" (click)="editItem(data)"></i>

@@ -12,7 +12,7 @@ import { comservices} from '../../../../../shared/services';
 import { TProductEditComponent} from '../tproduct-edit/tproduct-edit.component'
 import { TproductImagesComponent} from '../tproduct-images/tproduct-images.component'
 import { TproductContentComponent} from '../tproduct-content/tproduct-content.component'
-
+import {Enums} from '../../../../../shared/utils/enums';
 @Component({
   selector: 'app-tproduct-list',
   templateUrl: './tproduct-list.component.html',
@@ -27,7 +27,8 @@ export class TProductListComponent implements OnInit {
   expandForm:any = false;
   loading = false;
   EnterPriseCode:any;
-  StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
+  StateArray:any = [{name:'全部',value:null}].concat(Enums.pm_productArray);
+
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -42,20 +43,31 @@ export class TProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    
   }
 
   loadData(){
     var self = this;
-    var postData = {
+    var postData:any = {
       pagesize:this.PageSize,
       pagenum:this.PageNum,
       searchtext:this.searchObject.searchText,
       enterpriseid: this.EnterPriseCode
     }
+    if(this.searchObject.productvalid || this.searchObject.productvalid===0){
+      postData.productvalid = this.searchObject.productvalid
+    }
     this.dataServices.tproductList(postData).subscribe(result => {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount = result.recordcount;
+        _.each( self.DataList,it=>{
+          _.each(self.StateArray,iit=>{
+            if(it.productvalid == iit.value){
+              it.productvalid_enum = iit.name
+            }
+          })
+        })
       }
     })
   }
@@ -65,11 +77,11 @@ export class TProductListComponent implements OnInit {
   }
 
   changeState(e,item){
-    //_.each(this.StateArray,it=>{
-    //  it.active = false;
-    //})
-    //item.active = true;
-    //this.searchObject.isvalid = item.value
+    _.each(this.StateArray,it=>{
+     it.active = false;
+    })
+    item.active = true;
+    this.searchObject.productvalid = item.value
     this.loadData();
   }
 
