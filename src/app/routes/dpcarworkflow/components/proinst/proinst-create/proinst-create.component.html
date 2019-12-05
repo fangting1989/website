@@ -1,0 +1,199 @@
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab wf-tab-create">
+  <nz-tab [nzTitle]="'征信查询渠道'">
+    <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="name">业务类型</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <nz-select name="proinsttype" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="model.proinsttype">
+            <nz-option *ngFor="let option of zxmodel.proinsttype" [nzValue]="option.value" [nzLabel]="option.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="bankid">查询银行</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <nz-select name="bankid" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="model.bankid" (ngModelChange)="bankChanged($event)" >
+            <nz-option *ngFor="let option of zxmodel.bankList" [nzValue]="option.keycode" [nzLabel]="option.bankname">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="fabricCode">进件方式</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <nz-select name="worktype" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="model.worktype" (ngModelChange)="WorkTypeChanged($event)" >
+            <nz-option *ngFor="let option of zxmodel.workList" [nzValue]="option.value" [nzLabel]="option.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="districtcode">业务发生地</nz-form-label>
+        <nz-form-control [nzSpan]="5">
+          <nz-cascader name="districtcode" [nzOptions]="chinaCity" (ngModelChange)="oncityChanges($event)"
+            [(ngModel)]="model.districtcode_show" [nzLabelProperty]="'name'" [nzValueProperty]="'code'"
+            [nzShowSearch]="true" [nzPlaceHolder]="'请选择..'" (nzSelect)="citySelect($event)"> </nz-cascader>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-label [nzSpan]="2" nzFor="cartype">车辆类型</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <nz-select name="cartype" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="model.cartype">
+            <nz-option *ngFor="let option of CarTypeArray" [nzValue]="option.enumvalue" [nzLabel]="option.enumname">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+    </form>
+  </nz-tab>
+</nz-tabset>
+
+
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab wf-tab-create" [nzTabBarExtraContent]="extraTemplate_newperson">
+  <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of PersonList" (nzSelect)="SelectTab($event,item)">
+    <ng-template #titleTemplate>
+      <div>
+        {{ item.name }}
+        <i nz-icon type="close" *ngIf="item.canclose" (click)="closeTab(item)"></i>
+      </div>
+    </ng-template>
+    <div ng-row class="uploadimg-panel">
+      <div nz-col nzSpan="24" class="tcenter">
+        <div class="img-items">
+          <div class="con-items" *ngFor="let imageItem of item.imageList">
+            <div class="village-img re" *ngIf="imageItem.content">
+              <img src="{{imageItem.content || imageItem.filepath}}" width="" height="" alt="">
+              <span class="delete ab" (click)="deleteImg(imageItem)">
+                <img src="assets/imgs/del.png" />
+              </span>
+            </div>
+            <div class="village-img re" *ngIf="!imageItem.content">
+              <img src="assets/imgs/up-img.png" class="up-img" />
+              <input type="file" class="file" name="file" ng2FileSelect [uploader]='uploader'
+                (change)="upload($event,imageItem)" multiple>
+            </div>
+            <div class="name ">
+              {{imageItem.name}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <nz-divider nzOrientation="left" [nzDashed]="true"></nz-divider>
+
+    <form nz-form #f1="ngForm" class="mform" se-container="2" gutter="32">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="name" nzRequired>真实姓名</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <input type="text" required name="customername" nz-input [(ngModel)]="item.model.customername" />
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="idcard" nzRequired>身份证号</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <input type="text" required name="idcard" nz-input [(ngModel)]="item.model.idcard" />
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="mobile" nzRequired>手机号码</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <input type="text" required name="mobile" nz-input [(ngModel)]="item.model.mobile" />
+        </nz-form-control>
+        <nz-form-control [nzSpan]="1">
+
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <nz-input-group nzAddOnAfter="验证码">
+            <input name="validcode" type="text" nz-input [(ngModel)]="item.model.validcode" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="houseaddress">家庭地址</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" name="houseaddress" nz-input [(ngModel)]="item.model.houseaddress" />
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="censusregister">户籍</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <input type="text" name="censusregister" nz-input [(ngModel)]="item.model.censusregister" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="organization">签发机关</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" name="organization" nz-input [(ngModel)]="item.model.organization" />
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="zipcode">邮编</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <input type="text" name="zipcode" nz-input [(ngModel)]="item.model.zipcode" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="fabricCode">有效期限</nz-form-label>
+        <nz-form-control [nzSpan]="6">
+          <nz-range-picker name="date_range" [(ngModel)]="item.model.date_range" (ngModelChange)="DateChange($event,item)"></nz-range-picker>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="2" class="tcenter">
+          <label name="model_check" nz-checkbox [(ngModel)]="item.model.cardtimetype" (ngModelChange)="onCheckedChange($event)">长期</label>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="bankcardno" *ngIf="PageMode == 20" nzRequired>银行卡号</nz-form-label>
+        <nz-form-control [nzSpan]="5" *ngIf="PageMode == 20">
+          <input type="text" required name="bankcardno" nz-input [(ngModel)]="item.model.bankcardno" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item *ngIf="item.model.customertype > 10">
+        <nz-form-label [nzSpan]="2" nzFor="ifzx">征信查询</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <nz-select name="ifzx" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="item.model.ifzx" >
+            <nz-option *ngFor="let option of StateArray" [nzValue]="option.enumvalue" [nzLabel]="option.enumname">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-tab>
+  <ng-template #extraTemplate_newperson>
+    <button nz-button type="button" (click)="addPerson(20)" [nzType]="'primary'"><i nz-icon
+        type="plus"></i>增加反担保人</button>
+    <button nz-button type="button" (click)="addPerson(30)" [nzType]="'primary'"><i nz-icon
+        type="plus"></i>增加共同还款人</button>
+  </ng-template>
+</nz-tabset>
+
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab wf-tab-create">
+  <nz-tab [nzTitle]="'历史信息'">
+    <nz-card [nzBordered]="false">
+      <ng-container>
+        <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()">
+          <thead>
+            <tr>
+              <th>历史订单信息</th>
+              <th>历史角色</th>
+              <th>车辆性质</th>
+              <th>经办银行</th>
+              <th>订单状态</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td>{{data.id}}</td>
+              <td>{{data.key}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.processDefinitionId}}</td>
+              <td>{{data.taskDefinitionKey}}</td>
+              <td>{{data.taskDefinitionKey}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-card>
+  </nz-tab>
+</nz-tabset>
+
+<nz-card [nzBordered]="false" class="wf-btm-card-nav">
+  <ng-container>
+    <div class="nav-panel">
+      <button nz-button nzType="danger" mkgoback>取消订单</button>
+      <button nz-button type="button" (click)="SubmitProcess()" [nzType]="'primary'"><i nz-icon
+          type="plus"></i>征信查询</button>
+    </div>
+  </ng-container>
+</nz-card>

@@ -229,5 +229,21 @@ export class dataServices {
     public troleprocess_prowerprocess(data): any {
         return this.baseServices.getData("TRoleprocessApiService/prowerprocess", data,WebConfig.RequestUrl.flowableworkflow)
     }
+    public tprocessconfigList(data): any {
+        return this.baseServices.getData("TProcessconfigApiService/find", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tprocessconfigIn(data): any {
+        return this.baseServices.postData("TProcessconfigApiService/insert", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tprocessconfigUp(data): any {
+        return this.baseServices.postData("TProcessconfigApiService/update", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public tprocessconfigDel(data): any {
+        return this.baseServices.getData("TProcessconfigApiService/delete", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    public gettask(data): any {
+        return this.baseServices.getData("taskApiService/gettask", data,WebConfig.RequestUrl.flowableworkflow)
+    }
+    
     
 }

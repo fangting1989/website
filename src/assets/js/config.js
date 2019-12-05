@@ -34,11 +34,11 @@ WebConfig =
                         dpcarworkservice:'http://127.0.0.1:8750/',
                         dpguokaiservices:'http://127.0.0.1:8230/',
                         dppaimaiservices:'http://127.0.0.1:8240/',
+                        dpworksiteservices:'http://127.0.0.1:8260/',
                         // baseservice:"baseservice/", 
                         // fileuploadpath:"baseservice/",
                         // sellsiteservice:'sellsite-service/',
                         // dpworkservice:'dpworkservice/',
-                        
                         // dpguokaiservices:'dpguokai-services/',
 
                 },

@@ -5,12 +5,11 @@
         <div class="path-back inlineblock">
           <i nz-icon [type]="'environment'"></i>
           <a href="javascript:;" class="link backEvt" (click)="navBack()">返回上级</a>&nbsp;&gt;&nbsp;<span
-            class="current-page">贷款材料上传</span>
+            class="current-page">{{currtask.name}}</span>
         </div>
         <div style="float: right">
           <div class="key-value-box inlineblock"><span class="key">借款人：</span><span class="value">测试流程</span></div>
-          <div class="key-value-box inlineblock"><span class="key">订单生成时间：</span><span class="value">2019-05-17
-              19:29</span> <nz-dropdown >
+          <div class="key-value-box inlineblock" style="margin-left: 10px;"><span class="key">订单生成时间：</span><span class="value" *ngIf="currtask.procinst">{{currtask.procinst.createdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</span> <nz-dropdown >
                 <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
                 <ul nz-menu>
                   <li nz-menu-item (click)="ReadProcessImage()" >查看流程图</li>
@@ -35,8 +34,13 @@
 
   <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab">
     <nz-tab *ngFor="let item of DataList" [nzTitle]="item.name">
-        <workflow-component-panel class="component-item" *ngFor="let componentitem of item.componentlist" [ComponentItem]="componentitem" [task]="task">
-        </workflow-component-panel>
+      <div *ngFor="let componentitem of item.componentlist">
+          <workflow-component-panel *ngIf="componentitem.stylemode==10" class="component-item"  [ComponentItem]="componentitem" [task]="task">
+            </workflow-component-panel >
+            <workflow-component-panel-empty *ngIf="componentitem.stylemode==20" class="component-item"  [ComponentItem]="componentitem" [task]="task">
+            </workflow-component-panel-empty>
+      </div>
+        
     </nz-tab>
   </nz-tabset>
 

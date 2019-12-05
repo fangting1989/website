@@ -159,7 +159,9 @@ export class CompDefinedComponent implements OnInit {
     }else if(this.typeItemBox == 2){
       //保存
       if(this.model.keycode){
-        this.dataServices.tcomponentUp(this.model).subscribe(result => {
+        var postData = Object.assign({},this.model)
+        delete postData.type
+        this.dataServices.tcomponentUp(postData).subscribe(result => {
           if(result){
             this.msg.success("操作成功!");
             self.LoadTreeData();

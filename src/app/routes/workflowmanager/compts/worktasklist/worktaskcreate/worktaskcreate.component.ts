@@ -52,7 +52,8 @@
       if(this.searchObject.searchText){
         postData.filterText = this.searchObject.searchText
       }
-      this.dataServices.process_find(postData).subscribe(result => {
+      this.dataServices.enterprise_process(postData).subscribe(result => {
+      // this.dataServices.process_find(postData).subscribe(result => {
         if (result != null) {
           self.DataList = result.data;
           self.TotalCount = result.recordcount;
@@ -65,8 +66,6 @@
     }
   
     createUserTask(item){
-      console.log(item)
-      var self = this;
       var postData:any = {
         ProcessId: item.id
       }

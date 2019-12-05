@@ -51,8 +51,7 @@ export class EnterprisePassportComponent implements OnInit {
     var self = this;
     this.model.leveltype = 2;
     this.model.enterpriseid = this.enterpriseData.keycode
-    this.model.usertypeid = 0
-    this.model.adminusertel = this.model.loginname
+    this.model.usertypeid = 0 
     this.model.adminusernickname = this.enterpriseData.enterprisename
     if(this.model.keycode){
       this.sysService.upUser(this.model).subscribe(result => {

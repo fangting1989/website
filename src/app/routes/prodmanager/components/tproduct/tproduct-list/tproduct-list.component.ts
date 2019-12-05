@@ -30,8 +30,10 @@ export class TProductListComponent implements OnInit {
   EnterPriseCode:any;
   StateArray: any =[{name:'全部',value:null}].concat(Enums.prostateArray);
 
-  SelTypeTreeData:any;
+  SelTypeTreeData:any = [];
+  
   BrandList:any;
+  
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -122,6 +124,7 @@ export class TProductListComponent implements OnInit {
   }
 
   SearchClick(e){
+    this.PageNum = 1;
     this.loadData();
   }
 
@@ -156,7 +159,9 @@ export class TProductListComponent implements OnInit {
       nzOkType    : 'danger',
       nzOnOk      : () => {
         var postData = {
-          keycode:item.keycode
+          keycode:item.keycode,
+          operateperson:self.comservices.getUserName,
+          enterpriseid:self.comservices.getEnterPrise
         }
         self.dataServices.tproductDel(postData).subscribe(result => {
           if (result != null) {
@@ -197,7 +202,8 @@ export class TProductListComponent implements OnInit {
         var postData = {
           productvalid:state,
           keycode:item.keycode,
-          enterpriseid:self.comservices.getEnterPrise
+          enterpriseid:self.comservices.getEnterPrise,
+          operateperson:self.comservices.getUserName,
         }
         self.dataServices.tproductUp(postData).subscribe(result => {
           if(result){
@@ -206,8 +212,76 @@ export class TProductListComponent implements OnInit {
         })
       }
     })
+  }
 
-    
-    
+  //checkbox
+  isIndeterminate:any = false;
+  isAllDisplayDataChecked:any = false;
+  checkAll(event){
+    _.each(this.DataList,it=>{
+      it.checked = event;
+    })
+  }
+
+  UpProduct(){
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确认上架选中的商品',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        _.each(self.DataList,it=>{
+          if(!it.checked){
+            return
+          }
+          if(it.productvalid == 0){
+            var postData = {
+              productvalid:1,
+              keycode:it.keycode,
+              enterpriseid:self.comservices.getEnterPrise,
+              operateperson:self.comservices.getUserName,
+            }
+            self.dataServices.tproductUp(postData).subscribe(result => {
+              if(result){
+                it.productvalid = 1
+              }
+            })
+          }
+        })
+        self.msg.success("操作成功!")
+      }
+    })
+  }
+
+  DownProduct(){
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确认下架选中的商品',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        _.each(self.DataList,it=>{
+          if(!it.checked){
+            return
+          }
+          if(it.productvalid == 1){
+            var postData = {
+              productvalid:0,
+              keycode:it.keycode,
+              enterpriseid:self.comservices.getEnterPrise,
+              operateperson:self.comservices.getUserName,
+            }
+            self.dataServices.tproductUp(postData).subscribe(result => {
+              if(result){
+                it.productvalid = 0
+              }
+            })
+          }
+        })
+        self.msg.success("操作成功!")
+      }
+    })
   }
 }

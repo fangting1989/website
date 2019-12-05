@@ -5,7 +5,7 @@ import {Router,ActivatedRoute} from '@angular/router';
 import { _ } from 'underscore';
 import {
   NzMessageService,
-  NzModalService
+  NzModalService 
 } from 'ng-zorro-antd';
 import { ModalHelper } from '@delon/theme';
 import { comservices} from '../../../../../shared/services';
@@ -13,6 +13,7 @@ import { comservices} from '../../../../../shared/services';
 import {SelWorkflowComponentComponent} from './../sel-workflow-component/sel-workflow-component.component';
 import {AddprocesscontentComponent} from './../addprocesscontent/addprocesscontent.component';
 import {TProcesscomponentEditComponent} from './../tprocesscomponent-edit/tprocesscomponent-edit.component';
+import {TProcessconfigEditComponent} from '../tprocessconfig-edit/tprocessconfig-edit.component';
 @Component({
   selector: 'app-processconfig',
   templateUrl: './processconfig.component.html',
@@ -171,6 +172,15 @@ export class ProcessconfigComponent implements OnInit {
     var item  = this.model
     var data = {HeadText:'流程内容添加',itemdata:item}
     const modal = this.modalHelper.create(AddprocesscontentComponent,{ data: data},{size:800}).subscribe(res => {
+      self.loadContent(self.CurrItem);
+    });
+  }
+
+  showProcessConfig(){
+    var self = this;
+    var item  = {processId:self.processId}
+    var data = {HeadText:'流程配置内容',itemdata:item}
+    const modal = this.modalHelper.create(TProcessconfigEditComponent,{ data: data},{size:800}).subscribe(res => {
       self.loadContent(self.CurrItem);
     });
   }

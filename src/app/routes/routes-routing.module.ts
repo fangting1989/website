@@ -36,6 +36,7 @@ const routes: Routes = [
       { path: 'sellshop', loadChildren: './sellshop/sellshopmanager.module#SellshopmanagerModule' ,canActivate: [AuthGuard]},
       { path: 'dpguokai', loadChildren: './dpguokai/dpguokaimanager.module#DpguokaimanagerModule' ,canActivate: [AuthGuard]},
       { path: 'dppaimai', loadChildren: './dppaimai/dppaimaimanager.module#DppaimaimanagerModule' ,canActivate: [AuthGuard]},
+      { path: 'dpcar', loadChildren: './dpcar/dpcarmanager.module#DpcarmanagerModule' ,canActivate: [AuthGuard]},
     ]
   },
   // 全屏布局

@@ -78,8 +78,9 @@ export class TproductListDelComponent implements OnInit {
       nzOnOk      : () => {
         var postData = {
           keycode:item.keycode,
-          productvalid:1,
-          enterpriseid:this.comservices.getEnterPrise
+          productvalid:0,
+          enterpriseid:this.comservices.getEnterPrise,
+          operateperson:this.comservices.getUserName
         }
         this.dataServices.tproductUp(postData).subscribe(result => {
           if (result != null) {
@@ -100,7 +101,9 @@ export class TproductListDelComponent implements OnInit {
       nzOkType    : 'danger',
       nzOnOk      : () => {
         var postData = {
-          keycode:item.keycode
+          keycode:item.keycode,
+          operateperson:self.comservices.getUserName,
+          enterpriseid:self.comservices.getEnterPrise
         }
         self.dataServices.tproductDelData(postData).subscribe(result => {
           if (result != null) {

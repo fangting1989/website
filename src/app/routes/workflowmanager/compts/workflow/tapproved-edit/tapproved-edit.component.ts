@@ -16,7 +16,6 @@ export class TApprovedEditComponent implements OnInit {
   EnterPriseCode: any;
   submitting:any = false;
   stateArray: any = Object.assign([], Enums.stateArray);
-  paytypeArray: any = Object.assign([], Enums.paytypeArray);
   constructor(private msg: NzMessageService,
     private dataServices: dataServices,
     private modal: NzModalRef,

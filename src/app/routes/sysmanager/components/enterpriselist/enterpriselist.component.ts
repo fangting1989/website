@@ -110,4 +110,8 @@ export class EnterpriselistComponent implements OnInit {
       this.loadData()
     });
   }
+
+  configInter(item){
+    this.router.navigate(['/sysmanager/enterpriseconfig'],{ queryParams: { keycode: item.keycode} });
+  }
 }

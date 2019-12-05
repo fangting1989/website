@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+  <se label="银行名称">
+    <input type="text" name="bankname" nz-input [(ngModel)]="model.bankname" />
+  </se>
+  <se label="行政区">
+      <nz-cascader 
+        name="districtcode" 
+        [nzOptions]="chinaCity" 
+        (ngModelChange)="oncityChanges($event)" 
+        [(ngModel)]="model.districtcode_show" 
+        [nzLabelProperty]="'name'"
+        [nzValueProperty]="'code'"
+        [nzShowSearch]="true"
+        [nzPlaceHolder]="'请选择..'"
+        (nzSelect)="citySelect($event)"
+       > </nz-cascader>
+    </se>
+  <se label="联系人">
+    <input type="text" name="linkman" nz-input [(ngModel)]="model.linkman" />
+  </se>
+  <se label="联系电话">
+    <input type="text" name="linkmobile" nz-input [(ngModel)]="model.linkmobile" />
+  </se>
+  <se label="进件方式">
+        <nz-checkbox-group name="worktype" [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+  </se>
+  <se label="是否有效" error="请填写">
+      <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+        <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+    </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

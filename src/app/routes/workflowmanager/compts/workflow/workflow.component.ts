@@ -7,6 +7,7 @@ import { NzMessageService , NzModalService } from 'ng-zorro-antd';
 import { ModalHelper } from '@delon/theme';
 import {_} from 'underscore';
 import { ComponentPanelComponent } from './component-panel/component-panel.component';
+import {ComponentPanelEmptyComponent} from './component-panel-empty/component-panel-empty.component';
 import { TApprovedEditComponent} from './tapproved-edit/tapproved-edit.component';
 import {WorkflowRollbackComponent} from './workflow-rollback/workflow-rollback.component';
 @Component({
@@ -19,8 +20,10 @@ export class WorkflowComponent implements OnDestroy, OnInit {
   DataList:any = [];
   ComponentList:any = [];
   RollBackAdviceDataList:any=[];
+  currtask:any = {}
   //子组件清单
   @ViewChildren(ComponentPanelComponent) components: QueryList<ComponentPanelComponent>;
+  @ViewChildren(ComponentPanelEmptyComponent) emptycomponents: QueryList<ComponentPanelEmptyComponent>;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -36,6 +39,7 @@ export class WorkflowComponent implements OnDestroy, OnInit {
     this.task.taskId = this.route.snapshot.queryParams["taskid"];
     this.task.taskcode = this.route.snapshot.queryParams["taskcode"];
     this.task.processinstanceid = this.route.snapshot.queryParams["processinstanceid"];
+    this.loadProcessData();
   }
 
   ngAfterContentInit() {
@@ -49,6 +53,18 @@ export class WorkflowComponent implements OnDestroy, OnInit {
 
   navBack(){
     history.go(-1);
+  }
+
+  //加载流程环节内容弄
+  loadProcessData(){
+    var postData = {
+      taskid:this.task.taskId 
+    }
+    this.dataServices.gettask(postData).subscribe(result=>{
+      if(result){
+        this.currtask = result.data
+      }
+    })
   }
 
   loadComponent() {
@@ -89,7 +105,6 @@ export class WorkflowComponent implements OnDestroy, OnInit {
     }
     this.dataServices.processDiagram(postData).subscribe(result => {
       if (result != null) {
-        console.log(result)
         var imageItem = {
           filepath:WebConfig.BaseUrl + WebConfig.RequestUrl.flowableworkflow+ result.data
         }
@@ -100,7 +115,24 @@ export class WorkflowComponent implements OnDestroy, OnInit {
   }
 
   DelContentItem(){
-    this.msg.info("改功能还在开发中.")
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确认删除当前流程</b>',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        var postData = {
+          ids:this.task.processinstanceid
+        }
+        this.dataServices.task_delete(postData).subscribe(result=>{
+          if(result){
+            this.msg.info("流程删除成功!");
+            this.navBack()
+          }
+        })
+      }
+    })
   }
 
   //提交
@@ -120,6 +152,20 @@ export class WorkflowComponent implements OnDestroy, OnInit {
         return;
       }
     });
+
+    this.emptycomponents.forEach(compInstance => {
+      var retData  = compInstance.CheckComponentState()
+      CheckResultArray.push(retData);
+      if(retData.code < 99){
+        var componentName = compInstance.retComponentName || compInstance.ComponentItem.componentname
+        componentName = componentName + "";
+        self.msg.error("组件["+componentName+"]:"+retData.msg);
+        checkState = false;
+        return;
+      }
+    });
+
+
     if(!checkState){
       return;
     }
@@ -148,11 +194,7 @@ export class WorkflowComponent implements OnDestroy, OnInit {
 
 
   ClosePage() {
-    this.router.navigate(['/workflow/tasklist']);
+    window.history.go(-1)
+    // this.router.navigate(['/workflow/tasklist']);
   }
 }
-
-
-
-
-

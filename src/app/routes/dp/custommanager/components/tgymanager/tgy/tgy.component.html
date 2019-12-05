@@ -62,8 +62,10 @@
           [nzFrontPagination]="false"
           [(nzPageSize)]="PageSize"
           [nzTotal]="TotalCount"
+          nzBordered
           (nzPageIndexChange)="loadData()"
-          (nzPageSizeChange)="loadData()" >
+          (nzPageSizeChange)="loadData()"
+          >
         <thead>
           <tr>
             <th>序号</th>

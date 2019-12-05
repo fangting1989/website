@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="商品内码">
+    <input type="text" name="productid" nz-input [(ngModel)]="model.productid" />
+  </se>
+  <se label="甲方">
+    <input type="text" name="parta" nz-input [(ngModel)]="model.parta" />
+  </se>
+  <se label="甲方联系人">
+    <input type="text" name="partalinkman" nz-input [(ngModel)]="model.partalinkman" />
+  </se>
+  <se label="乙方">
+    <input type="text" name="partb" nz-input [(ngModel)]="model.partb" />
+  </se>
+  <se label="乙方联系人">
+    <input type="text" name="partblinkman" nz-input [(ngModel)]="model.partblinkman" />
+  </se>
+  <se label="乙方联系电话">
+    <input type="text" name="partbphone" nz-input [(ngModel)]="model.partbphone" />
+  </se>
+  <se label="甲方联系电话">
+    <input type="text" name="partaphone" nz-input [(ngModel)]="model.partaphone" />
+  </se>
+  <se label="姓名">
+    <input type="text" name="memberid" nz-input [(ngModel)]="model.memberid" />
+  </se>
+  <se label="商品名称">
+    <input type="text" name="productname" nz-input [(ngModel)]="model.productname" />
+  </se>
+  <se label="购买价格">
+    <input type="text" name="price" nz-input [(ngModel)]="model.price" />
+  </se>
+  <se label="购买时间">
+    <input type="text" name="buydate" nz-input [(ngModel)]="model.buydate" />
+  </se>
+  <se label="购买比率">
+    <input type="text" name="amount" nz-input [(ngModel)]="model.amount" />
+  </se>
+  <se label="商品详情">
+    <input type="text" name="productdesc" nz-input [(ngModel)]="model.productdesc" />
+  </se>
+  <se label="签约时间">
+    <input type="text" name="signdate" nz-input [(ngModel)]="model.signdate" />
+  </se>
+  <se label="signfilepath">
+    <input type="text" name="signfilepath" nz-input [(ngModel)]="model.signfilepath" />
+  </se>
+  <se label="客户签约图片">
+    <input type="text" name="filepath" nz-input [(ngModel)]="model.filepath" />
+  </se>
+  <se label="审核时间">
+    <input type="text" name="approveddate" nz-input [(ngModel)]="model.approveddate" />
+  </se>
+  <se label="审核人">
+    <input type="text" name="approvedperson" nz-input [(ngModel)]="model.approvedperson" />
+  </se>
+  <se label="状态(10待审核  20 审核通过)">
+    <input type="text" name="isvalid" nz-input [(ngModel)]="model.isvalid" />
+  </se>
+  <se label="备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" />
+  </se>
+  <se label="enterpriseid">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

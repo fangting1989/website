@@ -58,7 +58,7 @@
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
             <td>{{data.ordernum}}</td>
-            <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</td>
+            <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
             <td>{{data.membername}}</td>
             <td>{{data.paymoney}}</td>
             <td>{{data.orderisvalid|mkenumformatpipe:'orderisvalid'}}</td>

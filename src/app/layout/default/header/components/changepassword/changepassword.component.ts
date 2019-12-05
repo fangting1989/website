@@ -19,7 +19,8 @@ export class ChangepasswordComponent implements OnInit {
   model: any = {}
   EnterPriseCode:any = {}
   submitting:any = false;
-  data:any;
+  data:any = {};
+  dataItem:any = {}
   constructor(private msg: NzMessageService,
     private dataServices: defaultServices,
     private modal: NzModalRef,
@@ -30,7 +31,10 @@ export class ChangepasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    console.log(this.data)
+    if(this.data.itemdata){
+      this.dataItem = this.data.itemdata 
+    }
   }
 
   saveClick() {

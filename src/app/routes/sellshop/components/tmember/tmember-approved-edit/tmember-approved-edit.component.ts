@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
+import { NzMessageService, NzModalRef,NzModalService } from 'ng-zorro-antd';
 import { dataServices } from '../../../services';
 import { Enums } from './../../../../../shared/utils/enums';
 import { comservices } from '../../../../../shared/services';
 import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
+import { ModalHelper } from '@delon/theme';
 @Component({
   selector: 'app-tmember-approved-edit',
   templateUrl: './tmember-approved-edit.component.html',
@@ -22,7 +23,9 @@ export class TmemberApprovedEditComponent implements OnInit {
     private dataServices: dataServices,
     private modal: NzModalRef,
     private comservices: comservices,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private modalHelper:ModalHelper,
+    private modalService:NzModalService
   ) {
     this.EnterPriseCode = comservices.getEnterPrise
   }
@@ -57,16 +60,79 @@ export class TmemberApprovedEditComponent implements OnInit {
   }*/
 
   saveClick() {
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确定该用户审核通过</b>',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        self.save();
+      },
+      nzCancelText: '取消',
+      nzOnCancel  : () => {
+
+      }
+    });
+  }
+
+  save(){
     if(this.submitting){
-        return
+      return
+  }
+  this.submitting = true;
+  var self = this;
+  var postData = {
+    memberid:this.model.memberid,
+    keycode:this.model.keycode,
+    enterpriseid:this.comservices.getEnterPrise,
+    memtype:'30',
+  }
+  this.dataServices.tmemberUp(postData).subscribe(result => {
+    this.submitting = false
+    if (result != null) {
+      self.model = result.data;
+      self.msg.success("操作成功!");
+      self.closeModal();
+    }
+  })
+  }
+
+  UnpassClick(){
+    var self = this;
+    this.modalService.confirm({
+      nzTitle     : '提示',
+      nzContent   : '<b style="color: red;">是否确定该用户审核不通过</b>',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : () => {
+        self.unpass();
+      },
+      nzCancelText: '取消',
+      nzOnCancel  : () => {
+
+      }
+    });
+
+    
+  }
+
+  unpass(){
+    if(this.submitting){
+      return
     }
     this.submitting = true;
     var self = this;
+    if(this.model.memtype == 25){
+      this.model.memtype = 10
+    }else if(this.model.memtype == 28){
+      this.model.memtype = 27
+    }
     var postData = {
       memberid:this.model.memberid,
       keycode:this.model.keycode,
       enterpriseid:this.comservices.getEnterPrise,
-      memtype:'30',
+      memtype:this.model.memtype,
     }
     this.dataServices.tmemberUp(postData).subscribe(result => {
       this.submitting = false

@@ -1,0 +1,114 @@
+<nz-card [nzBordered]="false">
+  <span mkgoback>返回上级></span><span>合伙区域</span>
+</nz-card>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<nz-card [nzBordered]="false" nzTitle="合作区域">
+  <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+    <se label="区域名称">
+      <input type="text" name="regionname" nz-input [(ngModel)]="model.regionname" />
+    </se>
+    <se label="行政区">
+        <nz-cascader 
+          name="districtcode" 
+          [nzOptions]="chinaCity" 
+          (ngModelChange)="oncityChanges($event)" 
+          [(ngModel)]="model.districtcode_show" 
+          [nzLabelProperty]="'name'"
+          [nzValueProperty]="'code'"
+          [nzShowSearch]="true"
+          [nzPlaceHolder]="'请选择..'"
+          (nzSelect)="citySelect($event)"
+          > </nz-cascader>
+      </se>
+
+    <se label="联系人">
+      <input type="text" name="linkman" nz-input [(ngModel)]="model.linkman" />
+    </se>
+    <se label="联系电话">
+      <input type="text" name="linkmobile" nz-input [(ngModel)]="model.linkmobile" />
+    </se>
+    <se label="是否有效" error="请填写">
+      <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+        <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+      </nz-radio-group>
+    </se>
+  </form>
+</nz-card>
+
+<nz-card [nzBordered]="false" nzTitle="收款帐号">
+  <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+    <se label="开户名称">
+      <input type="text" name="accountname" nz-input [(ngModel)]="model.accountname" />
+    </se>
+    <se label="开户银行">
+      <input type="text" name="bankname" nz-input [(ngModel)]="model.bankname" />
+    </se>
+    <se label="开户账户">
+      <input type="text" name="bankaccount" nz-input [(ngModel)]="model.bankaccount" />
+    </se>
+  </form>
+</nz-card>
+
+<nz-card [nzBordered]="false" nzTitle="进件银行">
+  <nz-checkbox-group name="worktype" [(ngModel)]="bankCheckList" (ngModelChange)="updateSingleChecked()">
+  </nz-checkbox-group>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="进件车商">
+
+  <div nz-row>
+    <div nz-col>
+      <nz-tag *ngFor="let item of regionRtDataList" nzMode="closeable" 
+        (nzAfterClose)="afterTagClose(item)">{{item.cardealername}}</nz-tag>
+    </div>
+  </div>
+  <nz-divider></nz-divider>
+  <form nz-form gutter="32" class="mform">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="1" nzFor="name">搜索</nz-form-label>
+      <nz-form-control [nzSpan]="4">
+        <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+      </nz-form-control>
+      <nz-form-control [nzSpan]="4">
+        <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+          [nzLoading]="loading">查询</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+    [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadcardealerData()"
+    (nzPageSizeChange)="loadcardealerData()">
+    <thead>
+      <tr>
+        <th>行政区</th>
+        <th>车商名称</th>
+        <th>联系人</th>
+        <th>联系电话</th>
+        <th>是否有效</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of ajaxTable.data; let i = index">
+        <td>{{data.districtcode}}</td>
+        <td>{{data.cardealername}}</td>
+        <td>{{data.linkman}}</td>
+        <td>{{data.linkmobile}}</td>
+        <td>{{data.isvalid}}</td>
+        <td>
+          <a (click)="relatecardealerItem(data)">关联</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<nz-card [nzBordered]="false">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" mkgoback>返回</button>
+</nz-card>

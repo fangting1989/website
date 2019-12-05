@@ -14,13 +14,17 @@ import {_} from 'underscore';
 export class TProductEditComponent implements OnInit {
   data: any;
   model: any = {
-    productvalid:0
+    productvalid:10,
+    producttype:10, //默认公寓
   }
   EnterPriseCode: any;
   submitting:any = false;
 
   stateArray: any = Object.assign([],Enums.pm_productArray)
+  statenewArray :any =[{ name: '无效',value:0 }, { name: '生效', value: 10 }]
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
+  typeArray: any = Object.assign([],Enums.pm_housetypeArray)
+  
 
   FileObject: any;
   ShowUpload:any = true;
@@ -68,20 +72,26 @@ export class TProductEditComponent implements OnInit {
           //开拍时间
           this.model.kpsj = []
 
-          if(this.model.pmstartdate){
-            this.model.kpsj.push(this.model.pmstartdate)
-          }else{
-            this.model.kpsj.push(null)
-          }
-          if(this.model.pmenddate){
-            this.model.kpsj.push(this.model.pmenddate)
-          }else{
-            this.model.kpsj.push(null)
-          }
+          this.initDate();
         }
       })
     }else{
       // this.loadTreeData();
+    }
+  }
+
+  //初始化控件
+  initDate(){
+    this.model.kpsj = []
+    if(this.model.pmstartdate){
+      this.model.kpsj.push(this.model.pmstartdate)
+    }else{
+      this.model.kpsj.push(null)
+    }
+    if(this.model.pmenddate){
+      this.model.kpsj.push(this.model.pmenddate)
+    }else{
+      this.model.kpsj.push(null)
     }
   }
 
@@ -92,11 +102,13 @@ export class TProductEditComponent implements OnInit {
     this.submitting = true;
     var self = this;
     this.model.enterpriseid = this.EnterPriseCode
+    this.model.orginamount = this.model.amount
     if (this.model.keycode) {
       this.dataServices.tproductUp(this.model).subscribe(result => {
         this.submitting = false
         if (result != null) {
           self.model = result.data;
+          self.initDate();
           self.uploadImg(self.model.keycode);
           self.closeModal();
         }

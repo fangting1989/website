@@ -117,7 +117,9 @@ body,.ant-table {
         margin-left:10px;
     }
 }
-
+.panel-noraml{
+    background: #f5f7fa;
+}
 /**modal*/
 .modal-header{
     .modal-title{
@@ -159,7 +161,7 @@ body,.ant-table {
 }
 /*调整工作流样式*/
 .wf-tab{
-    .ant-tabs-bar{
+    >.ant-tabs-bar{
         margin:0px !important;
         border-bottom: 3px solid #1890ff;
       }
@@ -170,9 +172,28 @@ body,.ant-table {
         padding-bottom: 1px;
     }
 }
+.wf-tab-create{
+    .ant-tabs-content{
+        background: #fff !important;
+        padding:10px 0px;
+    }
+}
 /*首页*/
 .s-p-t-nav {
     .ant-card-body{
         padding:0px !important;
     }
 }
+
+.mk-card-customer-item{
+    .mk-card-item-head{
+        background: #E4E4E4;
+    }
+    .ant-card-body{
+      padding: 0px 0px !important;
+      >.ant-row {
+          padding:0px 10px;
+          line-height: 30px;;
+      }
+    }
+  }

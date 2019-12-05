@@ -1,0 +1,79 @@
+<nz-tabset [nzTabPosition]="'top'">
+  <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of FinancialList" (nzSelect)="SelectTab($event,item)">
+    <ng-template #titleTemplate>
+      <div>
+        {{ item.customer.customertype_enum || item.customer.customertype }}
+        <i nz-icon type="close" *ngIf="item.canclose" (click)="closeTab(item)"></i>
+      </div>
+    </ng-template>
+    <div class="msg-title">
+      {{item.zxtitle}}
+    </div>
+    <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+        <se label="征信是否合格">
+          <span class="text-green" [ngClass]="{'text-red':item.hrdata == '失败'}" >{{item.hrdata}}</span>
+        </se>
+        <se label="征信报告编号" [col]="3">
+          <input type="text" name="zxbgbh" nz-input [(ngModel)]="item.zxbgbh" />
+        </se>
+        <se label="征信字段">
+          <nz-table nzBordered nzTemplateMode class="noData">
+            <tr>
+              <td>*贷款逾期记录</td>
+              <td>
+                <nz-input-group nzAddOnAfter="次">
+                  <input type="text" name="dkyqcs" nz-input [(ngModel)]="item.dkyqcs" />
+                </nz-input-group>
+              </td>
+              <td>*信用卡逾期记录</td>
+              <td>
+                <nz-input-group nzAddOnAfter="次">
+                  <input type="text" name="xykyqjl" nz-input [(ngModel)]="item.xykyqjl" />
+                </nz-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>*我行专项卡分期笔数</td>
+              <td>
+                <nz-input-group nzAddOnAfter="次">
+                  <input type="text" name="whzxkfqbs" nz-input [(ngModel)]="item.whzxkfqbs" />
+                </nz-input-group>
+              </td>
+              <td>*未结清余额</td>
+              <td>
+                <nz-input-group nzAddOnAfter="元">
+                  <input type="text" name="wjqye" nz-input [(ngModel)]="item.wjqye" />
+                </nz-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>备注</td>
+              <td colspan="3">
+                <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="remark" id="remark" nzAutosize
+                  [(ngModel)]="item.remark"></textarea>
+              </td>
+            </tr>
+          </nz-table>
+        </se>
+        <se label="备注信息">
+          <input type="text" name="remarkmsg" nz-input [(ngModel)]="item.remarkmsg" />
+        </se>
+      </form>
+      
+      <nz-card [nzBordered]="false" nzTitle="材料信息">
+        <div ng-row class="uploadimg-panel">
+          <div nz-col nzSpan="24" class="tcenter">
+            <div class="img-items">
+              <div class="con-items" *ngFor="let imageItem of item.customer.imageList" (click)="ImageItemClick(imageItem)" >
+                <div class="village-img re">
+                  <img src="{{imageItem.content || imageItem.filepath}}" width="" height="" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+
+  </nz-tab>
+</nz-tabset>
+

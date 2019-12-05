@@ -23,7 +23,7 @@
   <nz-card [nzBordered]="false">
           <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
               <i nz-icon type="plus"></i>
-              <span>新建</span>
+              <span>新增拍品</span>
             </button>
     <ng-container>
       <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
@@ -34,8 +34,9 @@
             <th>序号</th>
             <th>产品类别</th>
             <th>商品名称</th>
+            <th>上架时间</th>
             <th>报名截止日期</th>
-            <th>开拍时间</th>
+            <th>竞拍时间</th>
             <th>报名数量</th>
             <th></th>
             <th>操作</th>
@@ -46,15 +47,16 @@
             <td>{{i +1}}</td>
             <td>{{data.productbrand}}</td>
             <td>{{data.productname}}</td>
-            <td>{{data.signenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
-            <td>{{data.pmstartdate |mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}~{{data.pmenddate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
-            <td>{{data.factsalecount}}</td>
-            <td style="min-width:75px;">{{data.productvalid_enum || data.productvalid}}</td>
+            <td>{{data.upproductdate |mkdateformatpipe:'YYYY.MM.DD HH:mm' }}</td>
+            <td>{{data.signenddate|mkdateformatpipe:'YYYY.MM.DD HH:mm'}}</td>
+            <td>{{data.pmstartdate |mkdateformatpipe:'YYYY.MM.DD HH:mm'}}~{{data.pmenddate|mkdateformatpipe:'YYYY.MM.DD HH:mm'}}</td>
+            <td>{{data.signcount}}</td>
+            <td style="min-width:75px;">{{data.productvalid|mkenumformatpipe:'pm_productArray'}}</td>
             <td style="min-width:178px;">
               <!-- <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"
                 (click)="ChangeState(data,1)"></i> -->
               <i nz-icon nz-tooltip type="arrow-down" nzTheme="outline" nzTitle="下架商品" *ngIf="data.productvalid > 0"
-                (click)="ChangeState(data,0)"></i>
+                (click)="ChangedState(data,0)"></i>
               <nz-divider nzType="vertical"></nz-divider>
               <i nz-icon nz-tooltip type="edit" nzTheme="outline" nzTitle="编辑" (click)="editItem(data)"></i>
               <nz-divider nzType="vertical"></nz-divider>

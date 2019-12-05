@@ -6,7 +6,8 @@
   <sv-container size="small">
     <sv label="订单编号">{{model.ordernum}}</sv>
     <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
-    <sv label="订单金额">{{model.amount}}</sv>
+    <sv label="订单总金额">{{model.amount}}</sv>
+    <sv label="订单总支付">{{model.paymoney}}</sv>
     <sv label="用户名称">{{model.membername}}</sv>
   </sv-container>
 </nz-card>

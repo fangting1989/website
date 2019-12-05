@@ -1,0 +1,1 @@
+docker  -H tcp://47.100.195.124:2300 build -t mkweb/dpweb-hhr:1.0.4-32 .

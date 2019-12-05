@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<nz-card [nzHoverable]="true" [nzBordered]="false">
+    <sv-container size="large" [col]="'1'">
+        <sv label="提交时间" >{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
+      <sv label="提交手机号码" >{{model.phonenum}}</sv>
+      <sv label="提交意见" >{{model.content}}</sv>
+      <sv label="图片信息" >
+          <div nz-row nzGutter="16">
+              <div nz-col class="gutter-row" nzSpan="6" *ngFor="let item of model.picontentdata">
+                  <img [src]="item.imgpath" alt="" class="w100" >
+              </div>
+          </div>
+       </sv>
+    </sv-container>
+    </nz-card>
+
+<!-- <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="提交人">
+    <input type="text" name="membername" nz-input [(ngModel)]="model.membername" />
+  </se>
+  <se label="提交时间">
+    <input type="text" name="createdate" nz-input [(ngModel)]="model.createdate" />
+  </se>
+  <se label="提交手机号">
+    <input type="text" name="phonenum" nz-input [(ngModel)]="model.phonenum" />
+  </se>
+  <se label="提交人邮箱">
+    <input type="text" name="email" nz-input [(ngModel)]="model.email" />
+  </se>
+  <se label="提交内容">
+    <input type="text" name="content" nz-input [(ngModel)]="model.content" />
+  </se>
+  <se label="提交图片信息">
+    <input type="text" name="picontent" nz-input [(ngModel)]="model.picontent" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
+  </se>
+</form> -->
+<div class="modal-footer">
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

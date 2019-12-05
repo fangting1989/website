@@ -11,6 +11,7 @@
         <sv label="会员邮箱">{{model.memMail}}</sv>
         <sv label="会员类型">{{model.memtype|mkenumformatpipe:'membertypeArray'}}</sv>
         <sv label="用户积分">{{model.points}}</sv>
+        <sv label="用户积分">{{model.isfact?'已实名':'未实名'}}</sv>
       </sv-container>
     </div>
   </div>

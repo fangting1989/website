@@ -1,0 +1,20 @@
+<div nz-row *ngFor="let material of materiallist">
+    <div nz-col [nzSpan]="colsize" *ngFor="let item of material.list" >
+        <div class="upload-box">
+            <!-- <div class="village-img re" *ngIf="item.content || item.filepath">
+              <img src="{{item.content || item.filepath}}" width="" height="" alt="" (click)="ImageItemClick(item)">
+              <span class="delete ab" (click)="deleteImg(item,$event)" *ngIf="ComponentMode != 'read'">
+                <img src="assets/imgs/del.png" />
+              </span>
+            </div> -->
+            <div class="village-img re">
+              <img src="assets/imgs/up-img.png" class="up-img" />
+              <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+            </div>
+            <div class="name">
+              {{item.name}}
+            </div>
+          </div>
+    </div>
+</div>
+

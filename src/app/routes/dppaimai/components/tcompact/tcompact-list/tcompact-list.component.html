@@ -1,0 +1,66 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+     <form nz-form  gutter="32"  class="mform">
+        <nz-form-item>
+           <nz-form-label [nzSpan]="1" nzFor="name">搜索</nz-form-label>
+           <nz-form-control [nzSpan]="4">
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+           </nz-form-control>
+           <nz-form-control [nzSpan]="4">
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+           </nz-form-control>
+        </nz-form-item>
+     </form>
+     <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" >
+        <se label="状态" line>
+           <nz-tag *ngFor="let i of pm_compactstateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+              (nzCheckedChange)="changeState($event, i)">
+              {{i.name}}
+           </nz-tag>
+        </se>
+     </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <!--<th>序号</th>-->
+            <th>商品名称</th>
+            <th>中标时间</th>
+            <th>竞买人</th>
+            <th>联系电话</th>
+            <th>竞得折扣</th>
+            <th>金额</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <td>{{data.productname}}</td>
+            <td>{{data.buydate|mkdateformatpipe:'YYYY.MM.DD HH:mm'}}</td>
+            <td>{{data.parta}}</td>
+            <td>{{data.partaphone}}</td>
+            <td>{{data.amount}}</td>
+            <td>标的物资产价:{{data.productprice}}元(实扣债权:{{data.price}}元 <span *ngIf="data.price < data.productprice">,需补现金:{{data.xianjin}}元</span> )</td>
+            <td>{{data.isvalid |mkenumformatpipe:'pm_compactstateArray'}}</td>
+            <td>
+              <a *ngIf="data.isvalid <20" (click)="editItem(data)">审核</a>
+              <!-- <nz-divider nzType="vertical" *ngIf="data.isvalid >=20"></nz-divider> -->
+              <a (click)="editItem(data)" *ngIf="data.isvalid >=20">已经处理</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

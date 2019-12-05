@@ -18,7 +18,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">产品品牌</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <nz-select style="width: 200px;" name="productbrand" nzShowSearch nzAllowClear nzPlaceHolder="选择一个品牌"
+        <nz-select  name="productbrand" nzShowSearch nzAllowClear nzPlaceHolder="选择一个品牌"
           [(ngModel)]="model.productbrand">
           <nz-option *ngFor="let option of BrandList" [nzValue]="option.productbrandid" [nzLabel]="option.brandname">
           </nz-option>
@@ -43,14 +43,14 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzFor="name">是否有效</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <nz-radio-group [(ngModel)]="model.productvalid" name="productvalid">
-          <label nz-radio-button *ngFor="let item of stateArray"
-            [nzValue]="item.value"><span>{{item.name}}</span></label>
-        </nz-radio-group>
-      </nz-form-control>
-    </nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">商品保障</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-tag *ngFor="let i of tagArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+          (nzCheckedChange)="changeState($event, i)">
+          {{i.tagname}}
+        </nz-tag>
+        </nz-form-control>
+      </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">商品图片</nz-form-label>
@@ -70,6 +70,7 @@
       </nz-form-control>
     </nz-form-item>
 
+   
 
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">是否包邮</nz-form-label>
@@ -86,7 +87,16 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
+    <!-- <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">是否有效</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-radio-group [(ngModel)]="model.productvalid" name="productvalid">
+            <label nz-radio-button *ngFor="let item of stateArray"
+              [nzValue]="item.value"><span>{{item.name}}</span></label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item> -->
+    <!-- <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">是否支持7天无理由退款</nz-form-label>
       <nz-form-control [nzSpan]="3">
         <nz-radio-group [(ngModel)]="model.turnbackday" name="turnbackday">
@@ -94,7 +104,7 @@
             [nzValue]="item.value"><span>{{item.name}}</span></label>
         </nz-radio-group>
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
 
     <!-- <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">单价</nz-form-label>
@@ -110,7 +120,7 @@
       </nz-form-control>
     </nz-form-item> -->
 
-    <nz-form-item>
+    <!-- <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">是否置顶</nz-form-label>
       <nz-form-control [nzSpan]="12">
         <nz-radio-group [(ngModel)]="model.istop" name="istop">
@@ -118,7 +128,13 @@
             [nzValue]="item.value"><span>{{item.name}}</span></label>
         </nz-radio-group>
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">商品顺序</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <input type="text" name="indexnum" nz-input [(ngModel)]="model.indexnum" name="indexnum" />
+        </nz-form-control>
+      </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="name">排序销量</nz-form-label>
       <nz-form-control [nzSpan]="12">
@@ -145,18 +161,21 @@
 
 <nz-card [nzBordered]="false" *ngIf="model.keycode">
   <div nz-row>
-    <div nz-col nzSpan="12" nzOffset="4">
+    <div nz-col nzSpan="12" nzOffset="2">
       <button nz-button nzType="dashed" (click)="addProdUnit()">增加规格</button>
     </div>
-    <div nz-col nzSpan="12" nzOffset="4" class="mt-sm">
+    <div nz-col nzSpan="20" nzOffset="2" class="mt-sm">
       <nz-table #ajaxTable [nzData]="UnitDataList" [nzShowPagination]="false">
         <thead>
           <tr>
             <th>规格名称</th>
             <th>规格单位</th>
-            <th>销售价</th>
-            <th>当前价</th>
-            <th>公务员价</th>
+            <th>原价</th>
+            <th>会员价</th>
+            <th>补贴价</th>
+            <th>商品编码</th>
+            <th>商家商品编码</th>
+            <th>库存量</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -167,7 +186,12 @@
             <td>{{data.price}}</td>
             <td>{{data.currpice}}</td>
             <td>{{data.offprice}}</td>
+            <td>{{data.productunitno}}</td>
+            <td>{{data.productbusinessno}}</td>
+            <td>{{data.skuamount}}</td>
             <td>
+                <a (click)="editUnitItem(data)">修改</a>
+                <nz-divider nzType="vertical"></nz-divider>
               <a (click)="deleteUnitItem(data)">删除</a>
             </td>
           </tr>
@@ -176,14 +200,11 @@
     </div>
   </div>
 </nz-card>
-
-<nz-affix style="position: absolute; top: 10px;left:10px">
-  <nz-card [nzBordered]="false">
-    <div nz-row>
-      <div nz-col nzSpan="12" nzOffset="4">
-        <button nz-button nzType="primary" (click)="saveClick()" type="submit">保存</button>
-        <button nz-button (click)="addNewClick()" type="submit">新建商品</button>
-      </div>
+<nz-card [nzBordered]="false">
+  <div nz-row>
+    <div nz-col nzSpan="12" nzOffset="4">
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit">保存</button>
+      <button nz-button (click)="addNewClick()" type="submit">新建商品</button>
     </div>
-  </nz-card>
-</nz-affix>
+  </div>
+</nz-card>

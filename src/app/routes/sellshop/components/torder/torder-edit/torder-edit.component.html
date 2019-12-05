@@ -6,9 +6,10 @@
     <sv label="订单编号">{{model.ordernum}}</sv>
     <sv label="订单时间">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD'}}</sv>
     <sv label="用户名称">{{model.membername}}</sv>
-    <sv label="商品金额">{{model.amount}}元</sv>
+    <sv label="商品总金额">{{model.amount}}元</sv>
     <sv label="运费">{{model.zipamount}}元</sv>
-    <sv label="订单金额">{{model.paymoney}}元</sv>
+    <sv label="使用积分">{{model.zipamount}}元</sv>
+    <sv label="实付金额">{{model.paymoney}}元</sv>
     <sv label="订单状态">{{model.orderisvalid|mkenumformatpipe:'orderisvalid'}}</sv>
   </sv-container>
 </nz-card>
@@ -35,10 +36,13 @@
           <th></th>
         <th>名称</th>
         <th>规格</th>
+        <th>商品编码</th>
+        <th>商家商品编码</th>
         <th>单价</th>
         <th>数量</th>
         <th>商品金额</th>
         <th>运费</th>
+        <th>积分消耗</th>
         <th>支付金额</th>
         <th *ngIf="model.orderisvalid == 1">操作</th>
       </tr>
@@ -50,10 +54,13 @@
         </td>
         <td>{{data.costname}}</td>
         <td>{{data.unitname}}</td>
+        <td>{{data.productunitno}}</td>
+        <td>{{data.productbusinessno}}</td>
         <td>{{data.price}}</td>
         <td>{{data.costnum}}</td>
         <td>{{data.costamount}}</td>
         <td>{{data.zipamount}}</td>
+        <td>{{data.pointsoff}}</td>
         <td>{{data.paymoney}}</td>
         <td *ngIf="model.orderisvalid == 1"><a (click)="fixPrice(data)">修改价格</a></td>
       </tr>

@@ -13,6 +13,7 @@ import { FileUploadModule } from 'ng2-file-upload';
   TMemberEditComponent,
   TMemberListComponent,
   TMemberEditdataComponent,
+  TmemberEditmsgComponent,
   HtmbEditComponent,
   GyqyEditComponent,
   JmxzEditComponent,
@@ -20,11 +21,18 @@ import { FileUploadModule } from 'ng2-file-upload';
   TProductListComponent,
   TproductImagesComponent,
     TproductContentComponent,
+    TproductMsgComponent,
+    TSignproductEditComponent,
+    TSignproductListComponent,
+    TCompactEditComponent,
+  TCompactListComponent,
+  TcompactMsgComponent,
  } from './components';
 
 //services
 import { dataServices } from './services';
 import {routes} from './dppaimaimanager.routing';
+import { TmemberAddmoneyComponent } from './components/tmember/tmember-addmoney/tmember-addmoney.component';
 
 @NgModule({
   imports: [
@@ -50,6 +58,16 @@ import {routes} from './dppaimaimanager.routing';
     TProductListComponent,
     TproductImagesComponent,
     TproductContentComponent,
+    TproductMsgComponent,
+    TproductMsgComponent,
+    TSignproductEditComponent,
+    TSignproductListComponent,
+    TmemberAddmoneyComponent,
+    TCompactEditComponent,
+  TCompactListComponent,
+  TcompactMsgComponent,
+  TcompactMsgComponent,
+  TmemberEditmsgComponent,
   ],
   providers: [
     dataServices
@@ -60,6 +78,10 @@ import {routes} from './dppaimaimanager.routing';
     TMemberEditdataComponent,
     TproductImagesComponent,
     TproductContentComponent,
+    TSignproductEditComponent,
+    TmemberAddmoneyComponent,
+    TCompactEditComponent,
+    TmemberEditmsgComponent,
   ]
 })
 export class DppaimaimanagerModule {

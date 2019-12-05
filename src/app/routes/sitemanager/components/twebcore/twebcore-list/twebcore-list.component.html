@@ -3,6 +3,18 @@
 </page-header>
 <div class="main">
   <div class="content">
+
+      <nz-card class="content-panel" nzType="inner" [nzTitle]="'客服号码'" >
+          <div nz-row>
+            <div nz-col [nzSpan]="6">
+                <input type="text" name="telnum" nz-input [(ngModel)]="telnum.telnum" name="telnum" />
+            </div>
+            <div nz-col [nzSpan]="6">
+                <button nz-button nzType="primary" (click)="savetelnumClick()" type="submit">保存</button>
+            </div>
+          </div>
+        </nz-card>
+
     <nz-card class="content-panel" nzType="inner" [nzTitle]="'首页图片'" [nzExtra]="extraTemplate">
       <div nz-row>
         <div nz-col class="process-item" [nzSpan]="6">

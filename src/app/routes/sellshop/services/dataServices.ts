@@ -177,6 +177,57 @@ export class dataServices {
     public tproductList(data): any {
         return this.baseServices.getData("TProductApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
     }
-    
+    public tproductunitList(data): any {
+        return this.baseServices.getData("TProductunitApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tadviceList(data): any {
+        return this.baseServices.getData("TAdviceApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tadviceIn(data): any {
+        return this.baseServices.postData("TAdviceApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tadviceUp(data): any {
+        return this.baseServices.postData("TAdviceApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tadviceDel(data): any {
+        return this.baseServices.getData("TAdviceApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagList(data): any {
+        return this.baseServices.getData("TTagApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagIn(data): any {
+        return this.baseServices.postData("TTagApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagUp(data): any {
+        return this.baseServices.postData("TTagApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagDel(data): any {
+        return this.baseServices.getData("TTagApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public toperatelogList(data): any {
+        return this.baseServices.getData("TOperatelogApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    //批量处理
+    public importdata_check(data): any {
+        return this.baseServices.UploadFile("TProductApiService/importdata_check", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public importdata(data): any {
+        return this.baseServices.postData("TProductApiService/importdata", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public importupdatebyname_check(data): any {
+        return this.baseServices.UploadFile("TProductApiService/importupdatebyname_check", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public importupdatebyname(data): any {
+        return this.baseServices.postData("TProductApiService/importupdatebyname", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public importupdatebycode_check(data): any {
+        return this.baseServices.UploadFile("TProductApiService/importupdatebycode_check", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public importupdatebycode(data): any {
+        return this.baseServices.postData("TProductApiService/importupdatebycode", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public download_file(data): any {
+        return this.baseServices.getData("CommonApiService/download_file", data,WebConfig.RequestUrl.sellsiteservice)
+    }
     
 }

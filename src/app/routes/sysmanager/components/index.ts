@@ -10,3 +10,5 @@ export * from './enterprise-passport/enterprise-passport.component'
 export * from './sel-enterprise/sel-enterprise.component';
 export * from './tloginlog/tloginlog-list/tloginlog-list.component';
 export * from './enterprise-dashboard/enterprise-dashboard.component';
+export * from './encryptpage/encryptpage.component';
+export * from './enterprise-config/enterprise-config.component';

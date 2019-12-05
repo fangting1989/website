@@ -10,4 +10,8 @@ export class loginServices {
     public login(data):any{
         return this.baseServices.postData("TAdminuserApiService/ValidAdminUser",data,WebConfig.RequestUrl.baseservice)
     }
+
+    public loginwithcode(data):any{
+        return this.baseServices.postData("TAdminuserApiService/ValidAdminUserWithCode",data,WebConfig.RequestUrl.baseservice)
+    }
 }

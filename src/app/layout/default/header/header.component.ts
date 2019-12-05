@@ -27,7 +27,7 @@ export class HeaderComponent {
     this.NavArray.push({ level: 0, NavName: "首页", routerLink: "/dashboard" })
     var self = this;
     //接收面包屑
-    this._state.subscribe('app.nav', (navObj) => {
+    this._state.subscribe('app.nav',"e9c11b4b-5b48-45b4-b026-61b865875d21", (navObj) => {
       //去除
       this.NavArray = _.filter(this.NavArray, function (obj) { return obj.level < navObj.level; });
       var Index = _.findIndex(this.NavArray, { "level": navObj.level });
@@ -40,6 +40,8 @@ export class HeaderComponent {
     });
       
    }
+
+
 
   toggleCollapsedSidebar() {
     this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
@@ -78,4 +80,6 @@ export class HeaderComponent {
       }
     })
   }
+
+  
 }

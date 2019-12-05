@@ -10,25 +10,30 @@ import {WorkflowComponent,
   WorktasklistComponent,
   WorktaskcreateComponent,
   TApprovedEditComponent,
-  WorkflowRollbackComponent} from './compts'
+  WorkflowRollbackComponent,
+  WorkcartasklistComponent,
+  CartaskcreateComponent,
+} from './compts'
 
-  import {
+import {
     ProcessProweruserComponent,
     ProcessProwerprocessComponent,
     TProcessenterpriseEditComponent,
-TProcessenterpriseListComponent,
+    TProcessenterpriseListComponent,
+    TProcessconfigEditComponent,
   } from './components';
 //services
-import { dataServices } from './services';
+import { dataServices,cardataServices } from './services';
 
 import {Components} from './workflowmanager.components';
 import { ComponentPanelComponent } from './compts/workflow/component-panel/component-panel.component';
 import { SelWorkflowComponentComponent } from './components/processlist/sel-workflow-component/sel-workflow-component.component';
 import { AddprocesscontentComponent } from './components/processlist/addprocesscontent/addprocesscontent.component';
 
-import {dpCarWorkFlowComponents} from './../dpcar/dpcarmanager.workflow.component';
 //组件导入
-import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
+// import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
+import {DpcarworkflowModule} from './../dpcarworkflow/dpcarworkflow.module';
+import { ComponentPanelEmptyComponent } from './compts/workflow/component-panel-empty/component-panel-empty.component';
 
 @NgModule({
   imports: [
@@ -37,7 +42,8 @@ import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
     AngularSplitModule,
     SharedModule,
     routing, 
-    DpcarmanagerModule, 
+    // DpcarmanagerModule,
+    DpcarworkflowModule, 
   ],
   declarations: [
     WorkflowmanagerMain,
@@ -54,9 +60,14 @@ import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
     ProcessProwerprocessComponent,
     TProcessenterpriseEditComponent,
     TProcessenterpriseListComponent,
+    WorkcartasklistComponent,
+    CartaskcreateComponent,
+    ComponentPanelEmptyComponent,
+    TProcessconfigEditComponent,
   ],
   providers: [
-    dataServices
+    dataServices,
+    cardataServices
   ],
   entryComponents: [
     WorkflowComponent,
@@ -66,9 +77,8 @@ import {DpcarmanagerModule} from './../dpcar/dpcarmanager.module';
     WorkflowRollbackComponent,
     ProcessProweruserComponent,
     TProcessenterpriseEditComponent,
+    TProcessconfigEditComponent,
     ...Components,
-    ...dpCarWorkFlowComponents,
-
   ]
 })
 export class WorkflowManagerModule {

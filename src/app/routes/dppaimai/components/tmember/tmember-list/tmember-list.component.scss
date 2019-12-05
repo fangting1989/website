@@ -14,3 +14,16 @@
       margin-bottom: 12px;
   }
 }
+
+.upload-btn{
+  vertical-align: bottom;
+  line-height: 30px;
+  position: relative;
+  .input-upload{
+    height:100%;
+    width:100%;
+    position: absolute;
+    top: 0px;
+    opacity: 0;
+  }
+}

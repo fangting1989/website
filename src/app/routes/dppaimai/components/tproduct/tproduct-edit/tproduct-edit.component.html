@@ -1,13 +1,23 @@
 
 <page-header [title]="'拍品编辑'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
-  <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goProductPage()">返回商品列表</button></div></ng-template>
+  <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goProductPage()">返回列表</button></div></ng-template>
 </page-header>
 
 <nz-card [nzBordered]="false">
 <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
 
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">拍品类型</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-radio-group [(ngModel)]="model.producttype" name="producttype">
+            <label nz-radio-button *ngFor="let item of typeArray"
+              [nzValue]="item.value"><span>{{item.name}}</span></label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzFor="name">拍卖类型</nz-form-label>
+    <nz-form-label [nzSpan]="4" nzFor="name">拍卖方式</nz-form-label>
     <nz-form-control [nzSpan]="12">
       <input type="text" name="productbrand" nz-input [(ngModel)]="model.productbrand" name="productbrand" />
     </nz-form-control>
@@ -29,17 +39,17 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzFor="name">是否有效</nz-form-label>
+    <nz-form-label [nzSpan]="4" nzFor="name">拍品状态</nz-form-label>
     <nz-form-control [nzSpan]="12">
       <nz-radio-group [(ngModel)]="model.productvalid" name="productvalid">
-        <label nz-radio-button *ngFor="let item of stateArray"
+        <label nz-radio-button *ngFor="let item of statenewArray"
           [nzValue]="item.value"><span>{{item.name}}</span></label>
       </nz-radio-group>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzFor="name">商品图片</nz-form-label>
+    <nz-form-label [nzSpan]="4" nzFor="name">拍品图片</nz-form-label>
     <nz-form-control [nzSpan]="12">
       <div class="uploadImg col-sm-10">
         <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control"
@@ -68,25 +78,64 @@
 
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="name">资产价</nz-form-label>
-    <nz-form-control [nzSpan]="12">
-        <input nz-input placeholder="" name="productprice" id="productprice"
-        [(ngModel)]="model.productprice" />
+    <nz-form-control [nzSpan]="6">
+        <nz-input-group  nzAddOnAfter="元">
+          <input nz-input placeholder="" name="productprice" id="productprice"
+          [(ngModel)]="model.productprice" />
+        </nz-input-group>
+       
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="name">拍品起始折扣</nz-form-label>
+      <nz-form-control [nzSpan]="5">
+          <input nz-input placeholder="" name="amount" id="amount"
+          [(ngModel)]="model.amount" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="name">折扣范围</nz-form-label>
+      <nz-form-control [nzSpan]="5">
+          <input type="text" name="minamount" id="minamount"
+          [(ngModel)]="model.minamount" nz-input placeholder="最低" style="width:100px; text-align: center;" />
+          <input
+            type="text"
+            disabled
+            nz-input
+            placeholder="~"
+            style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);"
+          /><input type="text" nz-input placeholder="最高" style="width: 100px; text-align: center; border-left: 0px;" name="maxamount" id="maxamount"
+          [(ngModel)]="model.maxamount"  />
+          
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="name">竞拍保证金</nz-form-label>
+        <nz-form-control [nzSpan]="5">
+            <nz-input-group  nzAddOnAfter="元">
+            <input nz-input placeholder="" name="normalcash" id="normalcash"
+            [(ngModel)]="model.normalcash" />
+            </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="name">竞价周期</nz-form-label>
-    <nz-form-control [nzSpan]="12">
-        <input nz-input placeholder="" name="jjzq" id="jjzq"
-        [(ngModel)]="model.jjzq" />
+    <nz-form-control [nzSpan]="6">
+        <nz-input-group  nzAddOnAfter="天">
+          <input nz-input placeholder="" name="jjzq" id="jjzq"
+          [(ngModel)]="model.jjzq" />
+        </nz-input-group>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="name">延时周期</nz-form-label>
-    <nz-form-control [nzSpan]="12">
+    <nz-form-control [nzSpan]="6">
+        <nz-input-group  nzAddOnAfter="分钟">
         <input nz-input placeholder="" name="yszq" id="yszq"
         [(ngModel)]="model.yszq" />
+        </nz-input-group>
     </nz-form-control>
   </nz-form-item>
 
@@ -104,7 +153,7 @@
         name="pmjzsj"
         [(ngModel)]="model.signenddate"
         nzShowTime
-        nzFormat="yyyy-MM-dd HH:mm:ss"
+        nzFormat="yyyy-MM-dd HH:mm"
         nzPlaceHolder="选择时间"
         (ngModelChange)="onbmChange($event)"
       ></nz-date-picker>
@@ -112,28 +161,21 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzFor="name">开拍时间</nz-form-label>
+    <nz-form-label [nzSpan]="4" nzFor="name">竞拍时间</nz-form-label>
     <nz-form-control [nzSpan]="12">
     <nz-range-picker
       name="kpsj"
-      [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"
-      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
       [nzPlaceHolder]="['开始时间', '结束时间']"
       [(ngModel)]="model.kpsj"
       (ngModelChange)="onkpChange($event)"
     ></nz-range-picker>
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzFor="name">报名人数</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <input type="text" name="factsalecount" nz-input [(ngModel)]="model.factsalecount" name="factsalecount" disabled />
-      </nz-form-control>
-    </nz-form-item>
 </form>
 </nz-card>
 
-<nz-affix style="position: absolute; top: 10px;left:10px">
 <nz-card [nzBordered]="false">
   <div nz-row>
     <div nz-col nzSpan="12" nzOffset="4">
@@ -141,4 +183,3 @@
     </div>
   </div>
 </nz-card>
-</nz-affix>

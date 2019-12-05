@@ -1,0 +1,50 @@
+<div class="page-container">
+    <nz-card [nzBordered]="false">
+      <span mkgoback>返回上级></span><span>配置中心</span>
+    </nz-card>
+
+    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab wf-tab-create">
+        <nz-tab [nzTitle]="'短信配置'">
+          <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="2" nzFor="appid">账号</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                  <input nz-input name="appid" type="text" id="appid" [(ngModel)]="smsmodel.appid">
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSpan]="2" nzFor="appkey">密码</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                  <input nz-input name="appkey" type="text" id="appkey" [(ngModel)]="smsmodel.appkey">
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="2" nzFor="template">模板配置</nz-form-label>
+                <nz-form-control [nzSpan]="8">
+                    <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="template" id="template" nzAutosize [(ngModel)]="smsmodel.template"
+                    ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSpan]="2" nzFor="fabricCode">是否默认</nz-form-label>
+              <nz-form-control [nzSpan]="5">
+                  <nz-radio-group [(ngModel)]="smsmodel.isdefault" name="isdefault" >
+                      <label nz-radio-button  *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+                    </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-control [nzOffset]="3">
+                    <button nz-button nzType="primary" (click)="saveSmsClick()" type="submit" >保存</button>
+                </nz-form-control>
+            </nz-form-item>
+          </form>
+          
+        </nz-tab>
+      </nz-tabset>
+
+  </div>

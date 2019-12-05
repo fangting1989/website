@@ -45,32 +45,55 @@
     </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-    <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
-      <i nz-icon type="plus"></i>
-      <span>新建</span>
-    </button>
+    <div nz-row>
+      <div nz-col nzSpan="3">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+      </div>
+      <div nz-col nzSpan="10">
+          <button nz-button (click)="UpProduct()" [nzType]="'default'" class="btn-add">
+              <i nz-icon type="arrow-up"></i>
+              <span>上架</span>
+            </button>
+            <button nz-button (click)="DownProduct()" [nzType]="'default'" class="btn-add">
+                <i nz-icon type="arrow-down"></i>
+                <span>下架</span>
+              </button>
+      </div>
+    </div>
+   
     <ng-container>
       <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
         [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()"
         (nzPageSizeChange)="loadData()">
         <thead>
           <tr>
+            <th
+            nzShowCheckbox
+            [(nzChecked)]="isAllDisplayDataChecked"
+            [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"
+          ></th>
             <th>序号</th>
             <th>产品类别</th>
             <th>商品名称</th>
             <th>上下架情况</th>
-            <th>是否置顶</th>
             <th>实际销量</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
+              <td
+              nzShowCheckbox
+              [(nzChecked)]="data.checked"
+            ></td> 
             <td>{{i +1}}</td>
             <td>{{data.objecttype.typeName}}</td>
             <td>{{data.productname}}</td>
             <td>{{data.productvalid |mkenumformatpipe:'prostateArray'}}</td>
-            <td>{{data.istop| mkstatearray}}</td>
             <td>{{data.factsalecount}}</td>
             <td>
               <i nz-icon nz-tooltip type="arrow-up" nzTheme="outline" nzTitle="上架商品" *ngIf="data.productvalid == 0"

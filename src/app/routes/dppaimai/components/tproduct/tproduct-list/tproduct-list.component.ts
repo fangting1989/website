@@ -61,13 +61,6 @@ export class TProductListComponent implements OnInit {
       if (result != null) {
         self.DataList = result.data;
         self.TotalCount = result.recordcount;
-        _.each( self.DataList,it=>{
-          _.each(self.StateArray,iit=>{
-            if(it.productvalid == iit.value){
-              it.productvalid_enum = iit.name
-            }
-          })
-        })
       }
     })
   }
@@ -91,8 +84,14 @@ export class TProductListComponent implements OnInit {
   }
 
   editItem(item){
-    var data = {HeadText:'编辑',itemdata:item}
-    this.router.navigate(['/dppaimai/tproductedit'],{ queryParams: { keycode: item.keycode } });
+    //判断是否为下架状态--下架才能修改商品
+    if(item.productvalid == 0 && item.execmemberid == null){
+      var data = {HeadText:'编辑',itemdata:item}
+      this.router.navigate(['/dppaimai/tproductedit'],{ queryParams: { keycode: item.keycode } });
+    }else{
+      var data = {HeadText:'编辑',itemdata:item}
+      this.router.navigate(['/dppaimai/tproductemsg'],{ queryParams: { keycode: item.keycode } });
+    }
   }
 
   deleteItem(item){
@@ -133,7 +132,7 @@ export class TProductListComponent implements OnInit {
     });
   }
 
-  ChangeState(item,state){
+  ChangedState(item,state){
 
     var self = this;
     this.modalService.confirm({

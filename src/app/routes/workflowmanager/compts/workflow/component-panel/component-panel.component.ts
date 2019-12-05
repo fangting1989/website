@@ -36,9 +36,12 @@ export class ComponentPanelComponent implements OnInit {
     let fact = self.resolver._factories;
     // 根据名称，摸查出组件名称
     fact.forEach((value: any, key: any) => {
-      if (key.name === this.ComponentItem.componenturl) {
-        this.CurrComponet = key;
+      if(value.selector == this.ComponentItem.componenturl){
+        this.CurrComponet = key
       }
+      // if (key.name === this.ComponentItem.componenturl) {
+      //   this.CurrComponet = key;
+      // }
     });
 
     let factory = this.resolver.resolveComponentFactory(this.CurrComponet);
@@ -56,9 +59,11 @@ export class ComponentPanelComponent implements OnInit {
     this.DataInitAfter();
   }
   ngAfterContentInit() {
-    this.loadComponent(this)
+    //console.log(this.container)
+    this.loadComponent(this) 
 
   }
+
   ngOnDestroy() {
     if (this.compRef) {
       this.compRef.destroy();

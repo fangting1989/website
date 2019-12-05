@@ -67,7 +67,6 @@ export class TMemberEditComponent implements OnInit {
     }
     this.dataServices.taddressList(postData).subscribe(result => {
       if(result){
-        console.log(result)
         this.AddressList = result.data;
       }
     })

@@ -26,7 +26,18 @@ export class prodServices {
     public objecttype_findbyparent(data): any {
         return this.baseServices.getData("TObjecttypeApiService/findbyparent", data,WebConfig.RequestUrl.sellsiteservice)
     }
-
+    public ttagList(data): any {
+        return this.baseServices.getData("TTagApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagIn(data): any {
+        return this.baseServices.postData("TTagApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagUp(data): any {
+        return this.baseServices.postData("TTagApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public ttagDel(data): any {
+        return this.baseServices.getData("TTagApiService/delete", data,WebConfig.RequestUrl.sellsiteservice)
+    }
     // //商品列表
     // public prodList(data): any {
     //     return this.baseServices.getData("TProductApiService/find", data,WebConfig.RequestUrl.sellsiteservice)
@@ -89,6 +100,9 @@ export class prodServices {
     //商品规格
     public tproductunitIn(data): any {
         return this.baseServices.postData("TProductunitApiService/insert", data,WebConfig.RequestUrl.sellsiteservice)
+    }
+    public tproductunitUp(data): any {
+        return this.baseServices.postData("TProductunitApiService/update", data,WebConfig.RequestUrl.sellsiteservice)
     }
     
     public tproductunitDel(data): any {

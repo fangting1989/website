@@ -9,6 +9,11 @@ import {
   JmxzEditComponent,
   TProductListComponent,
   TProductEditComponent,
+  TproductMsgComponent,
+  TSignproductListComponent,
+  TCompactListComponent,
+  TCompactEditComponent,
+  TcompactMsgComponent,
 } from './components';
 
 export const routes: Routes = [
@@ -28,6 +33,12 @@ export const routes: Routes = [
       { path: 'jmxz', component: JmxzEditComponent },
       { path: 'tproductlist', component: TProductListComponent },
       { path: 'tproductedit', component: TProductEditComponent },
+      { path: 'tproductemsg', component: TproductMsgComponent },
+      { path: 'tsignproductlist', component: TSignproductListComponent },
+      { path: 'tcompactlist', component: TCompactListComponent },
+      { path: 'tcompactedit', component: TCompactEditComponent },
+      { path: 'tcompactemsg', component: TcompactMsgComponent },
+      
       { path: '**', redirectTo: 'twebcorelist' },
     ]
   }

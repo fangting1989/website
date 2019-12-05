@@ -11,7 +11,9 @@ import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 })
 export class TMemberEditdataComponent implements OnInit {
   data: any;
-  model: any = {}
+  model: any = {
+    money:0
+  }
   EnterPriseCode: any;
   submitting:any = false;
   stateArray: any = Object.assign([], Enums.stateArray);
@@ -55,6 +57,10 @@ export class TMemberEditdataComponent implements OnInit {
     this.submitting = true;
     var self = this;
     this.model.enterpriseid = this.EnterPriseCode
+    this.model.memtype = 10
+    if(!this.model.money){
+      this.model.money = 0
+    }
     if (this.model.keycode) {
       this.dataServices.tmemberUp(this.model).subscribe(result => {
         this.submitting = false

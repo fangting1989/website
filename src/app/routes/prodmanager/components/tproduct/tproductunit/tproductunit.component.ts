@@ -32,7 +32,6 @@ export class TproductunitComponent implements OnInit {
       }
       if (this.data.itemdata) {
         this.model = Object.assign({}, this.data.itemdata);
-        console.log(this.model)
       }
     }
     this.model.selected = false;
@@ -45,14 +44,27 @@ export class TproductunitComponent implements OnInit {
     this.submitting = true;
     var self = this;
     this.model.enterpriseid = this.EnterPriseCode
-    this.dataServices.tproductunitIn(this.model).subscribe(result => {
-      this.submitting = false
-      if (result != null) {
-        self.model = result.data;
-        self.msg.success("操作成功!");
-        self.closeModal()
-      }
-    })
+    this.model.operateperson = this.comservices.getUserName
+    if(this.model.keycode){
+      this.dataServices.tproductunitUp(this.model).subscribe(result => {
+        this.submitting = false
+        if (result != null) {
+          self.model = result.data;
+          self.msg.success("操作成功!");
+          self.closeModal()
+        }
+      })
+    }else{
+      this.dataServices.tproductunitIn(this.model).subscribe(result => {
+        this.submitting = false
+        if (result != null) {
+          self.model = result.data;
+          self.msg.success("操作成功!");
+          self.closeModal()
+        }
+      })
+    }
+    
   }
 
   cancelClick() {

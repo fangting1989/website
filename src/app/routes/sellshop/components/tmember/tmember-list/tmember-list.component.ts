@@ -10,6 +10,7 @@ import {
 import { ModalHelper } from '@delon/theme';
 import { comservices} from '../../../../../shared/services';
 import { TMemberEditComponent} from '../tmember-edit/tmember-edit.component'
+import {TmemberYqComponent} from '../tmember-yq/tmember-yq.component';
 import {Router} from '@angular/router';
 @Component({
   selector: 'app-tmember-list',
@@ -26,7 +27,7 @@ export class TMemberListComponent implements OnInit {
   loading = false;
   EnterPriseCode:any;
   StateArray:any = [{name:"有效",value:1},{name:'无效',value:0}]
-  membertypeArray:any = Object.assign([],Enums.membertypeArray) 
+  membertypeArray:any = [{name:"全部",value:null},{name:'普通会员',value:"10,25"},{name:'邀请会员',value:"27,28"},{name:'认证会员',value:"30"},{name:'公司员工',value:"35"}]
   constructor(
     public msg: NzMessageService,
     private modalService:NzModalService,
@@ -52,7 +53,7 @@ export class TMemberListComponent implements OnInit {
       enterpriseid: this.EnterPriseCode,
     }
     if(this.searchObject.memtype){
-      postData.memtype = this.searchObject.memtype
+      postData.memtypes = this.searchObject.memtype
     }
     this.dataServices.tmemberList(postData).subscribe(result => {
       if (result != null) {
@@ -63,6 +64,7 @@ export class TMemberListComponent implements OnInit {
   }
 
   SearchClick(e){
+    this.PageNum = 1;
     this.loadData();
   }
 
@@ -108,6 +110,13 @@ export class TMemberListComponent implements OnInit {
       nzOnCancel  : () => {
 
       }
+    });
+  }
+
+  yqmember(item){
+    var data = {HeadText:'邀请列表',itemdata:item}
+    const modal = this.modalHelper.create(TmemberYqComponent,{ data: data},{size:800}).subscribe(res => {
+      this.loadData()
     });
   }
 }

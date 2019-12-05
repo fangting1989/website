@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="商品内码">
+    <input type="text" name="productid" nz-input [(ngModel)]="model.productid" />
+  </se>
+  <se label="商品名称">
+    <input type="text" name="productname" nz-input [(ngModel)]="model.productname" />
+  </se>
+  <se label="会员内码">
+    <input type="text" name="memberid" nz-input [(ngModel)]="model.memberid" />
+  </se>
+  <se label="会员名称">
+    <input type="text" name="membername" nz-input [(ngModel)]="model.membername" />
+  </se>
+  <se label="报名时间">
+    <input type="text" name="createdate" nz-input [(ngModel)]="model.createdate" />
+  </se>
+  <se label="idcard">
+    <input type="text" name="idcard" nz-input [(ngModel)]="model.idcard" />
+  </se>
+  <se label="idcardname">
+    <input type="text" name="idcardname" nz-input [(ngModel)]="model.idcardname" />
+  </se>
+  <se label="signtype">
+    <input type="text" name="signtype" nz-input [(ngModel)]="model.signtype" />
+  </se>
+  <se label="jmzclb">
+    <input type="text" name="jmzclb" nz-input [(ngModel)]="model.jmzclb" />
+  </se>
+  <se label="jmfs">
+    <input type="text" name="jmfs" nz-input [(ngModel)]="model.jmfs" />
+  </se>
+  <se label="othermobile">
+    <input type="text" name="othermobile" nz-input [(ngModel)]="model.othermobile" />
+  </se>
+  <se label="otheridcardname">
+    <input type="text" name="otheridcardname" nz-input [(ngModel)]="model.otheridcardname" />
+  </se>
+  <se label="otheridcard">
+    <input type="text" name="otheridcard" nz-input [(ngModel)]="model.otheridcard" />
+  </se>
+  <se label="othercardfront">
+    <input type="text" name="othercardfront" nz-input [(ngModel)]="model.othercardfront" />
+  </se>
+  <se label="othercardback">
+    <input type="text" name="othercardback" nz-input [(ngModel)]="model.othercardback" />
+  </se>
+  <se label="备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
+  </se>
+  <se label="isvalid">
+    <input type="text" name="isvalid" nz-input [(ngModel)]="model.isvalid" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

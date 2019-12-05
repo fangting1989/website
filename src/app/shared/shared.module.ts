@@ -31,7 +31,8 @@ import { EditorTinymceComponent,
 
 import {
   mkAutoSizeDirective,
-  mkDebounceDirective
+  mkDebounceDirective,
+  mkGobackDirective
 } from './directives';
 
 
@@ -40,7 +41,9 @@ const COMPONENTS = [
   EditorTinymceComponent,
   WorkflowBaseComponent,
 ];
-const DIRECTIVES = [mkAutoSizeDirective,mkDebounceDirective];
+const DIRECTIVES = [mkAutoSizeDirective,
+  mkDebounceDirective,
+  mkGobackDirective];
 const PROVIDERS = [comservices];
 const PIPES = [
   mkDateformatPipe,

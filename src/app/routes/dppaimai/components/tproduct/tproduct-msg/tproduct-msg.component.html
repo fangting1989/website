@@ -1,0 +1,82 @@
+<page-header [title]="'拍品详情'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="reload()">刷新信息</button><button nz-button nzType="primary" (click)="goProductListPage()">返回拍品列表</button></div></ng-template>
+</page-header>
+<nz-card nzType="inner" nzTitle="基本信息(列表中下架商品编辑信息)">
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <sv-container size="small">
+        <sv label="商品名称">{{model.productname}}</sv>
+        <sv label="资产价">{{model.productprice}}元</sv>
+        <sv label="报名截止日">{{model.signenddate_enum}}</sv>
+        <sv label="竞拍时间">{{model.pmstartdate_enum}}~{{model.pmenddate_enum}}</sv>
+        <sv label="状态">{{model.productvalid_enum}}</sv>
+        <sv label="原始竞价折扣率">{{model.orginamount}}</sv>
+        <sv label="当前竞价折扣率">{{model.amount}}</sv>
+        <sv label="竞价周期">{{model.jjzq}}天</sv>
+        <sv label="延时周期">{{model.yszq}}分钟</sv>
+        <sv label="竞拍类型">{{model.productbrand}}</sv>
+        <sv label="竞价规则">{{model.productdesc}}</sv>
+      </sv-container>
+    </div>
+  </div>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="竞拍记录">
+  <nz-table #ajaxTable_link nzShowSizeChanger 
+      [nzData]="JPDataList" 
+      [(nzPageIndex)]="JPPageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="JPPageSize"
+          [nzTotal]="JPTotalCount"
+          (nzPageIndexChange)="loadJPData()"
+          (nzPageSizeChange)="loadJPData()">
+      <thead>
+        <tr>
+          <th>出价人</th>
+          <th>出价时间</th>
+          <th>出价价格</th>
+          <th>竞价折扣率</th>
+          <th></th>
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let data of ajaxTable_link.data; let i = index">
+          <td>{{data.membername}}</td>
+          <td>{{data.costdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td>{{data.price}}元</td>
+          <td>{{data.costamount}}</td>
+          <td ><span *ngIf="data.zb" class="color-red">已中标</span></td>
+        </tr>
+      </tbody>
+    </nz-table>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="报名记录">
+  <nz-table #ajaxTable_BM nzShowSizeChanger 
+      [nzData]="BMDataList" 
+      [(nzPageIndex)]="BMPageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="BMPageSize"
+          [nzTotal]="BMTotalCount"
+          (nzPageIndexChange)="loadBMData()"
+          (nzPageSizeChange)="loadBMData()">
+      <thead>
+        <tr>
+          <th>报名人</th>
+          <th>报名时间</th>
+          <th>报名金额</th>
+          <th>状态</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable_BM.data; let i = index">
+          <td>{{data.membername}}</td>
+          <td>{{data.createdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td>{{data.signamount}}</td>
+          <td>{{data.isvalid == 1?'正常报名':'报名被取消'}}</td>
+          <td><span *ngIf="model.productvalid ==10 && data.isvalid == 1" class="color-red" (click)="signCencel(data)">取消报名资格</span></td>
+        </tr>
+      </tbody>
+    </nz-table>
+</nz-card>

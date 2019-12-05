@@ -15,6 +15,7 @@ export class TProcesscomponentEditComponent implements OnInit {
   submitting:any = false;
   stateArray: any = Object.assign([], Enums.stateArray);
   ComponentMode: any = Object.assign([], Enums.ComponentMode);
+  StyleModeArray: any = [{name:'卡片模式',value:10},{name:'自定义模式',value:20}]
   constructor(private msg: NzMessageService,
     private dataServices: dataServices,
     private modal: NzModalRef,

@@ -115,6 +115,7 @@ export class TOrderListComponent implements OnInit {
   }
 
   SearchClick(e){
+    this.PageNum = 1;
     this.loadData();
   }
 

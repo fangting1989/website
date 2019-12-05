@@ -4,6 +4,8 @@ import { WorkflowmanagerMain } from './workflowmanager.main';
 import { WorkflowComponent,
   WorktasklistComponent,
   WorktaskcreateComponent,
+  WorkcartasklistComponent,
+  CartaskcreateComponent,
    } from './compts';
 
 import {
@@ -14,7 +16,8 @@ import {
   CompDefinedComponent,
   TWorkflowroleListComponent,
   ProcessProwerprocessComponent,
-  TProcessenterpriseListComponent
+  TProcessenterpriseListComponent,
+  
 } from './components';
 
 const routes: Routes = [
@@ -28,6 +31,8 @@ const routes: Routes = [
       { path: 'processconfig', component: ProcessconfigComponent },
       { path: 'compdefined', component: CompDefinedComponent },
       { path: 'tasklist', component: WorktasklistComponent },
+      { path: 'cartasklist', component: WorkcartasklistComponent },
+      { path: 'cartaskcreate', component: CartaskcreateComponent },
       { path: 'tasklistcreate', component: WorktaskcreateComponent },
       { path: 'taskworkflow', component: WorkflowComponent },
       { path: 'workflowrole', component: TWorkflowroleListComponent },

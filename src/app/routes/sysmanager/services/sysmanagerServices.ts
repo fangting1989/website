@@ -256,4 +256,19 @@ export class sysmanagerServices {
     public tsystemconfigDel(data): any {
         return this.baseServices.getData("TSystemconfigApiService/delete", data,WebConfig.RequestUrl.baseservice)
     }
+    public encrypt(data): any {
+        return this.baseServices.getData("ComApiService/encrypt", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tenterpriseconfigList(data): any {
+        return this.baseServices.getData("TEnterpriseconfigApiService/find", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tenterpriseconfigIn(data): any {
+        return this.baseServices.postData("TEnterpriseconfigApiService/insert", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tenterpriseconfigUp(data): any {
+        return this.baseServices.postData("TEnterpriseconfigApiService/update", data,WebConfig.RequestUrl.baseservice)
+    }
+    public tenterpriseconfigDel(data): any {
+        return this.baseServices.getData("TEnterpriseconfigApiService/delete", data,WebConfig.RequestUrl.baseservice)
+    }
 }

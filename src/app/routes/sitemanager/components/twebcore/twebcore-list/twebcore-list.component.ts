@@ -54,6 +54,7 @@ export class TWebcoreListComponent implements OnInit {
   };
   
 
+  telnum:any = {}
   TotalCount_ad:any = 0;
   constructor(
     public msg: NzMessageService,
@@ -80,6 +81,8 @@ export class TWebcoreListComponent implements OnInit {
     this.loadData_type();
 
     this.loadProductList();
+
+    this.loadTelNum();
   }
 
   public uploader: FileUploader = new FileUploader({
@@ -187,6 +190,44 @@ export class TWebcoreListComponent implements OnInit {
 
   /****** */
 
+  /*电话号码 */
+  loadTelNum(){
+    var self = this;
+    var postData = {
+      pagesize:100,
+      pagenum:1,
+      enterpriseid: this.EnterPriseCode,
+      webcoretype:98
+    }
+    this.dataServices.twebcoreList(postData).subscribe(result => {
+      if (result != null && result.data.length > 0) {
+        this.telnum = result.data[0]
+        this.telnum.telnum = this.telnum.webcoredesc 
+      }
+    })
+  }
+  savetelnumClick(){
+    var postData = {
+      enterpriseid: this.EnterPriseCode,
+      webcoredesc:this.telnum.telnum,
+      webcoretype:98,
+      keycode:this.telnum.keycode
+    }
+    if(postData.keycode){
+      this.dataServices.twebcoreUp(postData).subscribe(result=>{
+        if(result){
+          this.msg.success("保存成功!")
+        }
+      })
+    }else{
+      this.dataServices.twebcoreIn(postData).subscribe(result=>{
+        if(result){
+          this.msg.success("保存成功!")
+        }
+      })
+    }
+  }
+
   /*** 广告位 */
   loadData_ad(){
     var self = this;
@@ -278,7 +319,6 @@ export class TWebcoreListComponent implements OnInit {
             delete iit.obj
           }
         })
-        console.log(self.TypeDataList)
       }
     })
 

@@ -1,0 +1,60 @@
+.wf-tab{
+  margin-bottom: 10px;
+  .ant-tabs-bar{
+      margin:0px !important;
+    }
+  
+}
+.wf-btm-card-nav{
+  .nav-panel{
+      float: right;
+  }
+  button{
+      margin-right: 10px;
+  }
+}
+
+.img-items{
+  .con-items{
+    width:150px;
+    height:150px;
+    display: inline-block;
+    margin:0px 15px;
+    vertical-align: top; 
+  }
+  .name{
+      display: inline-block;
+      width:100%;
+      line-height: 30px;
+      text-align: center;
+  }
+
+  .village-img{
+    width: 70%;
+    height: 70%;
+    overflow:hidden;
+    display: inline-block;
+    position: relative;
+  }
+  .village-img img{
+    width:100%;
+    height:100%;
+  }
+  
+  .village-img .file{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+  }
+  .village-img .delete{
+    position: absolute;
+    top:5px;
+    right:5px;
+    border-radius:50%;
+    cursor:pointer;
+  }
+}

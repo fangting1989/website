@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <div class="modal-title">{{data.HeadText}}</div>
+  </div>
+  <!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+  <!-- error="请填写" required -->
+  <!--<se label="是否有效" error="请填写">
+          <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+            <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+          </nz-radio-group>
+        </se>-->
+  <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+      <se label="实名">
+          <input type="text" name="idcardname" nz-input [(ngModel)]="model.idcardname" />
+        </se>
+      <se label="身份证号">
+          <input type="text" name="idcard" nz-input [(ngModel)]="model.idcard" />
+        </se>
+        <se label="手机">
+            <input type="text" name="memMobile" nz-input [(ngModel)]="model.memMobile" />
+          </se>
+  </form>
+  <div class="modal-footer">
+    <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+    <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+  </div>

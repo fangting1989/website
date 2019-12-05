@@ -17,7 +17,9 @@ import {
   EnterprisePassportComponent,
   SelEnterpriseComponent,
   TLoginLogListComponent,
-  EnterpriseDashboardComponent
+  EnterpriseDashboardComponent,
+  EncryptpageComponent,
+  EnterpriseConfigComponent,
 } from './components';
 
 //services
@@ -43,7 +45,9 @@ import { sysmanagerServices } from './services';
     EnterprisePassportComponent,
     SelEnterpriseComponent,
     TLoginLogListComponent,
-    EnterpriseDashboardComponent
+    EnterpriseDashboardComponent,
+    EncryptpageComponent,
+    EnterpriseConfigComponent
   ],
   providers: [
     sysmanagerServices

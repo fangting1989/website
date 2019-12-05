@@ -48,6 +48,8 @@ export class EditorTinymceComponent implements AfterViewInit,OnDestroy {
           plugins: ['link', 'table','image'],
           toolbar: 'insert | undo redo |  fontsizeselect | forecolor backcolor |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | l link media image  | print preview fullpage ',
           skin_url: 'assets/plugins/tinymce/skins/lightgray',
+          relative_urls : false,
+          remove_script_host : false,
           init_instance_callback:function(editor){
             var dataEditor = editor
             setTimeout(function(){

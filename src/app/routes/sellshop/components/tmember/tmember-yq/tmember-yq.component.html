@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form [nzLayout]="'inline'" class="search__form">
+  <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+    <nz-col nzMd="8" nzSm="24">
+      <nz-form-item>
+        <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col>
+      <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'"
+        [nzLoading]="loading">查询</button>
+    </nz-col>
+  </nz-row>
+</form>
+<nz-card [nzBordered]="false">
+  <ng-container>
+    <nz-table #ajaxTable nzShowSizeChanger [nzData]="DataList" [(nzPageIndex)]="PageNum" [nzFrontPagination]="false"
+      [(nzPageSize)]="PageSize" [nzTotal]="TotalCount" (nzPageIndexChange)="loadData()" (nzPageSizeChange)="loadData()">
+      <thead>
+        <tr>
+          <th>会员名称</th>
+          <th>手机</th>
+          <th>总消费</th>
+          <th>总消费笔数</th>
+          <th>是否实名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data; let i = index">
+          <td>{{data.idcardname || data.memName}}
+            <nz-tag [nzColor]="'orange'" *ngIf="data.memtype == 10 || data.memtype == 25">普通会员</nz-tag>
+            <nz-tag [nzColor]="'green'" *ngIf="data.memtype == 27 && data.memtype ==28 ">实名会员</nz-tag>
+            <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 30">认证会员</nz-tag>
+            <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 35">公司员工</nz-tag>
+          </td>
+          <td>{{data.memMobile}}</td>
+          <td>{{data.costAmount}}</td>
+          <td>{{data.costNum}}</td>
+          <td>{{data.isfact?'已实名':'未实名'}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-card>

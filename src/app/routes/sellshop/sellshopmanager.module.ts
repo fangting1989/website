@@ -33,6 +33,15 @@ TmemberApprovedEditComponent,
 OrderBillDetailComponent,
 GwsorderListComponent,
 RelategwsComponent,
+TAdviceEditComponent,
+TAdviceListComponent,
+TTagEditComponent,
+TTagListComponent,
+TOperatelogListComponent,
+ImportdataComponent,
+ImportupdatebycodeComponent,
+ImportupdatebynameComponent,
+TmemberYqComponent,
 } from './components';
 
 const COMPONENT = [
@@ -62,6 +71,15 @@ TmemberApprovedEditComponent,
 OrderBillDetailComponent,
 GwsorderListComponent,
 RelategwsComponent,
+TAdviceEditComponent,
+TAdviceListComponent,
+TTagEditComponent,
+TTagListComponent,
+TOperatelogListComponent,
+ImportdataComponent,
+ImportupdatebycodeComponent,
+ImportupdatebynameComponent,
+TmemberYqComponent,
 ]
 
 //services
@@ -90,6 +108,10 @@ import { OrderSendComponent } from './components/torder/order-send/order-send.co
     OrderBillDetailComponent,
     GwsorderListComponent,
     RelategwsComponent,
+    ImportupdatebycodeComponent,
+    ImportupdatebynameComponent,
+    ImportdataComponent,
+    TmemberYqComponent,
   ],
   providers: [
     dataServices

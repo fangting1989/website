@@ -1,0 +1,90 @@
+<div class="page-container pt-sm">
+  <nz-card [nzBordered]="false">
+    <ng-container>
+      <div class="path-back-bar">
+        <div class="path-back inlineblock">
+          <i nz-icon [type]="'environment'"></i>
+          <a href="javascript:;" class="link backEvt" mkgoback>返回上级</a>&nbsp;&gt;&nbsp;<span
+            class="current-page">订单详情</span>
+        </div>
+        <div style="float: right">
+          <div class="key-value-box inlineblock" style="margin-left: 10px;"><span class="key">订单生成时间：</span><span
+              class="value">{{model.createdate|mkdateformatpipe:'YYYY-MM-DD HH:mm:ss'}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </nz-card>
+
+  <nz-alert nzType="error" [nzMessage]="tipmsg"></nz-alert>
+  <nz-card class="mk-card-customer-item" (click)="ItemDetail(item)">
+    <div nz-row class class="mk-card-item-head-l">
+      <div nz-col nzSpan="3">
+        借款人:{{item.customername}}
+      </div>
+      <div nz-col nzSpan="5">
+        身份证号:{{item.idcard}}
+      </div>
+      <div nz-col nzSpan="5">
+        订单号:DPQF13131313131313131
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        经办银行:浙商银行
+      </div>
+      <div nz-col nzSpan="8">
+        业务区域:开卡审核中
+      </div>
+      <div nz-col nzSpan="8">
+        车辆类型:开卡审核中
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        进件来源:18657181338
+      </div>
+      <div nz-col nzSpan="8">
+        签约方式:XXX有限公司
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        备注：这是一条由风控审核部门添加的备注信息。只有风控部门可以修改。
+      </div>
+    </div>
+  </nz-card>
+
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="wf-tab wf-tab-create">
+    <nz-tab [nzTitle]="titleTemplate">
+      <ng-template #titleTemplate>
+        <div>
+          征信大数据
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="贷款信息表">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="贷中信息">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="贷后信息">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="财务信息">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="附件材料">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="业务流程信息">
+      Content of Tab Pane 1
+    </nz-tab>
+    <nz-tab nzTitle="订单日志">
+      Content of Tab Pane 1
+    </nz-tab>
+  </nz-tabset>
+
+
+</div>

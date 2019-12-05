@@ -17,6 +17,7 @@ export class comservices {
       private router:Router,
       private msg:NzMessageService,
       private cacheService:CacheService,
+      //private dataServices:dataServices,
       @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
   ) {
     
@@ -54,6 +55,20 @@ export class comservices {
     }
   }
 
+  getUserData(){
+    this.UserObject = this.cacheService.getNone(WebConfig.UserObjectCookie.name)
+    if(this.UserObject){
+      return this.UserObject
+    }else{
+      return null;
+    }
+  }
+
+  setUserData(UserObject){
+    this.cacheService.set(WebConfig.UserObjectCookie.name, UserObject,
+      { type: WebConfig.UserObjectCookie.type, expire: WebConfig.UserObjectCookie.expire })
+  }
+
   //重置对应的缓存存储时间
   resetStorage(){
     var UserObject = this.cacheService.getNone(WebConfig.UserObjectCookie.name)
@@ -70,7 +85,4 @@ export class comservices {
       })
     }
   }
-
-  //提示相关
-  
 }

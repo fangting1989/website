@@ -26,10 +26,6 @@
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
-              <i nz-icon type="plus"></i>
-              <span>新建</span>
-            </button> -->
     <ng-container>
       <nz-table #ajaxTable
           nzShowSizeChanger
@@ -47,22 +43,25 @@
             <th>年龄</th>
             <th>总消费</th>
             <th>总消费笔数</th>
-            <th>会员等级</th>
+            <th>是否实名</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of ajaxTable.data; let i = index">
             <td>{{data.memName}}
-              <nz-tag [nzColor]="'orange'" *ngIf="data.memtype == 10">普通会员</nz-tag>
-              <nz-tag [nzColor]="'green'" *ngIf="data.memtype >= 20 && data.memtype <30 ">实名会员</nz-tag>
-              <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 30">认证会员</nz-tag></td>
+              <nz-tag [nzColor]="'orange'" *ngIf="data.memtype == 10 || data.memtype == 25">普通会员</nz-tag>
+              <nz-tag [nzColor]="'green'" *ngIf="data.memtype == 27 || data.memtype ==28">邀请会员</nz-tag>
+              <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 30">认证会员</nz-tag>
+              <nz-tag [nzColor]="'purple'" *ngIf="data.memtype == 35">公司员工</nz-tag></td>
             <td>{{data.memMobile}}</td>
             <td>{{data.memOld}}</td>
             <td>{{data.costAmount}}</td>
             <td>{{data.costNum}}</td>
-            <td>{{data.memlevel}}</td>
+            <td>{{data.isfact?'已实名':'未实名'}}</td>
             <td>
+                <a (click)="yqmember(data)">我的邀请</a>
+                <nz-divider nzType="vertical"></nz-divider>
               <a (click)="editItem(data)">查看详情</a>
               <nz-divider nzType="vertical"></nz-divider>
               <a (click)="deleteItem(data)">删除</a>

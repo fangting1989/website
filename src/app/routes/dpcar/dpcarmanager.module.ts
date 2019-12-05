@@ -7,14 +7,18 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { AngularSplitModule } from 'angular-split';
 import { FileUploadModule } from 'ng2-file-upload';
- import {
-  LoanCreditResultEditComponent,
-LoanCreditResultListComponent,
-LoanOrderEditComponent,
-  LoanOrderListComponent,
-  LoanOrderProcessEditComponent,
-LoanOrderProcessListComponent,
- } from './components';
+import {
+  TBankEditComponent,
+  TBankListComponent,
+  TCarbrandEditComponent,
+  TCarbrandListComponent,
+  TCardealerEditComponent,
+  TCardealerListComponent,
+  TRegionEditComponent,
+  TRegionListComponent,
+  CustomerlistComponent,
+  CustomerMsgComponent,
+} from './components';
 
 //services
 import { dataServices } from './services';
@@ -31,24 +35,30 @@ import {routes} from './dpcarmanager.routing';
     RouterModule.forChild(routes),
   ],
   declarations: [ 
-    LoanCreditResultEditComponent,
-    LoanCreditResultListComponent,
-    LoanOrderEditComponent,
-    LoanOrderListComponent,
-    LoanOrderProcessEditComponent,
-    LoanOrderProcessListComponent,
+    TBankEditComponent,
+    TBankListComponent,
+    TCarbrandEditComponent,
+    TCarbrandListComponent,
+    TCardealerEditComponent,
+    TCardealerListComponent,
     DpcarmanagerMain,
+    TRegionEditComponent,
+    TRegionListComponent,
+    CustomerlistComponent,
+    CustomerMsgComponent,
+    CustomerMsgComponent,
   ],
   exports:[
-    LoanCreditResultEditComponent
+    
   ],
   providers: [
     dataServices
   ],
   entryComponents: [
-    LoanCreditResultEditComponent,
-    LoanOrderEditComponent,
-    LoanOrderProcessEditComponent,
+    TBankEditComponent,
+    TCarbrandEditComponent,
+    TCardealerEditComponent,
+    TRegionEditComponent,
   ]
 })
 export class DpcarmanagerModule {

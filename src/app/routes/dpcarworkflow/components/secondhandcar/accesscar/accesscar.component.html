@@ -1,0 +1,42 @@
+<div class="panel-noraml">
+  <nz-card [nzBordered]="false" nzTitle="评估结果" [nzExtra]="extraTemplate">
+    <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="name">车辆评估价</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <nz-input-group nzAddOnAfter="元">
+            <input type="text" nz-input [(ngModel)]="model.accessprice" name="accessprice" />
+          </nz-input-group>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="bankid">评估机构</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <nz-input-group nzAddOnAfter="月">
+            <input type="text" nz-input [(ngModel)]="model.agent" name="agent" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #extraTemplate>
+      <button nz-button nzType="default" (click)="saveClick()">保存</button>
+      <button nz-button nzType="danger" (click)="SecondHandMaterial()">查看二手车材料</button>
+    </ng-template>
+  </nz-card>
+
+  <nz-card [nzBordered]="false" nzTitle="评估依据">
+    <form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="name">使用年限(月)</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <nz-input-group nzAddOnAfter="月">
+            <input type="text" nz-input [(ngModel)]="model.usetime" name="usetime" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+
+  <nz-card [nzBordered]="false" nzTitle="评估报告">
+    <dpworksiteservices-material-save #materialcomponent [task]="proctask" [materialname]="materialname">
+    </dpworksiteservices-material-save>
+  </nz-card>
+</div>

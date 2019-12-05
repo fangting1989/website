@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+    <se label="添加本金" required>
+        <nz-input-group  nzAddOnAfter="元">
+            <input nz-input placeholder="" name="amount" id="amount"
+            [(ngModel)]="model.amount" />
+            </nz-input-group>
+    </se>
+    <se>
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+    </se>
+  </form>
+  <div *ngIf="PointsList.length == 0">
+    暂无本金明细
+  </div> 
+<nz-timeline *ngIf="PointsList.length > 0">
+  <nz-timeline-item *ngFor="let item of PointsList">{{item.createdate|mkdateformatpipe:'YYYY-MM-DD'}}<span class="momey">本金:<span class="moneydetail color-red">{{item.amount}}元</span></span><span class="moneydesc">详情:{{item.content}}</span></nz-timeline-item>
+</nz-timeline>

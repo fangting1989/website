@@ -1,0 +1,43 @@
+
+
+.uploadBtn {
+  width: 100px;
+  height: 40px;
+  border-radius: 3px;
+  border: 1px solid #DDD;
+  text-align: center;
+  line-height: 40px;
+  color: #ddd;
+  cursor: pointer;
+}
+.imgBox {
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #DDD;
+  position: relative;
+  .closeBut {
+    position: absolute;
+    right: 1px;
+    top: -4px;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
+
+.footer_content{
+  margin-left: 12%;
+}
+.w1200{
+  display: inline-block;
+  overflow: scroll;
+  width: 100%;
+  .m-table{
+    display: inline-block;
+    width:2200px;
+  }
+  .row-red{
+    background: lightcoral;
+  }
+}

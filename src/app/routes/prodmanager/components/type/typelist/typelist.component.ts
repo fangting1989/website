@@ -27,9 +27,9 @@ export class TypelistComponent implements OnInit {
   typeItemBox: number = 1;
   okType: string;
   abc:NzTreeSelectComponent
-  SelTypeTreeData:any;
+  SelTypeTreeData:any = [];
   submitting:any = false;
-  SelTreeData:any;
+  SelTreeData:any = [];
   expandKeys:any = []
   model:any = {}
   EnterPriseCode:any;
@@ -269,7 +269,7 @@ export class TypelistComponent implements OnInit {
             if(result){
               this.ImageSrc = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath+ postData.typeIcon;
               this.model.typeIcon = postData.typeIcon
-
+              this.FileObject = null
               self.LoadTreeData();
             }
           })

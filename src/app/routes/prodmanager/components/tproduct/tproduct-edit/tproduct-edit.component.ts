@@ -16,7 +16,9 @@ import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 })
 export class TProductEditComponent implements OnInit {
   data: any;
-  model: any = {}
+  model: any = {
+    productvalid:0
+  }
   EnterPriseCode: any;
   stateArray: any = Object.assign([], Enums.stateArray);
   paytypeArray: any = Object.assign([], Enums.paytypeArray);
@@ -29,7 +31,9 @@ export class TProductEditComponent implements OnInit {
   @ViewChild('file')
   file: ElementRef;
 
-  SelTypeTreeData:any;
+  tagArray:any = []
+
+  SelTypeTreeData:any= [];
   expandKeys:any = []
   UnitDataList:any =[];
   BrandList:any = [];
@@ -43,7 +47,7 @@ export class TProductEditComponent implements OnInit {
     private router:Router,
     
   ) {
-    this.EnterPriseCode = comservices.getEnterPrise
+    this.EnterPriseCode = comservices.getEnterPrise 
   }
 
   ngOnInit() {
@@ -74,9 +78,11 @@ export class TProductEditComponent implements OnInit {
           //this.model.producttype = "0"
         }
         this.loadTreeData();
+        this.loadTag();
       })
     }else{
       this.loadTreeData();
+      this.loadTag();
     }
     
   }
@@ -126,9 +132,33 @@ export class TProductEditComponent implements OnInit {
     })
   }
 
+  loadTag(){
+    var self = this;
+    var postData = {
+      enterpriseid:this.comservices.getEnterPrise
+    }
+    this.dataServices.ttagList(postData).subscribe(result => {
+      if(result){
+        this.tagArray = result.data;
+        //绑定内容
+        if(this.model.tags){
+          var tags = self.model.tags.split(",")
+          _.each(tags,it=>{
+            _.each(self.tagArray,iit=>{
+              if(it == iit.tagid){
+                iit.active = true;
+              }
+            })
+          })
+        }
+      }
+    })
+  }
+
   saveClick() {
     var self = this;
     this.model.enterpriseid = this.EnterPriseCode
+    this.model.operateperson = this.comservices.getUserName;
     if (this.model.keycode) {
       this.dataServices.tproductUp(this.model).subscribe(result => {
         if (result != null) {
@@ -142,6 +172,32 @@ export class TProductEditComponent implements OnInit {
           self.uploadImg(self.model.keycode);
         }
       })
+    }
+  }
+
+  changeState(e,i){
+    var self = this;
+    var resultdata = ""
+    if(e){
+      //新增
+      if(this.model.tags){
+        var tags = self.model.tags.split(",")
+        var arr = []
+        arr.push(i.tagid)
+        arr = _.union(tags,arr)
+        var data = arr.join(',')
+        this.model.tags = data
+      }else{
+        this.model.tags = i.tagid + ""
+      }
+    }else{
+      //去除
+      if(this.model.tags){
+        var tags = self.model.tags.split(",")
+        var arr = _.without(tags,i.tagid)
+        var data = arr.join(',')
+        this.model.tags = data
+      }
     }
   }
 
@@ -194,7 +250,8 @@ export class TProductEditComponent implements OnInit {
           var postData = {
             keycode:keycode,
             productimage:result,
-            enterpriseid:self.EnterPriseCode
+            enterpriseid:self.EnterPriseCode,
+            operateperson:self.comservices.getUserName,
           }
           this.dataServices.tproductUp(postData).subscribe(result => {
             if(result){
@@ -237,6 +294,19 @@ export class TProductEditComponent implements OnInit {
     });
     
   }
+  editUnitItem(item){
+    var self = this;
+    var data = {HeadText:'编辑规格',itemdata:item}
+    const modal = this.modalHelper.create(TproductunitComponent,{ data: data},{size:800}).subscribe(res => {
+      if(res.keycode){
+        _.each(self.UnitDataList,it=>{
+          if(it.keycode == res.keycode){
+            it = Object.assign(it,res)
+          }
+        })
+      }
+    });
+  }
 
   deleteUnitItem(item){
     var self = this;
@@ -247,7 +317,9 @@ export class TProductEditComponent implements OnInit {
       nzOkType    : 'danger',
       nzOnOk      : () => {
         var postData = {
-          keycode:item.keycode
+          keycode:item.keycode,
+          operateperson:self.comservices.getUserName,
+          enterpriseid:self.comservices.getEnterPrise
         }
         self.dataServices.tproductunitDel(postData).subscribe(result => {
           if (result != null) {

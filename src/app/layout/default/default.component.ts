@@ -79,7 +79,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     });
 
     //消息重新加载
-    this._state.subscribe('USERDATA.RELOAD', (data) => {
+    this._state.subscribe('USERDATA.RELOAD',"e98f76f9-7f7f-490c-883d-bfa5049123ed", (data) => {
       //this.loadMenu();
       // this.loadUser();       
     });

@@ -38,9 +38,27 @@
                     <div class="other">
                         <a [routerLink]="['/passport/login']" style="float:left;">管理员登入</a>
                         <a class="forgot" (click)="msg.error('请联系管理员')">忘记密码</a>
-                      </div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="短信认证" nzClosable="false" nzMaskClosable="false" nzClassName="model-w-800" (nzOnCancel)="cancelValidClick()" (nzOnOk)="saveValidClick()"  >
+    <nz-card [nzHoverable]="true" [nzBordered]="false">
+        <form nz-form>
+            <nz-form-item>
+                <nz-form-control [nzSpan]="24">
+                    <div class="tcenter">验证码已经发送至手机号码{{validmodel.mobile}}</div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" nzFor="adminusertel">验证码</nz-form-label>
+                <nz-form-control [nzSpan]="11">
+                    <input nz-input name="smscode" type="text" id="smscode" [(ngModel)]="validmodel.smscode">
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </nz-card>
+</nz-modal>

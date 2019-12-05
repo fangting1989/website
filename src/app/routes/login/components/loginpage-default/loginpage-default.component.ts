@@ -22,6 +22,10 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
   type = 0;
   loading = false;
   titleName: any = "智能内容管理协作平台"
+  isVisible: any = false;
+  validmodel: any = {}
+
+  submitting:any = false;
 
   constructor(fb: FormBuilder,
     private router: Router,
@@ -78,6 +82,9 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
 
 
   submit() {
+    if(this.submitting){
+      return;
+    }
     this.error = '';
     if (this.type === 0) {
       this.userName.markAsDirty();
@@ -85,7 +92,7 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
       this.password.markAsDirty();
       this.password.updateValueAndValidity();
       if (this.userName.invalid || this.password.invalid) return;
-    } 
+    }
 
     // if (this.type === 0) {
     //   this.userName.markAsDirty();
@@ -112,30 +119,20 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
       adminusertel: this.userName.value,
       adminuserpwd: this.password.value
     }
+    this.submitting = true;
     this.loginServices.login(postData).subscribe(result => {
+      this.submitting = false;
       if (result != null) {
         if (result.data == "") {
           this.msg.error("对不起,找不到用户");
         } else {
-          // 清空路由复用信息
-          this.reuseTabService.clear();
-          var UserObject = {
-            name: result.data.adminusernickname,
-            leveltype: result.data.leveltype,
-            enterprisecode: result.data.enterpriseid,
-            keycode: result.data.keycode
+          if (result.data.validcode) {
+            //弹出框
+            this.validmodel = result.data;
+            this.isVisible = true;
+            return;
           }
-          this.msg.success("登入成功!");
-          // 设置用户Token信息
-          this.cacheService.set(WebConfig.UserObjectCookie.name, UserObject,
-            { type: WebConfig.UserObjectCookie.type, expire: WebConfig.UserObjectCookie.expire })
-          // 清空路由复用信息
-          this.tokenService.set({
-            token:result.data.token?result.data.token:"NOTOKEN"
-          })
-          this.reuseTabService.clear();
-          // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-          this.startupSrv.load().then(() => this.router.navigate(['/']));
+          this.storageUserData(result)
         }
       }
     })
@@ -149,4 +146,46 @@ export class LoginpageDefaultComponent implements OnDestroy, OnInit {
   }
 
   uid: UUID;
+
+
+  cancelValidClick() {
+    this.isVisible = false;
+    this.validmodel = {}
+  }
+
+  saveValidClick() {
+    if(this.submitting){
+      return;
+    }
+    this.submitting = true;
+    this.loginServices.loginwithcode(this.validmodel).subscribe(result => {
+      this.submitting = false;
+      if(result && result.data.keycode){
+        this.storageUserData(result)
+      }
+    })
+  }
+
+  storageUserData(result) {
+    // 清空路由复用信息
+    this.reuseTabService.clear();
+    var UserObject = {
+      name: result.data.adminusernickname,
+      leveltype: result.data.leveltype,
+      enterprisecode: result.data.enterpriseid,
+      keycode: result.data.keycode,
+      needpwdchanged:result.data.needpwdchanged
+    }
+    this.msg.success("登入成功!");
+    // 设置用户Token信息
+    this.cacheService.set(WebConfig.UserObjectCookie.name, UserObject,
+      { type: WebConfig.UserObjectCookie.type, expire: WebConfig.UserObjectCookie.expire })
+    // 清空路由复用信息
+    this.tokenService.set({
+      token: result.data.token ? result.data.token : "NOTOKEN"
+    })
+    this.reuseTabService.clear();
+    // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+    this.startupSrv.load().then(() => this.router.navigate(['/']));
+  }
 }

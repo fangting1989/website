@@ -1,0 +1,34 @@
+  #ieBrower {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background: #f9fafc;
+    text-align: center;
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    top:0px;
+    right: 0px;
+  }
+
+  #ieBrowerBox {
+    display: inline-block;
+    margin-top:12%;
+    /* position: absolute;
+    top: 20%;
+    left:20%;
+    transform: translate(-50%, -50%); */
+  }
+
+  #ieBrowerImg {
+    height: 200px;
+    margin-bottom:15px;
+  }
+
+  .ieBrowerTip {
+    line-height: 35px;
+  }
+
+  .ieBrowerTip span {
+    font-size: 15px;
+  }

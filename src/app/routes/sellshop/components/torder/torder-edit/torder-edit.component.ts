@@ -6,6 +6,7 @@ import { comservices } from '../../../../../shared/services';
 import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { ModalHelper } from '@delon/theme';
 import {TOrderdetailEditComponent} from '../torderdetail-edit/torderdetail-edit.component';
+import {_} from 'underscore';
 @Component({
   selector: 'app-torder-edit',
   templateUrl: './torder-edit.component.html',
@@ -40,8 +41,25 @@ export class TOrderEditComponent implements OnInit {
     this.dataServices.torderList(this.model).subscribe(result => {
       if (result != null && result.data.length > 0) {
          self.model = result.data[0];
+         _.each(self.model.list,it=>{
+          self.loadProductunit(it)
+         })
        }
      })
+  }
+
+  loadProductunit(item){
+    var postData = {
+      productid:item.productid,
+      unitcode:item.unitid,
+      enterpriseid:this.comservices.getEnterPrise,
+    }
+    this.dataServices.tproductunitList(postData).subscribe(result=>{
+      if(result && result.data.length > 0){
+        item.productbusinessno = result.data[0].productbusinessno
+        item.productunitno = result.data[0].productunitno
+      }
+    })
   }
 
   saveClick() {

@@ -17,7 +17,12 @@ OrderBillComponent,
 TmemberApprovedComponent,
 RelategwsComponent,
 GwsorderListComponent,
-
+TAdviceListComponent,
+TTagListComponent,
+TOperatelogListComponent,
+ImportdataComponent,
+ImportupdatebynameComponent,
+ImportupdatebycodeComponent,
 } from './components';
 
 const routes: Routes = [
@@ -41,6 +46,12 @@ const routes: Routes = [
       { path: 'tmemberapproved', component: TmemberApprovedComponent },
       {path: 'gwsoderlist', component: GwsorderListComponent  },
       {path: 'rtgws', component: RelategwsComponent  },
+      { path: 'tadvicelist', component: TAdviceListComponent },
+      { path: 'ttaglist', component: TTagListComponent },
+      { path: 'toperateloglist', component: TOperatelogListComponent },
+      { path: 'importdata', component: ImportdataComponent },
+      { path: 'importupdatebyname', component: ImportupdatebynameComponent },
+      { path: 'importupdatebycode', component: ImportupdatebycodeComponent },
       { path: '**', redirectTo: 'tproductbrandlist' },
     ]
   }

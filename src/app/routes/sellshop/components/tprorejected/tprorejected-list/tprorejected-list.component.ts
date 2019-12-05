@@ -109,6 +109,7 @@ export class TProrejectedListComponent implements OnInit {
   }
 
   SearchClick(e){
+    this.PageNum = 1;
     this.loadData();
   }
 

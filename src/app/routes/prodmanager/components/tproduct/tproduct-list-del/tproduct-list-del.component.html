@@ -45,7 +45,6 @@
             <th>序号</th>
             <th>产品类别</th>
             <th>商品名称</th>
-            <th>是否置顶</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -54,8 +53,6 @@
             <td>{{i +1}}</td>
             <td>{{data.objecttype.typeName}}</td>
             <td>{{data.productname}}</td>
-            <td>{{data.istop| mkstatearray}}</td>
-          
             <td>
               <a (click)="editItem(data)">还原商品</a>
               <nz-divider nzType="vertical"></nz-divider>

@@ -51,6 +51,7 @@ export class EnumvalueEditComponent implements OnInit {
     if(this.data){
       if(this.data.itemdata){
         this.explainData = Object.assign({},this.data.itemdata);
+        console.log(this.explainData)
       }
     }else{
       this.msg.error("参数错误");
@@ -84,12 +85,12 @@ export class EnumvalueEditComponent implements OnInit {
       event.node.clearChildren();
     }
     var self = this;
-    this.sysService.findEnumbyparent({ keycode:pId,explainid:this.explainData.explainid }).subscribe(result => {
+    this.sysService.findEnumbyparent({ keycode:pId,explainid:this.explainData.keycode }).subscribe(result => {
       if(result){
         var mmmdata:any = [];
         _.each(result.data,item =>{
           item.key =  item.enumid
-          item.title = item.enumname
+          item.title = item.enumname + "["+item.enumvalue+"]"
           item.type = "node"
           item.pid = item.pid + ""
           mmmdata.push(item)
@@ -118,7 +119,7 @@ export class EnumvalueEditComponent implements OnInit {
 
   okClick(){
     var self = this;
-    this.model.explainid = this.explainData.explainid
+    this.model.explainid = this.explainData.keycode
     //保存
     if(this.model.keycode){
       this.sysService.upEnumValue(this.model).subscribe(result => {

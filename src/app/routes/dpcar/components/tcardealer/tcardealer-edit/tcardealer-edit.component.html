@@ -1,0 +1,100 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+    <se label="行政区">
+        <nz-cascader 
+          name="districtcode" 
+          [nzOptions]="chinaCity" 
+          (ngModelChange)="oncityChanges($event)" 
+          [(ngModel)]="model.districtcode_show" 
+          [nzLabelProperty]="'name'"
+          [nzValueProperty]="'code'"
+          [nzShowSearch]="true"
+          [nzPlaceHolder]="'请选择..'"
+          (nzSelect)="citySelect($event)"
+         > </nz-cascader>
+      </se>
+  <se label="车商名称">
+    <input type="text" name="cardealername" nz-input [(ngModel)]="model.cardealername" />
+  </se>
+  <se label="联系人">
+    <input type="text" name="linkman" nz-input [(ngModel)]="model.linkman" />
+  </se>
+  <se label="联系电话">
+      <input type="text" name="linkmobile" nz-input [(ngModel)]="model.linkmobile" />
+    </se>
+    <se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>
+</form>
+
+
+<div nz-row> 
+  <div nz-col>
+      <nz-tag *ngFor="let item of regionDataList" nzMode="closeable" (nzOnClose)="onClose()" (nzAfterClose)="afterClose()">{{item.regionname}}</nz-tag>
+  </div>
+</div>
+
+
+<nz-divider></nz-divider>
+
+ <!-- <nz-card [nzBordered]="false"> -->
+    <form nz-form  gutter="32"  class="mform">
+        <nz-form-item>
+           <nz-form-label [nzSpan]="1" nzFor="name">搜索</nz-form-label>
+           <nz-form-control [nzSpan]="4">
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+           </nz-form-control>
+           <nz-form-control [nzSpan]="4">
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+           </nz-form-control>
+        </nz-form-item>
+     </form>
+   <!-- <ng-container> -->
+     <nz-table #ajaxTable
+         nzShowSizeChanger
+         [nzData]="DataList"
+         [(nzPageIndex)]="PageNum"
+         [nzFrontPagination]="false"
+         [(nzPageSize)]="PageSize"
+         [nzTotal]="TotalCount"
+         (nzPageIndexChange)="loadData()"
+         (nzPageSizeChange)="loadData()" >
+       <thead>
+         <tr>
+           <th>行政区</th>
+           <th>车商名称</th>
+           <th>联系人</th>
+           <th>联系电话</th>
+           <th>是否有效</th>
+           <th>操作</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let data of ajaxTable.data; let i = index">
+           <!--<td>{{i +1}}</td>-->
+           <td>{{data.districtcode}}</td>
+           <td>{{data.cardealername}}</td>
+           <td>{{data.linkman}}</td>
+           <td>{{data.linkmobile}}</td>
+           <td>{{data.isvalid}}</td>
+           <td>
+             <a (click)="editItem(data)">编辑</a>
+             <nz-divider nzType="vertical"></nz-divider>
+             <a (click)="deleteItem(data)">删除</a>
+           </td>
+         </tr>
+       </tbody>
+     </nz-table>
+   <!-- </ng-container> -->
+ <!-- </nz-card> -->
+
+
+
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

@@ -1,0 +1,71 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+     <form nz-form  gutter="32"  class="mform">
+        <nz-form-item>
+           <nz-form-label [nzSpan]="1" nzFor="name">搜索</nz-form-label>
+           <nz-form-control [nzSpan]="4">
+              <input nz-input [(ngModel)]="searchObject.searchText" name="txtsearch" placeholder="请输入..." id="txtsearch">
+           </nz-form-control>
+           <nz-form-control [nzSpan]="4">
+              <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+              <a class="icon-more" (click)="expandForm=!expandForm" >
+                  {{expandForm ? '收起' : '展开'}}
+                 <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+              </a>
+           </nz-form-control>
+        </nz-form-item>
+     </form>
+     <form  class="more-form" nz-form se-container="1" size="compact" gutter="4" [labelWidth]="null" *ngIf="expandForm">
+        <se label="是否有效" line>
+           <nz-tag *ngFor="let i of StateArray; let idx = index" nzMode="checkable" [nzChecked]="i.active"
+              (nzCheckedChange)="changeState($event, i)">
+              {{i.name}}
+           </nz-tag>
+        </se>
+     </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+              <i nz-icon type="plus"></i>
+              <span>新建</span>
+            </button>
+    <ng-container>
+      <nz-table #ajaxTable
+          nzShowSizeChanger
+          [nzData]="DataList"
+          [(nzPageIndex)]="PageNum"
+          [nzFrontPagination]="false"
+          [(nzPageSize)]="PageSize"
+          [nzTotal]="TotalCount"
+          (nzPageIndexChange)="loadData()"
+          (nzPageSizeChange)="loadData()" >
+        <thead>
+          <tr>
+            <!--<th>序号</th>-->
+            <th>行政区</th>
+            <th>车商名称</th>
+            <th>联系人</th>
+            <th>联系电话</th>
+            <th>是否有效</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data; let i = index">
+            <!--<td>{{i +1}}</td>-->
+            <td>{{data.districtcode}}</td>
+            <td>{{data.cardealername}}</td>
+            <td>{{data.linkman}}</td>
+            <td>{{data.linkmobile}}</td>
+            <td>{{data.isvalid}}</td>
+            <td>
+              <a (click)="editItem(data)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteItem(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </nz-card>
+</div>

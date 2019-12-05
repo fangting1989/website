@@ -38,6 +38,9 @@ export class HeaderUserComponent {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
   ) {
     this.loadUser();
+
+    //检测是否需要重置密码
+    this.needChangedPwd();
   }
 
   logout() {
@@ -67,8 +70,28 @@ export class HeaderUserComponent {
     var self = this;
     var item = {}
     var data = {HeadText:'修改密码',itemdata:item}
-    const modal = this.modalHelper.create(ChangepasswordComponent,{ data: data},{size:400}).subscribe(res => {
+    const modal = this.modalHelper.create(ChangepasswordComponent,{ data: data},{size:500}).subscribe(res => {
       
     });
+  }
+
+  needChangedPwd(){
+    var userData = this.comservices.getUserData()
+    if(userData.needpwdchanged){
+      var self = this;
+      var item = {cancelBtn:'0'}
+      var data = {HeadText:'第一次登入修改密码',itemdata:item}
+      const modal = this.modalHelper.create(ChangepasswordComponent,
+        { data: data},
+        {
+          size:500,
+          modalOptions:{
+            nzMaskClosable:false,
+            nzClosable:false
+          }
+        }).subscribe(res => {
+        
+      });
+    }
   }
 }

@@ -2,7 +2,7 @@
   <nz-card [nzBordered]="false">
       <form nz-form [nzLayout]="'inline'"  class="search__form">
           <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
-            <nz-col nzMd="8" nzSm="24">
+            <nz-col  nzSpan="8">
               <nz-form-item>
                 <nz-form-label nzFor="txtsearch">搜索</nz-form-label>
                 <nz-form-control>
@@ -10,12 +10,19 @@
                 </nz-form-control>
               </nz-form-item>
             </nz-col>
-            <nz-col>
+            <nz-col nzSpan="8">
               <button nz-button type="button" (click)="SearchClick($event)" [nzType]="'primary'" [nzLoading]="loading">查询</button>
               <a class="icon-more" (click)="expandForm=!expandForm" *ngIf="false">
                 {{expandForm ? '收起' : '展开'}}
                 <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
               </a>
+            </nz-col>
+            <nz-col nzSpan="8" class="text-right">
+              <button nz-button type="button" (click)="downloadtemp($event)" [nzType]="'default'">下载模板</button>
+              <span class="ant-btn ant-btn-primary upload-btn">
+                  上传会员信息
+                  <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control input-upload">
+              </span>
             </nz-col>
           </nz-row>
         </form>
@@ -30,10 +37,10 @@
         </form>
   </nz-card>
   <nz-card [nzBordered]="false">
-          <!-- <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
+          <button nz-button (click)="addClick()" [nzType]="'primary'" class="btn-add">
               <i nz-icon type="plus"></i>
               <span>新建</span>
-            </button> -->
+            </button>
     <ng-container>
       <nz-table #ajaxTable
           nzShowSizeChanger
@@ -48,9 +55,8 @@
           <tr>
             <th>实名</th>
             <th>身份证号</th>
-            <th>手机</th>
+            <th>联系方式</th>
             <th>本金</th>
-            <th>保证金</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -60,7 +66,6 @@
               <td>{{data.idcard}}</td>
               <td>{{data.memMobile}}</td>
               <td>{{data.money}}</td>
-              <td>{{data.freezemoney}}</td>
             <td>
               <a (click)="editItem(data)">查看详情</a>
               <nz-divider nzType="vertical"></nz-divider>

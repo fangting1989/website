@@ -1,6 +1,4 @@
 import {
-    AtestComponent,
-    BtestComponent,
     ModelEditComponent,
     ModelsComponent,
     ModelAddComponent,
@@ -9,12 +7,10 @@ import {
     CompDefinedComponent,
     TProcesscomponentEditComponent,
     TWorkflowroleEditComponent,
-  TWorkflowroleListComponent,
+    TWorkflowroleListComponent,
   } from './components';
 
   export const Components = [
-    AtestComponent,
-    BtestComponent,
     ModelEditComponent,
     ModelsComponent,
     ModelAddComponent,
@@ -23,5 +19,5 @@ import {
     CompDefinedComponent,
     TProcesscomponentEditComponent,
     TWorkflowroleEditComponent,
-  TWorkflowroleListComponent,
+    TWorkflowroleListComponent,
 ]

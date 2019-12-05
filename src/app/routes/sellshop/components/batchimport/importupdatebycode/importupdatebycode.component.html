@@ -1,0 +1,95 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+    <form nz-form gutter="32" class="mform">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzFor="width">excel文件</nz-form-label>
+        <nz-form-control [nzSpan]="3">
+          <div class="uploadImg col-sm-10">
+            <input #file type="file" id="file" name="file" (change)="getUpload($event)" class="form-control"
+              style="display:none;">
+            <div class="uploadBtn" (click)="upimg()" *ngIf="ShowUpload">上传文件</div>
+            <div class="imgBox" *ngIf="!ShowUpload">
+              已选择文件
+              <span class="closeBut" (click)="closeImg()">&times;</span>
+            </div>
+          </div>
+        </nz-form-control>
+        <nz-form-control  [nzSpan]="3">
+            <button nz-button type="button" (click)="UploadCheckClick($event)" [nzType]="'primary'" [nzLoading]="loading">上传检测</button>
+        </nz-form-control>
+        <nz-form-control  [nzSpan]="3">
+            <button nz-button type="button" (click)="ImportClick($event)" [nzType]="'primary'" [nzLoading]="loading">导入数据</button>
+        </nz-form-control>
+        <nz-form-control  [nzSpan]="7"></nz-form-control>
+        <nz-form-control  [nzSpan]="3">
+            <button nz-button type="button"  (click)="downloadtemp($event)" [nzType]="'default'" [nzLoading]="loading">下载模板</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+  <nz-card [nzBordered]="false">
+    <div class="pt-sm pb-sm">
+        <nz-alert nzType="warning" [nzMessage]="title_desc" *ngIf="title_desc != ''"></nz-alert>
+    </div>
+    
+    <ng-container>
+      <div class="w1200"> 
+          <nz-table nzTemplateMode class="m-table noData" nzBordered="true" nzVirtualScroll="true">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>产品类别</th>
+                  <th>产品品牌</th>
+                  <th>商品编码</th>
+                  <th>商家商品编码</th>
+                  <th>上下架情况</th>
+                  <th>商品名称</th>
+                  <th>商品简介</th>
+                  <th>是否有效</th>
+                  <th>是否支持7天无理由</th>
+                  <th>规格名称</th>
+                  <th>规格单位</th>
+                  <th>实名会员价</th>
+                  <th>普通价格</th>
+                  <th>公务员价</th>
+                  <th>库存量</th>
+                  <th>商品顺序</th>
+                  <th>排名销量</th>
+                  <th>实际销量</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of DataList; let i = index" [ngClass]="{'row-red':data[19] != '通过检测'}">
+                  <td>{{data[19]}}</td>
+                  <td>{{data[0]}}</td>
+                  <td>{{data[1]}}</td>
+                  <td>{{data[2]}}</td>
+                  <td>{{data[3]}}</td>
+                  <td>{{data[4]}}</td>
+                  <td>{{data[5]}}</td>
+                  <td>{{data[6]}}</td>
+                  <td>{{data[7]}}</td>
+                  <td>{{data[8]}}</td>
+                  <td>{{data[9]}}</td>
+                  <td>{{data[10]}}</td>
+                  <td>{{data[11]}}</td>
+                  <td>{{data[12]}}</td>
+                  <td>{{data[13]}}</td>
+                  <td>{{data[14]}}</td>
+                  <td>{{data[15]}}</td>
+                  <td>{{data[16]}}</td>
+                  <td>{{data[17]}}</td>
+                  <td>{{data[18]}}</td>
+                  <!-- <td>
+                    <a (click)="editItem(data)">查看</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="deleteItem(data)">删除</a>
+                  </td> -->
+                </tr>
+              </tbody>
+            </nz-table>
+      </div>
+    </ng-container>
+  </nz-card>
+</div>

@@ -13,19 +13,30 @@
     <input type="text" name="unitname" nz-input [(ngModel)]="model.unitname" name="unitname" required />
   </se>
   <se label="规格单位" required>
-    <input type="text" name="unit" nz-input [(ngModel)]="model.unit" name="unit"  required />
+    <input type="text" name="unit" nz-input [(ngModel)]="model.unit" name="unit" required />
   </se>
-  <se label="销售价格" required>
-      <input type="text" name="price" nz-input [(ngModel)]="model.price" name="price" required />
-    </se>
-  <se label="售卖价格" required>
+  <se label="原价" required>
+    <input type="text" name="price" nz-input [(ngModel)]="model.price" name="price" required />
+  </se>
+  <se label="会员价" required>
     <input type="text" name="currpice" nz-input [(ngModel)]="model.currpice" name="currpice" required />
   </se>
-  <se label="公务员价" required>
-      <input type="text" name="offprice" nz-input [(ngModel)]="model.offprice" name="offprice" required />
-    </se>
+  <se label="补贴价" required>
+    <input type="text" name="offprice" nz-input [(ngModel)]="model.offprice" name="offprice" required />
+  </se>
+  <se label="商品编码" required>
+    <input type="text" name="productunitno"   nz-input [(ngModel)]="model.productunitno" name="productunitno" required />
+  </se>
+  <se label="商家商品编码" required>
+    <input type="text" name="productbusinessno" nz-input [(ngModel)]="model.productbusinessno"
+      name="productbusinessno" />
+  </se>
+  <se label="库存量" required>
+    <input type="text" name="skuamount" nz-input [(ngModel)]="model.skuamount" name="skuamount" required />
+  </se>
 </form>
 <div class="modal-footer">
-  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+    [nzLoading]="submitting">保存</button>
   <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
 </div>

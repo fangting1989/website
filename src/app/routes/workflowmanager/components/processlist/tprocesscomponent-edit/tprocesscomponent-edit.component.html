@@ -22,6 +22,14 @@
           <label nz-radio-button *ngFor="let item of ComponentMode" [nzValue]="item.value"><span>{{item.name}}</span></label>
         </nz-radio-group>
   </se>
+  <se label="样式模式">
+      <nz-radio-group [(ngModel)]="model.stylemode" name="stylemode">
+          <label nz-radio-button *ngFor="let item of StyleModeArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+  </se>
+  <se label="顺序">
+    <input type="text" name="indexnum" nz-input [(ngModel)]="model.indexnum" name="indexnum" />
+  </se>
   
 </form>
 <div class="modal-footer">

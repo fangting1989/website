@@ -1,5 +1,3 @@
-export * from './atest/atest.component';
-export * from './btest/btest.component';
 export * from './models/models.component';
 export * from './models/model-edit/model-edit.component';
 export * from './models/model-add/model-add.component';
@@ -13,3 +11,4 @@ export * from './tworkflowrole/process-prowerprocess/process-prowerprocess.compo
 export * from  './tworkflowrole/process-proweruser/process-proweruser.component';
 export * from './tprocessenterprise/tprocessenterprise-list/tprocessenterprise-list.component';
 export * from './tprocessenterprise/tprocessenterprise-edit/tprocessenterprise-edit.component';
+export * from './processlist/tprocessconfig-edit/tprocessconfig-edit.component';

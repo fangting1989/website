@@ -1,7 +1,7 @@
 <page-header [title]="'会员详情'" [autoTitle]="false" [action]="action" [autoBreadcrumb]="false">
-    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="reload()">刷新信息</button><button nz-button nzType="primary" (click)="goMemberPage()">返回用户列表</button></div></ng-template>
+    <ng-template #action><div class="action"><button nz-button nzType="primary" (click)="goEditMemberMsg()">编辑信息</button><button nz-button nzType="primary" (click)="reload()">刷新信息</button><button nz-button nzType="primary" (click)="goMemberPage()">返回用户列表</button></div></ng-template>
 </page-header>
-<nz-card nzType="inner" nzTitle="基本信息">
+<nz-card nzType="inner" nzTitle="基本信息"  [nzExtra]="extraTemplate">
   <div nz-row>
     <div nz-col nzSpan="24">
       <sv-container size="small">
@@ -9,11 +9,42 @@
         <sv label="身份证号">{{model.idcard}}</sv>
         <sv label="手机号码">{{model.memMobile}}</sv>
         <sv label="会员类型">{{model.memtype|mkenumformatpipe:'membertypeArray'}}</sv>
-        <sv label="本金">{{model.money}}</sv>
-        <sv label="保证金">{{model.freezemoney}}</sv>
+        <sv label="本金">{{model.money}}元</sv>
+        <!-- <sv label="冻结资金">{{model.freezemoney}}元</sv> -->
       </sv-container>
     </div>
   </div>
+  <ng-template #extraTemplate>
+    <button nz-button [nzSize]="small" nzType="primary" (click)="MoneyDetail()">本金情况</button>
+  </ng-template>
+</nz-card>
+
+<nz-card nzType="inner" nzTitle="身份证信息" >
+    <div nz-row>
+      <div nz-col nzSpan="24" class="rzpic">
+        <sv-container size="small">
+            <sv label="正面图">
+                <img src="{{picmodel.idcardfront}}" alt="" (click)="ImageItemClick(picmodel.idcardfront)">
+              </sv>
+              <sv label="背面图">
+                  <img src="{{picmodel.idcardback}}" alt="" (click)="ImageItemClick(picmodel.idcardback)">
+              </sv>
+        </sv-container>
+      </div>
+    </div>
+</nz-card>
+
+
+<nz-card nzType="inner" nzTitle="实名认证图" >
+    <div nz-row>
+      <div nz-col nzSpan="24" class="rzpic">
+        <sv-container size="small">
+          <sv label="签约图">
+            <img src="{{picmodel.rzt}}" alt="" (click)="ImageItemClick(picmodel.rzt)">
+          </sv>
+        </sv-container>
+      </div>
+    </div>
 </nz-card>
 
 <!-- [size]="'compact'" col=3 [labelWidth]="80" -->

@@ -57,17 +57,6 @@ export class TProrejectedEditComponent implements OnInit {
     }
   }
 
-  /*loadData(){
-    var self = this;
-    this.model = {}
-    this.model.keycode = this.route.snapshot.queryParams["keycode"];
-    this.dataServices.tprorejectedList(this.model).subscribe(result => {
-      if (result != null && result.data.length > 0) {
-         self.model = result.data[0];
-       }
-     })
-  }*/
-
   loadmember(){
     var postData = {
       enterpriseid:this.comservices.getEnterPrise,
@@ -88,11 +77,28 @@ export class TProrejectedEditComponent implements OnInit {
    this.dataServices.torderdetailList(postData).subscribe(result => {
      if(result){
       item.orderdetail = result.data[0]
+      item.orderdetail.pointsoff = item.orderdetail.pointsoff?item.orderdetail.pointsoff:0
       if(item.isvalid == 1){
         item.rejectamount =  item.orderdetail.paymoney
+        item.rejectpoints =  item.orderdetail.pointsoff
       }
+      this.loadProductunit( item.orderdetail)
      }
    })
+  }
+
+  loadProductunit(item){
+    var postData = {
+      productid:item.productid,
+      unitcode:item.unitid,
+      enterpriseid:this.comservices.getEnterPrise,
+    }
+    this.dataServices.tproductunitList(postData).subscribe(result=>{
+      if(result && result.data.length > 0){
+       this.model.productbusinessno = result.data[0].productbusinessno
+       this.model.productunitno = result.data[0].productunitno
+      }
+    })
   }
 
   closeModal() {
@@ -130,6 +136,29 @@ export class TProrejectedEditComponent implements OnInit {
       this.msg.error("请填写退货联系电话")
       return;
     }
+    //退款金额不能大于支付金额
+    if(this.model.rejectamount > this.model.orderdetail.paymoney){
+      this.msg.error("退款金额不能大于支付金额")
+      return;
+    }
+
+    //退积分不能大于支付积分
+    if(this.model.rejectpoints > this.model.orderdetail.pointsoff){
+      this.msg.error("退积分数不能大于支付积分")
+      return;
+    }
+    //退运费不能大于运费
+    if(this.model.rejectpostmoney > 0){
+      if(!this.model.orderdetail.zipamount){
+        this.msg.error("支付时无运费")
+        return;
+      }else{
+        if(this.model.rejectpostmoney > this.model.orderdetail.zipamount){
+          this.msg.error("退运费不能大于支付运费")
+          return;
+        }
+      }
+    }
 
     var self = this;
     this.modalService.confirm({
@@ -157,6 +186,7 @@ export class TProrejectedEditComponent implements OnInit {
       rejectphone:this.model.rejectphone,
       rejectdesc:this.model.rejectdesc,
       rejectpostmoney:this.model.rejectpostmoney,
+      rejectpoints:this.model.rejectpoints ?this.model.rejectpoints:0,
       isvalid:6,
       keycode:this.model.keycode
     }
@@ -213,10 +243,11 @@ export class TProrejectedEditComponent implements OnInit {
     }
     var postData = {
       dealperson:this.comservices.getUserName,
-      dealadvice:this.model.advice,
+      dealadvice:this.model.advice, 
       enterpriseid:this.comservices.getEnterPrise,
       rejectamount:0,
       rejectpostmoney:0,
+      rejectpoints:0,
       isvalid:5,
       keycode:this.model.keycode
     }

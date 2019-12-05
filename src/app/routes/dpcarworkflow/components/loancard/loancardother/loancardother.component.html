@@ -1,0 +1,23 @@
+<form nz-form #f="ngForm" class="mform" se-container="3" gutter="32">
+    <se label="E-MAIL地址">
+      <input type="text" name="mail" nz-input [(ngModel)]="model.mail" />
+    </se>
+    <se label="卡片领取方式">
+      <input type="text" name="fplqfs" nz-input [(ngModel)]="model.fplqfs" />
+    </se>
+    <se label="自动还款转出卡号/幅号1">
+      <input type="text" name="zdhkzckh" nz-input [(ngModel)]="model.zdhkzckh" />
+    </se>
+    <se label="领卡地区号">
+      <input type="text" name="lkdqh" nz-input [(ngModel)]="model.lkdqh" />
+    </se>
+    <se label="领卡网点号">
+      <input type="text" name="lkwdh" nz-input [(ngModel)]="model.lkwdh" />
+    </se>
+    <se label="亲见客户签名">
+      <input type="text" name="qzkhqm" nz-input [(ngModel)]="model.qzkhqm" />
+    </se>
+    <se label="联名单位会员号">
+      <input type="text" name="lmdwhyh" nz-input [(ngModel)]="model.lmdwhyh" />
+    </se>
+  </form>

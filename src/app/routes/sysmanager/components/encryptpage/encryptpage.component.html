@@ -1,0 +1,19 @@
+<div class="page-container">
+  <nz-card [nzBordered]="false">
+
+    <form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+      <se label="内容">
+        <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="content" id="content" nzAutosize
+          [(ngModel)]="model.content"></textarea>
+      </se>
+      <se label="加密内容">
+        <textarea nz-input placeholder="" [mkautosize]='1' nzRequired name="jiami" id="jiami" nzAutosize
+          [(ngModel)]="model.jiami"></textarea>
+      </se>
+    </form>
+    <div class="modal-footer tleft">
+      <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid"
+        >提交</button>
+    </div>
+  </nz-card>
+</div>

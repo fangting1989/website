@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <div class="modal-title">{{data.HeadText}}</div>
+</div>
+<form nz-form #f="ngForm" class="mform" se-container="1" gutter="32">
+  <se label="删除地址">
+    <input type="text" name="deleteservice" nz-input [(ngModel)]="model.deleteservice" />
+  </se>
+  <se label="完成地址">
+    <input type="text" name="finishservice" nz-input [(ngModel)]="model.finishservice" />
+  </se>
+  <se label="备注">
+    <input type="text" name="remaek" nz-input [(ngModel)]="model.remaek" />
+  </se>
+</form>
+<div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div>

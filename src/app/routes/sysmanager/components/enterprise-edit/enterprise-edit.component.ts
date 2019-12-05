@@ -18,10 +18,12 @@ export class EnterpriseEditComponent implements OnInit {
   imgUrl: SafeUrl;
   @ViewChild('file')
   file: ElementRef;
-  //fileUploadPath:any = WebConfig.BaseUrl + WebConfig.RequestUrl.fileuploadpath + "fileupload"
   data:any;
   model:any = {}
   stateArray = [{name:"是",value:1,selected:false},{name:"否",value:0,selected:true}]
+
+  smsStateArray:any = Object.assign([],this.stateArray)
+  pwdStateArray:any =  Object.assign([],this.stateArray)
   constructor(private msg:NzMessageService,
     private sysmanagerServices:sysmanagerServices,
     private modal:NzModalRef,

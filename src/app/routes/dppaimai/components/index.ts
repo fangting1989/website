@@ -1,6 +1,7 @@
 export * from './tmember/tmember-edit/tmember-edit.component';
 export * from './tmember/tmember-editdata/tmember-editdata.component';
 export * from './tmember/tmember-list/tmember-list.component';
+export * from './tmember/tmember-editmsg/tmember-editmsg.component';
 export * from './twebcore/twebcore-list/twebcore-list.component';
 export * from './twebcore/twebcore-edit/twebcore-edit.component';
 export * from './twebcore/jmxz-edit/jmxz-edit.component';
@@ -10,3 +11,9 @@ export * from './tproduct/tproduct-list/tproduct-list.component';
 export * from './tproduct/tproduct-edit/tproduct-edit.component';
 export * from './tproduct/tproduct-content/tproduct-content.component';
 export * from './tproduct/tproduct-images/tproduct-images.component';
+export * from './tproduct/tproduct-msg/tproduct-msg.component';
+export * from './tsignproduct/tsignproduct-list/tsignproduct-list.component';
+export * from './tsignproduct/tsignproduct-edit/tsignproduct-edit.component';
+export * from './tcompact/tcompact-list/tcompact-list.component';
+export * from './tcompact/tcompact-edit/tcompact-edit.component';
+export * from './tcompact/tcompact-msg/tcompact-msg.component';

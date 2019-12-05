@@ -1,0 +1,58 @@
+<!-- [size]="'compact'" col=3 [labelWidth]="80" -->
+<!-- error="请填写" required -->
+<!--<se label="是否有效" error="请填写">
+        <nz-radio-group [(ngModel)]="model.isvalid" name="isvalid">
+          <label nz-radio-button *ngFor="let item of stateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+        </nz-radio-group>
+      </se>-->
+<form nz-form #f="ngForm" class="mform" se-container="2" gutter="32">
+  <se label="客户类型">
+    <input type="text" name="customertype" nz-input [(ngModel)]="model.customertype" />
+  </se>
+  <se label="客户姓名">
+    <input type="text" name="customername" nz-input [(ngModel)]="model.customername" />
+  </se>
+  <se label="联系电话">
+    <input type="text" name="mobile" nz-input [(ngModel)]="model.mobile" />
+  </se>
+  <se label="身份证">
+    <input type="text" name="idcard" nz-input [(ngModel)]="model.idcard" />
+  </se>
+  <se label="家庭住址">
+    <input type="text" name="houseaddress" nz-input [(ngModel)]="model.houseaddress" />
+  </se>
+  <se label="户籍">
+    <input type="text" name="censusregister" nz-input [(ngModel)]="model.censusregister" />
+  </se>
+  <se label="邮编">
+    <input type="text" name="zipcode" nz-input [(ngModel)]="model.zipcode" />
+  </se>
+  <se label="签发机关">
+    <input type="text" name="organization" nz-input [(ngModel)]="model.organization" />
+  </se>
+  <se label="有效开始">
+    <input type="text" name="startdate" nz-input [(ngModel)]="model.startdate" />
+  </se>
+  <se label="有效结束">
+    <input type="text" name="enddate" nz-input [(ngModel)]="model.enddate" />
+  </se>
+  <se label="备注">
+    <input type="text" name="remark" nz-input [(ngModel)]="model.remark" />
+  </se>
+  <se label="客户状态">
+    <input type="text" name="isvalid" nz-input [(ngModel)]="model.isvalid" />
+  </se>
+  <se label="企业内码">
+    <input type="text" name="enterpriseid" nz-input [(ngModel)]="model.enterpriseid" />
+  </se>
+  <se label="业务编号">
+    <input type="text" name="proinstid" nz-input [(ngModel)]="model.proinstid" />
+  </se>
+  <se label="业务进度">
+    <input type="text" name="taskid" nz-input [(ngModel)]="model.taskid" />
+  </se>
+</form> 
+<!-- <div class="modal-footer">
+  <button nz-button nzType="primary" (click)="saveClick()" type="submit" [disabled]="f.invalid" [nzLoading]="submitting">保存</button>
+  <button nz-button class="ml-sm" (click)="cancelClick()">取消</button>
+</div> -->

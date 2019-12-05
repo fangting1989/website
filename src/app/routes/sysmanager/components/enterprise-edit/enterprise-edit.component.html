@@ -66,6 +66,22 @@
       <nz-form-control [nzSpan]="7">
         <input nz-input name="systemname" type="text" id="systemname" [(ngModel)]="model.systemname">
       </nz-form-control>
+
+      <nz-form-label [nzSpan]="4" nzFor="validsms">登入短信验证</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+          <nz-radio-group [(ngModel)]="model.validsms" name="validsms" >
+              <label nz-radio-button  *ngFor="let item of smsStateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+            </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="needchangedpwd">是否强制修改密码</nz-form-label>
+        <nz-form-control [nzSpan]="7">
+            <nz-radio-group [(ngModel)]="model.needchangedpwd" name="needchangedpwd" >
+                <label nz-radio-button  *ngFor="let item of pwdStateArray" [nzValue]="item.value"><span>{{item.name}}</span></label>
+              </nz-radio-group>
+        </nz-form-control>
+
     </nz-form-item>
 
     <nz-form-item>

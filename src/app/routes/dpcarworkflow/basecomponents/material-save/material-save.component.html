@@ -1,0 +1,15 @@
+<div class="upload-box">
+  <div class="village-img re" *ngFor="let item of Images">
+      <img src="{{item.content || item.filepath}}" width="" height="" alt=""  (click)="ImageItemClick(item)">
+      <span class="delete ab" (click)="deleteImg(item,$event)" *ngIf="ComponentMode != 'read'">
+          <img src="assets/imgs/del.png" />
+      </span>
+  </div>
+  <div *ngIf="ComponentMode == 'read' && Images.length == 0">
+    对不起，您还未上传过图片资料
+  </div>
+  <div class="village-img re" *ngIf="ComponentMode != 'read'">
+      <img src="assets/imgs/up-img.png" class="up-img" />
+      <input type="file" class="file" ng2FileSelect [uploader]='uploader' (change)="upload($event)" multiple>
+  </div>
+</div>
