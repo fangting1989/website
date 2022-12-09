@@ -57,7 +57,7 @@
     "screenfull": "^3.3.3",
     "stylelint": "^9.2.0",
     "stylelint-config-standard": "^18.2.0",
-    "tinymce": "^4.9.2",
+    "tinymce": "^5.10.7",
     "tslib": "^1.9.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-language-service": "^0.9.9",
